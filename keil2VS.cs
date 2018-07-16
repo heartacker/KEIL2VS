@@ -21,7 +21,7 @@ private void Keil2VS_Load(object sender, EventArgs e)
             this.Config.PreDefine = this.tb_predef.Text;
         }
 
-// 2018/7/16 23:49:54
+
         private void Keil2VS_Shown(object sender, EventArgs e)
         {
 
@@ -48,7 +48,7 @@ private void Keil2VS_Load(object sender, EventArgs e)
 
         }
 
-// 2018/7/16 23:49:56
+
         private void UpDateCurfolderUproj()
         {
             if (!ScanCurrentFolderHas_uProj(this.PreStr.ApplicationStartpath, ref this.fileInfos))
@@ -69,7 +69,7 @@ private void Keil2VS_Load(object sender, EventArgs e)
             this.TryDispuProjinfo(this.uprojInfo[0].fileFullname);
         }
 
-// 2018/7/16 23:50:04
+
         private bool ScanCurrentFolderHas_uProj(string exeDir, ref FileInfo[] fileInfo)
         {
             int cnt = 0;
@@ -88,7 +88,7 @@ private void Keil2VS_Load(object sender, EventArgs e)
             return false;
         }
 
-// 2018/7/16 23:50:15
+
         private void SourcePathComobox_add(_uprojInfo[] it)
         {
             this.SourcePathCBOX.Items.Clear();
@@ -99,7 +99,7 @@ private void Keil2VS_Load(object sender, EventArgs e)
             //this.SourcePathCBOX.Items.Add(this.PreStr.selectnewfolder);
             this.SourcePathCBOX.SelectedIndex = 0;
         }
-        // Token: 0x06000003 RID: 3 RVA: 0x000021C0 File Offset: 0x000003C0
+
         private void TargetListBox_Add(string[] Items)
         {
             this.TargetListBOX.Items.Clear();
@@ -109,7 +109,7 @@ private void Keil2VS_Load(object sender, EventArgs e)
             }
         }
 
-// 2018/7/16 23:50:39
+
         private void GroupListBox_Add(string[] Items)
         {
             this.GroupListBox.Items.Clear();
@@ -119,7 +119,6 @@ private void Keil2VS_Load(object sender, EventArgs e)
             }
         }
 
-// 2018/7/16 23:50:53
 private void SrcFileBox_Add(string[] Items)
         {
             this.FileBox.Items.Clear();
@@ -129,13 +128,11 @@ private void SrcFileBox_Add(string[] Items)
             }
         }
 
-        // Token: 0x06000006 RID: 6 RVA: 0x000022A3 File Offset: 0x000004A3
         private void TargetStatusBox_Add(string Str)
         {
             this.TargetStatus.Text = Str;
         }
 
-        // Token: 0x06000007 RID: 7 RVA: 0x000022B4 File Offset: 0x000004B4
         private void TargetListBOX_SelectionChanged(object sander, EventArgs e)
         {
             if (this.ProjectIno.CuruProjectFileDir != "")
@@ -149,9 +146,6 @@ private void SrcFileBox_Add(string[] Items)
                 this.TargetStatusBox_Add(str);
             }
         }
-23:52:32
-// 2018/7/16 23:52:32
-// Token: 0x06000008 RID: 8 RVA: 0x00002358 File Offset: 0x00000558
         private void GroupListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.ProjectIno.CuruProjectFileDir != "")
@@ -162,9 +156,6 @@ private void SrcFileBox_Add(string[] Items)
                 this.SrcFileBox_Add(items);
             }
         }
-
-23:55:15
-// 2018/7/16 23:55:15
 
         private void Tbkeil_path_DoubleClick(object sender, EventArgs e)
         {
@@ -229,7 +220,6 @@ private void SrcFileBox_Add(string[] Items)
 		            }
         }
 
-        // Token: 0x06000009 RID: 9 RVA: 0x000023CC File Offset: 0x000005CC
         private void FileBox_DoubleClick(object sander, EventArgs e)
         {
             if (this.FileBox.SelectedIndex < 0)
@@ -263,8 +253,6 @@ private void SrcFileBox_Add(string[] Items)
             }
 
         }
-
-        // Token: 0x0600000A RID: 10 RVA: 0x00002438 File Offset: 0x00000638
         private void btnOpenFolder_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -289,10 +277,6 @@ private void SrcFileBox_Add(string[] Items)
             SourcePathComobox_add(this.uprojInfo);
         }
 
-        // Token: 0x0600000B RID: 11 RVA: 0x000025E5 File Offset: 0x000007E5
-
-
-        // Token: 0x0600000C RID: 12 RVA: 0x00002608 File Offset: 0x00000808
         private void SourcePathCBOX_DragDrop(object sender, DragEventArgs e)
         {
             this.SourcePathCBOX.ForeColor = Color.Black;
@@ -337,8 +321,6 @@ private void SrcFileBox_Add(string[] Items)
             }
             e.Effect = DragDropEffects.None;
         }
-		
-		// Token: 0x06000011 RID: 17 RVA: 0x00002944 File Offset: 0x00000B44
         private string[] MDK_TargetRead(string Doc)
         {
             if (Doc == "")
@@ -358,7 +340,6 @@ private void SrcFileBox_Add(string[] Items)
             return array;
         }
 
-        // Token: 0x06000012 RID: 18 RVA: 0x000029EC File Offset: 0x00000BEC
         private string MDK_TargetStatusRead(string Doc, string TargetName)
         {
             if (Doc == "")
