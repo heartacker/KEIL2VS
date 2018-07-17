@@ -972,5 +972,281 @@ private void VC_Create_UserFile(string DocName, string Debugcmd, string WorkingD
                 return;
             }
         }
+private bool TryGetSoftwarePath(ref string path)
+        {
+            string strPathResult = string.Empty;
+            //string strKeyName = "";     //"(Default)" key, which contains the intalled path 
+            object objResult = null;
 
+            Microsoft.Win32.RegistryValueKind regValueKind;
+            Microsoft.Win32.RegistryKey regKey = null;
+            Microsoft.Win32.RegistryKey regSubKey = null;
+
+            try
+            {
+                //Read the key 
+                regKey = Microsoft.Win32.Registry.LocalMachine;
+                regSubKey = regKey.OpenSubKey(this.PreStr.regPath, false);
+
+                //Read the path 
+                try
+                {
+                    objResult = regSubKey.GetValue("Path");
+                }
+                catch
+                {
+                }
+
+                //regValueKind = regSubKey.GetValueKind("Path");
+
+                ////Set the path 
+                //if (regValueKind == Microsoft.Win32.RegistryValueKind.String)
+                //{
+                //    strPathResult = objResult.ToString();
+                //}
+            }
+            catch (System.Security.SecurityException ex)
+            {
+                throw new System.Security.SecurityException("You have no right to read the registry!", ex);
+            }
+            finally
+            {
+
+                if (regKey != null)
+                {
+                    regKey.Close();
+                    regKey = null;
+                }
+
+                if (regSubKey != null)
+                {
+                    regSubKey.Close();
+                    regSubKey = null;
+                }
+            }
+            if (objResult == null)
+            {
+                return false;
+            }
+
+            if (objResult.ToString() != string.Empty)
+            {
+                //Found 
+                path = objResult.ToString();
+                return true;
+            }
+            else
+            {
+                //Not found 
+                path = null;
+                return false;
+            }
+        }
+        private void tb_predef_TextChanged(object sender, EventArgs e)
+        {
+            if (!tb_predef.Text.EndsWith(";"))
+            {
+                tb_predef.Text += ";";
+            }
+            tb_predef.Text = tb_predef.Text.Replace(",", ";").Replace("，", ";").Replace("；", ";").Replace(".", ";").Replace(";;;", ";").Replace(";;", ";").Replace(@" ", "");
+            if (tb_predef.Text == ";")
+                tb_predef.Text = "";
+            this.Config.PreDefine = tb_predef.Text;
+        }
+
+        private void tb_predef_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tb_predef_TextChanged(sender, e);
+            }
+        }
+
+        private void lbppd_Click(object sender, EventArgs e)
+        {
+            tb_predef.Text = this.PreStr.predefine;
+        }
+
+
+
+        // Token: 0x04000001 RID: 1
+        private XDocument document = new XDocument();
+
+        // Token: 0x04000002 RID: 2
+        private XmlDocument xmlDoc = new XmlDocument();
+
+
+        private FileInfo[] fileInfos;
+
+        // Token: 0x04000004 RID: 4
+        private System.Windows.Controls.ComboBox TargetListBOX = new System.Windows.Controls.ComboBox();
+
+        // Token: 0x04000005 RID: 5
+        private Keil2VS._ProjectInfo ProjectIno;
+
+        // Token: 0x04000006 RID: 6
+        private Keil2VS._Config Config;
+        private Keil2VS._uprojInfo[] uprojInfo;
+
+        private Keil2VS._PreStr PreStr = new Keil2VS._PreStr
+        {
+            ToolsVersion = "0.3",
+            ApplicationStartpath = Path.GetDirectoryName(Application.ExecutablePath),
+            configfilename = "Config.xml",
+            fristUse = "Select the Keil Vision4 installation directory when you first times use the tool",
+            predefineKeil = @"sbit=;sfr=;data=;xdata=;code=;idata=;pdata=;_at_=#;",
+            predefine = @"VS;",
+            regPath = @"SOFTWARE\WOW6432Node\Keil\Products\C51\",
+            notUvProj = "Read File Error! Maybe it is't MDK Project File",
+            notkeilexe = "This is NOT KEIL PROGRAM!!\n",
+            Sourepretext = "Open Or drop The MDK the Project File to here!",
+            nameSp = "MAILTO:heartacker@outlook.com",
+            author = "heartacker",
+            noKeil = "Can not detect keil Program!",
+            FindUprojInThisFolder = "Oops!,Find uproject in this folder!\n Plz select one to convert!",
+            selectnewfolder = "Select new Folder",
+        };
+        struct _uprojInfo
+        {
+            public string fileName;
+            public string fileFullname;
+        }
+
+        // Token: 0x02000003 RID: 3
+        private struct _ProjectInfo
+        {
+            // Token: 0x04000012 RID: 18
+            public string UV4_Path;
+
+            // Token: 0x04000013 RID: 19
+            public string MDK_Project_Path;
+
+            // Token: 0x04000014 RID: 20
+            public string MDK_Project_File;
+
+            // Token: 0x04000015 RID: 21
+            public string MDK_Target;
+
+            // Token: 0x04000016 RID: 22
+            public string ProjectName;
+
+            // Token: 0x04000017 RID: 23
+            public string IncludePath;
+
+            // Token: 0x04000018 RID: 24
+            public string VCProject_Path;
+
+            // Token: 0x04000019 RID: 25
+            public string VcxprojName;
+
+            // Token: 0x0400001A RID: 26
+            public string VC_Filters_Name;
+
+            // Token: 0x0400001B RID: 27
+            public string VC_UserFileName;
+
+            // Token: 0x0400001C RID: 28
+            public string NMakePreprocessorDefinitions;
+
+            // Token: 0x0400001D RID: 29
+            public string NMakeBuildCommandLine;
+
+            // Token: 0x0400001E RID: 30
+            public string NMakeCleanCommandLine;
+
+            // Token: 0x0400001F RID: 31
+            public string LocalDebuggerCommandArguments;
+
+            // Token: 0x04000020 RID: 32
+            public string LocalDebuggerWorkingDirectory;
+
+            public string CuruProjectFileDir;
+        }
+
+        // Token: 0x02000004 RID: 4
+        private struct _Config
+        {
+            // Token: 0x04000021 RID: 33
+            public string ToolName;
+
+            // Token: 0x04000022 RID: 34
+            public string ToolsVersion;
+
+            // Token: 0x04000023 RID: 35
+            public string UV4Path;
+
+            // Token: 0x04000024 RID: 36
+            public string DocName;
+
+            public string UV4IncPath;
+
+            public string UV4LibPath;
+
+            public string PreDefine;
+        }
+
+        private struct _PreStr
+        {
+            public string ApplicationStartpath;
+            public string configfilename;
+            public string fristUse;
+            public string ToolsVersion;
+            public string predefineKeil;
+            public string predefine;
+            public string noKeil;
+            public string regPath;
+            public string Sourepretext;
+            public string notUvProj;
+            public string notkeilexe;
+            public string author;
+            public string nameSp;
+            public string FindUprojInThisFolder;
+            public string selectnewfolder;
+
+        }
+
+        private void SourcePathCBOX_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.SourcePathCBOX.SelectedIndex < 0)
+            {
+                return;
+            }
+            if (this.SourcePathCBOX.SelectedIndex >= this.SourcePathCBOX.Items.Count)
+            {
+                return;
+            }
+            //if (this.SourcePathCBOX.SelectedItem.ToString() == this.PreStr.selectnewfolder)
+            //{
+            //    btnOpenFolder_Click(sender, e);
+            //}
+            else
+            {
+                this.TryDispuProjinfo(this.uprojInfo[this.SourcePathCBOX.SelectedIndex].fileFullname);
+            }
+        }
+
+        //private void Keil2VS_MouseEnter(object sender, EventArgs e)
+        //{
+        //    if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        //        e.Effect = DragDropEffects.Move;
+        //    else e.Effect = DragDropEffects.None;
+        //}
+
+        //private void Keil2VS_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+        //    extension = System.IO.Path.GetExtension(path);//扩展名
+        //    if (extension == ".encrypted")
+        //    {
+        //        btnEncy.Enabled = false;
+        //        btnDecy.Enabled = true;
+        //    }
+        //    else
+        //    {
+        //        btnEncy.Enabled = true;
+        //        btnDecy.Enabled = false;
+        //    }
+        //    txtInFile.Text = path;
+        //}
+    }
 
