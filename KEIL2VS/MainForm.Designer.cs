@@ -291,26 +291,13 @@ namespace KEIL2VS
         //private ComboBox elementHost;
         private Button CreateButton;
         private ComboBox TargetListBOX;
-
         private GroupBox gbTargetGroup;
-
-
         private GroupBox gbTargetInfo;
-
-
         private TextBox TargetStatus;
-
-
         private GroupBox gbSourceGroup;
-
-
         private ListBox GroupListBox;
-
-
         private GroupBox groupBox1;
-
         private ListBox FileBox;
-
         private GroupBox groupBox2;
         private TextBox tbKeil_path;
         private Label lbppd;
