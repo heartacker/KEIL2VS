@@ -1,31 +1,41 @@
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace KEIL2VSPROJ
+namespace KEIL2VS
 {
-	// Token: 0x02000002 RID: 2
-	public partial class Keil2VS :Form
-	{
-		// Token: 0x0600001F RID: 31 RVA: 0x00004499 File Offset: 0x00002699
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && this.components != null)
-			{
-				this.components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+    partial class MainForm : Form
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		// Token: 0x06000020 RID: 32 RVA: 0x000044B8 File Offset: 0x000026B8
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要修改
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Keil2VS));
             this.CreateButton = new Button();
-            this.groupBox3 = new GroupBox();
-            this.elementHost = new System.Windows.Forms.Integration.ElementHost();
-            this.groupBox4 = new GroupBox();
+            this.gbTargetGroup = new GroupBox();
+            this.gbTargetInfo = new GroupBox();
             this.TargetStatus = new TextBox();
-            this.groupBox5 = new GroupBox();
+            this.gbSourceGroup = new GroupBox();
             this.FileBox = new ListBox();
             this.GroupListBox = new ListBox();
             this.groupBox1 = new GroupBox();
@@ -36,17 +46,17 @@ namespace KEIL2VSPROJ
             this.lbppd = new Label();
             this.tb_predef = new TextBox();
             this.sourcepathTip = new ToolTip(this.components);
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.elementHost = new ComboBox();
+            this.gbTargetGroup.SuspendLayout();
+            this.gbTargetInfo.SuspendLayout();
+            this.gbSourceGroup.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // CreateButton
             // 
-            this.CreateButton.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.CreateButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.CreateButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.CreateButton.Font = new System.Drawing.Font("Consolas", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateButton.Location = new System.Drawing.Point(5, 656);
@@ -61,51 +71,35 @@ namespace KEIL2VSPROJ
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.elementHost);
-            this.groupBox3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(5, 147);
-            this.groupBox3.Margin = new Padding(3, 4, 3, 4);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(779, 48);
-            this.groupBox3.TabIndex = 20;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Target Groups";
-            // 
-            // elementHost
-            // 
-            this.elementHost.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
-            this.elementHost.Location = new System.Drawing.Point(6, 16);
-            this.elementHost.Name = "elementHost";
-            this.elementHost.Size = new System.Drawing.Size(767, 25);
-            this.elementHost.TabIndex = 11;
-            this.elementHost.Text = "elementHost1";
-            this.elementHost.Child = null;
+            this.gbTargetGroup.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            this.gbTargetGroup.Controls.Add(this.elementHost);
+            this.gbTargetGroup.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbTargetGroup.Location = new System.Drawing.Point(5, 147);
+            this.gbTargetGroup.Margin = new Padding(3, 4, 3, 4);
+            this.gbTargetGroup.Name = "groupBox3";
+            this.gbTargetGroup.Padding = new Padding(3, 4, 3, 4);
+            this.gbTargetGroup.Size = new System.Drawing.Size(779, 48);
+            this.gbTargetGroup.TabIndex = 20;
+            this.gbTargetGroup.TabStop = false;
+            this.gbTargetGroup.Text = "Target Groups";
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.TargetStatus);
-            this.groupBox4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(5, 199);
-            this.groupBox4.Margin = new Padding(3, 4, 3, 4);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(779, 158);
-            this.groupBox4.TabIndex = 5;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Target Info";
+            this.gbTargetInfo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            this.gbTargetInfo.Controls.Add(this.TargetStatus);
+            this.gbTargetInfo.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbTargetInfo.Location = new System.Drawing.Point(5, 199);
+            this.gbTargetInfo.Margin = new Padding(3, 4, 3, 4);
+            this.gbTargetInfo.Name = "groupBox4";
+            this.gbTargetInfo.Padding = new Padding(3, 4, 3, 4);
+            this.gbTargetInfo.Size = new System.Drawing.Size(779, 158);
+            this.gbTargetInfo.TabIndex = 5;
+            this.gbTargetInfo.TabStop = false;
+            this.gbTargetInfo.Text = "Target Info";
             // 
             // TargetStatus
             // 
-            this.TargetStatus.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.TargetStatus.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.TargetStatus.BackColor = System.Drawing.SystemColors.Window;
             this.TargetStatus.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TargetStatus.Location = new System.Drawing.Point(5, 19);
@@ -119,26 +113,22 @@ namespace KEIL2VSPROJ
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.FileBox);
-            this.groupBox5.Controls.Add(this.GroupListBox);
-            this.groupBox5.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(5, 363);
-            this.groupBox5.Margin = new Padding(3, 4, 3, 4);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new Padding(3, 4, 3, 4);
-            this.groupBox5.Size = new System.Drawing.Size(779, 285);
-            this.groupBox5.TabIndex = 6;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Source Groups";
+            this.gbSourceGroup.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.gbSourceGroup.Controls.Add(this.FileBox);
+            this.gbSourceGroup.Controls.Add(this.GroupListBox);
+            this.gbSourceGroup.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbSourceGroup.Location = new System.Drawing.Point(5, 363);
+            this.gbSourceGroup.Margin = new Padding(3, 4, 3, 4);
+            this.gbSourceGroup.Name = "groupBox5";
+            this.gbSourceGroup.Padding = new Padding(3, 4, 3, 4);
+            this.gbSourceGroup.Size = new System.Drawing.Size(779, 285);
+            this.gbSourceGroup.TabIndex = 6;
+            this.gbSourceGroup.TabStop = false;
+            this.gbSourceGroup.Text = "Source Groups";
             // 
             // FileBox
             // 
-            this.FileBox.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.FileBox.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
             this.FileBox.FormattingEnabled = true;
             this.FileBox.HorizontalScrollbar = true;
             this.FileBox.IntegralHeight = false;
@@ -150,8 +140,7 @@ namespace KEIL2VSPROJ
             // 
             // GroupListBox
             // 
-            this.GroupListBox.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left)));
+            this.GroupListBox.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left);
             this.GroupListBox.BackColor = System.Drawing.SystemColors.Window;
             this.GroupListBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupListBox.FormattingEnabled = true;
@@ -166,8 +155,7 @@ namespace KEIL2VSPROJ
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             this.groupBox1.Controls.Add(this.btnOpenFolder);
             this.groupBox1.Controls.Add(this.SourcePathCBOX);
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -206,6 +194,7 @@ namespace KEIL2VSPROJ
             this.SourcePathCBOX.DragDrop += new DragEventHandler(this.SourcePathCBOX_DragDrop);
             this.SourcePathCBOX.DragEnter += new DragEventHandler(this.KEIL2VSDragEnter);
             this.SourcePathCBOX.MouseDoubleClick += new MouseEventHandler(this.btnOpenFolder_Click);
+
             // 
             // groupBox2
             // 
@@ -220,9 +209,7 @@ namespace KEIL2VSPROJ
             // tbKeil_path
             // 
             this.tbKeil_path.AllowDrop = true;
-            this.tbKeil_path.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
-            | AnchorStyles.Left) 
-            | AnchorStyles.Right)));
+            this.tbKeil_path.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
             this.tbKeil_path.BackColor = System.Drawing.SystemColors.Window;
             this.tbKeil_path.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbKeil_path.ForeColor = System.Drawing.SystemColors.AppWorkspace;
@@ -259,7 +246,15 @@ namespace KEIL2VSPROJ
             this.sourcepathTip.IsBalloon = true;
             this.sourcepathTip.ToolTipTitle = "Pooppoo";
             // 
-            // Keil2VS
+            // comboBox1
+            // 
+            this.elementHost.FormattingEnabled = true;
+            this.elementHost.Location = new System.Drawing.Point(0, 19);
+            this.elementHost.Name = "comboBox1";
+            this.elementHost.Size = new System.Drawing.Size(772, 22);
+            this.elementHost.TabIndex = 0;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = AutoScaleMode.Font;
@@ -268,59 +263,54 @@ namespace KEIL2VSPROJ
             this.Controls.Add(this.lbppd);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.gbSourceGroup);
+            this.Controls.Add(this.gbTargetInfo);
+            this.Controls.Add(this.gbTargetGroup);
             this.Controls.Add(this.CreateButton);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new Padding(3, 4, 3, 4);
-            this.Name = "Keil2VS";
+            this.Name = "MainForm";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Keil Project Convert To Visual Studio Project";
             this.Load += new System.EventHandler(this.Keil2VS_Load);
             this.Shown += new System.EventHandler(this.Keil2VS_Shown);
-            //this.MouseDown += new MouseEventHandler(this.Keil2VS_MouseDown);
-            //this.MouseEnter += new System.EventHandler(this.Keil2VS_MouseEnter);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
+            this.gbTargetGroup.ResumeLayout(false);
+            this.gbTargetInfo.ResumeLayout(false);
+            this.gbTargetInfo.PerformLayout();
+            this.gbSourceGroup.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
+
+        #endregion
+
+        //private ComboBox elementHost;
+        private Button CreateButton;
+        private ComboBox TargetListBOX;
+
+        private GroupBox gbTargetGroup;
 
 
-		private global::System.ComponentModel.IContainer components;
+        private GroupBox gbTargetInfo;
 
 
-		private Button CreateButton;
+        private TextBox TargetStatus;
 
 
-		private GroupBox groupBox3;
+        private GroupBox gbSourceGroup;
 
 
-		private GroupBox groupBox4;
+        private ListBox GroupListBox;
 
 
-		private TextBox TargetStatus;
+        private GroupBox groupBox1;
 
+        private ListBox FileBox;
 
-		private GroupBox groupBox5;
-
-
-		private ListBox GroupListBox;
-
-
-		private GroupBox groupBox1;
-
-		private ListBox FileBox;
-
-		private System.Windows.Forms.Integration.ElementHost elementHost;
         private GroupBox groupBox2;
         private TextBox tbKeil_path;
         private Label lbppd;
@@ -328,5 +318,8 @@ namespace KEIL2VSPROJ
         private ComboBox SourcePathCBOX;
         private Button btnOpenFolder;
         private ToolTip sourcepathTip;
+        private ComboBox elementHost;
     }
 }
+
+

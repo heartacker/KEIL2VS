@@ -1,0 +1,6 @@
+D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.csprojAssemblyReference.cache
+D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.Form1.resources
+D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.Properties.Resources.resources
+D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.csproj.GenerateResource.cache
+D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.csproj.CoreCompileInputs.cache
+D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.MainForm.resources
