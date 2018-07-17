@@ -250,7 +250,7 @@ namespace KEIL2VS
             // 
             this.elementHost.FormattingEnabled = true;
             this.elementHost.Location = new System.Drawing.Point(0, 19);
-            this.elementHost.Name = "comboBox1";
+            this.elementHost.Name = "Targets";
             this.elementHost.Size = new System.Drawing.Size(772, 22);
             this.elementHost.TabIndex = 0;
             // 
@@ -271,7 +271,7 @@ namespace KEIL2VS
             this.Margin = new Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Keil Project Convert To Visual Studio Project";
+            this.Text = "Convert Keil Project to Visual Studio Project";
             this.Load += new System.EventHandler(this.Keil2VS_Load);
             this.Shown += new System.EventHandler(this.Keil2VS_Shown);
             this.gbTargetGroup.ResumeLayout(false);
