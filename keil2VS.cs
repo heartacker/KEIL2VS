@@ -564,4 +564,209 @@ private void SrcFileBox_Add(string[] Items)
             }
             return result;
         }
+private void VC_vcxproj_Create(string DocName, string[] Targets)
+        {
+            if (DocName == "")
+            {
+                return;
+            }
+            XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";
+            XElement xelement = new XElement(ns + "Project", new object[]
+            {
+                new XAttribute("DefaultTargets", "Build"),
+                new XAttribute("ToolsVersion", "15.0")
+            });
+            XElement xelement2 = new XElement(ns + "ItemGroup", new XAttribute("Label", "ProjectConfigurations"));
+            foreach (string targetName in Targets)
+            {
+                xelement2.Add(new XElement(ns + "ProjectConfiguration", new object[]
+                {
+                    new XAttribute("Include", "Target|Win32".Replace("Target", targetName)),
+                    new XElement(ns + "Configuration", targetName),
+                    new XElement(ns + "Platform", "Win32")
+                }));
+            }
+            xelement.Add(xelement2);
+            XElement content = new XElement(ns + "PropertyGroup", new object[]
+            {
+                new XAttribute("Label", "Globals"),
+                new XElement(ns + "ProjectGuid", Guid.NewGuid().ToString("B")),
+                new XElement(ns + "Keyword", "MakeFileProj")
+            });
+            xelement.Add(content);
+            xelement.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.Default.props")));
+            foreach (string newValue in Targets)
+            {
+                xelement.Add(new XElement(ns + "PropertyGroup", new object[]
+                {
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)),
+                    new XAttribute("Label", "Configuration"),
+                    new XElement(ns + "ConfigurationType", "Makefile"),
+                    new XElement(ns + "UseDebugLibraries", "true")
+                }));
+            }
+            xelement.Add(new object[]
+            {
+                new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.props")),
+                new XElement(ns + "ImportGroup", new XAttribute("Label", "ExtensionSettings"))
+            });
+            foreach (string newValue2 in Targets)
+            {
+                xelement.Add(new XElement(ns + "ImportGroup", new object[]
+                {
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue2)),
+                    new XAttribute("Label", "PropertySheets"),
+                    new XElement(ns + "Import", new object[]
+                    {
+                        new XAttribute("Project", "$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props"),
+                        new XAttribute("Condition", "exists('$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props')"),
+                        new XAttribute("Label", "LocalAppDataPlatform")
+                    })
+                }));
+            }
+            xelement.Add(new XElement(ns + "PropertyGroup", new XAttribute("Label", "UserMacros")));
+            foreach (string oneTarget in Targets)
+            {
+                string includepathTemp = this.MDK_IncludePathRead(this.ProjectIno.MDK_Project_File, oneTarget);
+                string[] array = includepathTemp.Split(new char[]
+                {
+                    ';'
+                });
+                string keilIncludePath = null;
+                for (int m = 0; m < array.Length; m++)
+                {
+                    string fullPath = this.GetFullPath(this.ProjectIno.MDK_Project_Path, array[m]);
+                    keilIncludePath = keilIncludePath + this.GetRelativePath(this.ProjectIno.VCProject_Path, fullPath) + ";";
+                }
+                keilIncludePath += this.Config.UV4IncPath + ";";
+
+                xelement.Add(new XElement(ns + "PropertyGroup", new object[]
+                {
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", oneTarget)),
+                    new XElement(ns + "NMakeOutput", "Template.bin".Replace("Template", this.ProjectIno.ProjectName)),
+
+
+                    new XElement(ns + "NMakePreprocessorDefinitions",this.PreStr.predefineKeil+this.Config.PreDefine+ this.MDK_DefineRead(this.ProjectIno.MDK_Project_File, oneTarget)),
+
+                    new XElement(ns + "IncludePath", keilIncludePath),
+                    new XElement(ns + "NMakeBuildCommandLine", this.ProjectIno.NMakeBuildCommandLine.Replace("Target", oneTarget)),
+                    new XElement(ns + "LibraryPath",@"$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;"+this.Config.UV4LibPath+";")
+
+                }));
+            }
+            xelement.Add(new XElement(ns + "ItemDefinitionGroup", ""));
+            string[] array2 = this.MDK_GroupRead(this.ProjectIno.MDK_Project_File, Targets[0]);
+            XElement xelement3 = new XElement(ns + "ItemGroup", "");
+            XElement xelement4 = new XElement(ns + "ItemGroup", "");
+            foreach (string group in array2)
+            {
+                string[] array4 = this.MDK_SrcRead(this.ProjectIno.MDK_Project_File, Targets[0], group);
+                foreach (string targetPat in array4)
+                {
+                    string text5 = this.GetFullPath(this.ProjectIno.MDK_Project_Path, targetPat);
+                    text5 = this.GetRelativePath(this.ProjectIno.VCProject_Path, text5);
+                    if (text5.EndsWith(".c"))
+                    {
+                        xelement4.Add(new XElement(ns + "ClCompile", new XAttribute("Include", text5)));
+                    }
+                    else
+                    {
+                        xelement3.Add(new XElement(ns + "None", new XAttribute("Include", text5)));
+                    }
+                }
+            }
+            xelement3.Add(new XElement(ns + "None", new XAttribute("Include", "Readme.txt")));
+            xelement.Add(xelement3);
+            xelement.Add(xelement4);
+            xelement.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.targets")));
+            xelement.Add(new XElement(ns + "ImportGroup", new object[]
+            {
+                new XAttribute("Label", "ExtensionTargets"),
+                ""
+            }));
+            xelement.Save(DocName);
+        }
+
+        // Token: 0x0600001B RID: 27 RVA: 0x00003AE4 File Offset: 0x00001CE4
+        private void VC_Filters_Create(string DocName, string[] Targets)
+        {
+            if (DocName == "")
+            {
+                return;
+            }
+            XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";
+            XElement xelement = new XElement(ns + "Project", new object[]
+            {
+                new XAttribute("DefaultTargets", "Build"),
+                new XAttribute("ToolsVersion", "4.0")
+            });
+            XElement xelement2 = new XElement(ns + "ItemGroup", "");
+            string text = "资源文件";
+            xelement2.Add(new object[]
+            {
+                new XElement(ns + "Filter", new object[]
+                {
+                    new XAttribute("Include", text),
+                    new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")),
+                    new XElement(ns + "Extensions", "cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx")
+                }),
+                new XElement(ns + "Filter", new object[]
+                {
+                    new XAttribute("Include", "include"),
+                    new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")),
+                    new XElement(ns + "Extensions", "h;hpp;hxx;hm;inl;inc;xsd")
+                }),
+                new XElement(ns + "Filter", new object[]
+                {
+                    new XAttribute("Include", "项目说明"),
+                    new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")),
+                    new XElement(ns + "Extensions", "txt")
+                })
+            });
+            string[] array = this.MDK_GroupRead(this.ProjectIno.MDK_Project_File, this.ProjectIno.MDK_Target);
+            foreach (string str in array)
+            {
+                xelement2.Add(new XElement(ns + "Filter", new object[]
+                {
+                    new XAttribute("Include", text + "\\" + str),
+                    new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B"))
+                }));
+            }
+            xelement.Add(xelement2);
+            xelement2 = new XElement(ns + "ItemGroup", "");
+            XElement xelement3 = new XElement(ns + "ItemGroup", "");
+            foreach (string text2 in array)
+            {
+                string[] array4 = this.MDK_SrcRead(this.ProjectIno.MDK_Project_File, Targets[0], text2);
+                foreach (string targetPat in array4)
+                {
+                    string text3 = this.GetFullPath(this.ProjectIno.MDK_Project_Path, targetPat);
+                    text3 = this.GetRelativePath(this.ProjectIno.VCProject_Path, text3);
+                    if (text3.EndsWith(".c"))
+                    {
+                        xelement3.Add(new XElement(ns + "ClCompile", new object[]
+                        {
+                            new XAttribute("Include", text3),
+                            new XElement(ns + "Filter", text + "\\" + text2)
+                        }));
+                    }
+                    else
+                    {
+                        xelement2.Add(new XElement(ns + "None", new object[]
+                        {
+                            new XAttribute("Include", text3),
+                            new XElement(ns + "Filter", text + "\\" + text2)
+                        }));
+                    }
+                }
+            }
+            xelement2.Add(new XElement(ns + "None", new object[]
+            {
+                new XAttribute("Include", "Readme.txt"),
+                new XElement(ns + "Filter", "项目说明\\")
+            }));
+            xelement.Add(xelement3);
+            xelement.Add(xelement2);
+            xelement.Save(DocName);
+        }
 
