@@ -537,5 +537,31 @@ private void SrcFileBox_Add(string[] Items)
             }
             return ISUPROJ;
         }
-
+        private bool MDK_Display_Info(string DocName)
+        {
+            bool result;
+            try
+            {
+                string[] TargetArray = this.MDK_TargetRead(DocName);
+                this.TargetListBox_Add(TargetArray);
+                this.ProjectIno.MDK_Target = TargetArray[0];
+                this.ProjectIno.IncludePath = this.MDK_IncludePathRead(DocName, TargetArray[0]);
+                this.ProjectIno.IncludePath += this.Config.UV4IncPath;
+                this.ProjectIno.NMakePreprocessorDefinitions = this.MDK_DefineRead(DocName, TargetArray[0]);
+                string[] GroupArray = this.MDK_GroupRead(DocName, this.ProjectIno.MDK_Target);
+                this.GroupListBox_Add(GroupArray);
+                string[] items = this.MDK_SrcRead(DocName, TargetArray[0], GroupArray[0]);
+                this.SrcFileBox_Add(items);
+                string str = this.MDK_TargetStatusRead(DocName, TargetArray[0]);
+                this.TargetStatusBox_Add(str);
+                this.CreateButton.Enabled = true;
+                result = true;
+            }
+            catch
+            {
+                MessageBox.Show(this.PreStr.notUvProj, "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                result = false;
+            }
+            return result;
+        }
 
