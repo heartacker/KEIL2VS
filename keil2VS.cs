@@ -769,4 +769,208 @@ private void VC_vcxproj_Create(string DocName, string[] Targets)
             xelement.Add(xelement2);
             xelement.Save(DocName);
         }
+private void VC_Create_UserFile(string DocName, string Debugcmd, string WorkingDirectory, string[] Targets)
+        {
+            if (DocName == "")
+            {
+                return;
+            }
+            XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";
+            XElement xelement = new XElement(ns + "Project", new XAttribute("ToolsVersion", "4.0"));
+            foreach (string newValue in Targets)
+            {
+                xelement.Add(new XElement(ns + "PropertyGroup", new object[]
+                {
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)),
+                    new XElement(ns + "LocalDebuggerCommand", this.ProjectIno.UV4_Path),
+                    new XElement(ns + "LocalDebuggerCommandArguments", Debugcmd.Replace("Target", newValue)),
+                    new XElement(ns + "LocalDebuggerWorkingDirectory", WorkingDirectory),
+                    new XElement(ns + "DebuggerFlavor", "WindowsLocalDebugger")
+                }));
+            }
+            xelement.Save(DocName);
+        }
+
+        // Token: 0x0600001D RID: 29 RVA: 0x00004090 File Offset: 0x00002290
+        private void VC_Creat_readme(string DocName, string ProjectName)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("========================================================================\r\n");
+            stringBuilder.Append("    生成文件项目：Template 项目概述\r\n");
+            stringBuilder.Append("========================================================================\r\n");
+            stringBuilder.Append("\r\n");
+            stringBuilder.Append("本文件概要介绍组成 Template 项目的每个文件的内容。\r\n");
+            stringBuilder.Append("\r\n");
+            stringBuilder.Append("Template.sln\r\n");
+            stringBuilder.Append("    这是Template项目的解决方案文件\r\n");
+            stringBuilder.Append("\r\n");
+            stringBuilder.Append("Template.vcxproj\r\n");
+            stringBuilder.Append("    这是Template项目的主项目文件\r\n");
+            stringBuilder.Append("    其中包含了这个项目中的各个Target，\r\n");
+            stringBuilder.Append("    以及Include Path、所有源文件的路径、编译命令。\r\n");
+            stringBuilder.Append("\r\n");
+            stringBuilder.Append("Template.vcxproj.filters\r\n");
+            stringBuilder.Append("    这是Template项目的项目筛选器文件。\r\n");
+            stringBuilder.Append("    它包含了这个项目中的所有源文件分组及源文件的路径。\r\n");
+            stringBuilder.Append("\r\n");
+            stringBuilder.Append("Template.vcxproj.user\r\n");
+            stringBuilder.Append("    这是Template项目的 用户文件，\r\n");
+            stringBuilder.Append("    它包含了这个项目中的各个Target的 Debug命令。\r\n");
+            stringBuilder.Append("\r\n");
+            stringBuilder.Append("以上文件由MDK Project  To Visual Studio Project 工具读取 Keil uVision4\r\n");
+            stringBuilder.Append("的项目文件：Template.uvproj 中的设定，按照Visual Studio 2010\r\n");
+            stringBuilder.Append("中VC++ “生成文件项目” 的模板文件来生成的，如有疑问，请看MSDN~\r\n");
+            stringBuilder.Append("\r\n");
+            DateTime dt = DateTime.Now;
+            stringBuilder.Append(dt.ToString() + "\r\n");
+            stringBuilder.Append(this.PreStr.author + "\r\n");
+            stringBuilder.Append("/////////////////////////////////////////////////////////////////////////////\r\n");
+            stringBuilder = stringBuilder.Replace("Template", ProjectName);
+            FileStream fileStream = File.OpenWrite(DocName);
+            byte[] bytes = new UTF8Encoding(true).GetBytes(stringBuilder.ToString());
+            fileStream.Write(bytes, 0, bytes.Length);
+            fileStream.Close();
+        }
+
+        // Token: 0x06000019 RID: 25 RVA: 0x000031B8 File Offset: 0x000013B8
+        private void VC_Creat_Sln(string DocName, string ProjectName, string[] Targets)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("Microsoft Visual Studio Solution File, Format Version 12.00\r\n");
+            stringBuilder.Append("# Visual Studio 15\r\n");
+            stringBuilder.Append("VisualStudioVersion = 15.0.27703.2018\r\n");
+            stringBuilder.Append("MinimumVisualStudioVersion = 10.0.40219.1\r\n");
+            stringBuilder.Append("Project(\"{" + Guid.NewGuid().ToString("B") + "}\") = \"Template\", \"Template.vcxproj\", \"{" + Guid.NewGuid().ToString("B") + "}\"");
+            stringBuilder.Append("\r\nEndProject\r\n");
+            stringBuilder.Append("Global\r\n");
+            stringBuilder.Append("\tGlobalSection(SolutionConfigurationPlatforms) = preSolution\r\n");
+            foreach (string newValue in Targets)
+            {
+                string text = "\t\tDebug|Win32 = Debug|Win32\r\n";
+                text = text.Replace("Debug", newValue);
+                stringBuilder.Append(text);
+            }
+            stringBuilder.Append("\tEndGlobalSection\r\n");
+            stringBuilder.Append("\tGlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n");
+            string newValue2 = Guid.NewGuid().ToString("B");
+            foreach (string newValue3 in Targets)
+            {
+                string text2 = "\t\tGUID.Debug|Win32.ActiveCfg = Debug|Win32\r\n";
+                string text3 = "\t\tGUID.Debug|Win32.Build.0 = Debug|Win32\r\n";
+                text2 = text2.Replace("GUID", newValue2);
+                text2 = text2.Replace("Debug", newValue3);
+                text3 = text3.Replace("GUID", newValue2);
+                text3 = text3.Replace("Debug", newValue3);
+                stringBuilder.Append(text2);
+                stringBuilder.Append(text3);
+            }
+            stringBuilder.Append("\tEndGlobalSection\r\n");
+            stringBuilder.Append("\t\tGlobalSection(SolutionProperties) = preSolution\r\n");
+            stringBuilder.Append("\t\tHideSolutionNode = FALSE\r\n");
+            stringBuilder.Append("\tEndGlobalSection\r\n");
+            stringBuilder.Append("EndGlobal\r\n");
+            stringBuilder = stringBuilder.Replace("Template", ProjectName);
+            FileStream fileStream = File.OpenWrite(DocName);
+            byte[] bytes = new UTF8Encoding(true).GetBytes(stringBuilder.ToString());
+            fileStream.Write(bytes, 0, bytes.Length);
+            fileStream.Close();
+            stringBuilder.Clear();
+        }
+
+        // Token: 0x0600001E RID: 30 RVA: 0x00004238 File Offset: 0x00002438
+        private void CreateButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
+            {
+                //RootFolder = Environment.SpecialFolder.MyComputer,
+                Description = "Please select the Visual Studio Project Path",
+                SelectedPath = this.ProjectIno.MDK_Project_Path
+            };
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.ProjectIno.VCProject_Path = Path.Combine(new string[]
+                {
+                    folderBrowserDialog.SelectedPath,
+                    "Visual_Studio_Project"
+                }) + "\\";
+                if (!Directory.Exists(this.ProjectIno.VCProject_Path))
+                {
+                    Directory.CreateDirectory(this.ProjectIno.VCProject_Path);
+                }
+                string[] targets = this.MDK_TargetRead(this.ProjectIno.MDK_Project_File);
+                string relativePath = this.GetRelativePath(this.ProjectIno.VCProject_Path, this.ProjectIno.MDK_Project_File);
+                this.ProjectIno.NMakeBuildCommandLine = string.Concat(new string[]
+                {
+                    "\"",
+                    this.ProjectIno.UV4_Path,
+                    "\" -b ",
+                    relativePath,
+                    " -t \"Target\" -j0 -o Build.log"
+                });
+                this.ProjectIno.LocalDebuggerCommandArguments = "-d " + this.ProjectIno.ProjectName + ".uvproj -t \"Target\"";
+                string docName = this.ProjectIno.VCProject_Path + this.ProjectIno.ProjectName + ".sln";
+                this.VC_Creat_Sln(docName, this.ProjectIno.ProjectName, targets);
+                docName = this.ProjectIno.VCProject_Path + this.ProjectIno.VC_Filters_Name;
+                this.VC_Filters_Create(docName, targets);
+                docName = this.ProjectIno.VCProject_Path + this.ProjectIno.VcxprojName;
+                this.VC_vcxproj_Create(docName, targets);
+                this.ProjectIno.LocalDebuggerWorkingDirectory = this.GetRelativePath(this.ProjectIno.VCProject_Path, this.ProjectIno.MDK_Project_Path);
+                docName = this.ProjectIno.VCProject_Path + this.ProjectIno.VC_UserFileName;
+                this.VC_Create_UserFile(docName, this.ProjectIno.LocalDebuggerCommandArguments, this.ProjectIno.LocalDebuggerWorkingDirectory, targets);
+                docName = this.ProjectIno.VCProject_Path + "readme.txt";
+                this.VC_Creat_readme(docName, this.ProjectIno.ProjectName);
+
+
+                docName = this.ProjectIno.VCProject_Path + this.ProjectIno.ProjectName + ".sln";
+
+                DialogResult dr = MessageBox.Show(
+                    "The Visual Studio Project Creat Complete!\n打开VS工程(是)\n打开文件夹(否)\n退出(取消)", "Enjoy VS Coding!",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+                Uri baseUri = new Uri(docName);
+                docName = GetFullPath(docName, "");
+                switch (dr)
+                {
+                    case DialogResult.None:
+                        break;
+                    case DialogResult.OK:
+                        break;
+                    case DialogResult.Cancel:
+                        break;
+                    case DialogResult.Abort:
+                        break;
+                    case DialogResult.Retry:
+                        break;
+                    case DialogResult.Ignore:
+                        break;
+                    case DialogResult.Yes:
+                        try
+                        {
+                            //new Process
+                            //{
+                            //    StartInfo =
+                            //    {
+                            //        FileName = "devenv.exe",
+                            //        Arguments = docName
+                            //    }
+                            //}.Start();
+                            Process.Start(docName);
+                        }
+                        catch
+                        {
+
+                            throw;
+                        }
+
+                        break;
+                    case DialogResult.No:
+                        Process.Start(this.ProjectIno.VCProject_Path);
+                        break;
+                    default:
+                        break;
+                }
+
+                return;
+            }
+        }
+
 
