@@ -41,7 +41,7 @@ namespace KEIL2VS
             this.groupBox1 = new GroupBox();
             this.btnOpenFolder = new Button();
             this.SourcePathCBOX = new ComboBox();
-            this.groupBox2 = new GroupBox();
+            this.gbKeilExePath = new GroupBox();
             this.tbKeil_path = new TextBox();
             this.lbppd = new Label();
             this.tb_predef = new TextBox();
@@ -51,7 +51,7 @@ namespace KEIL2VS
             this.gbTargetInfo.SuspendLayout();
             this.gbSourceGroup.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.gbKeilExePath.SuspendLayout();
             this.SuspendLayout();
             // 
             // CreateButton
@@ -198,13 +198,13 @@ namespace KEIL2VS
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.tbKeil_path);
-            this.groupBox2.Location = new System.Drawing.Point(5, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(779, 45);
-            this.groupBox2.TabIndex = 21;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Keil Program Path";
+            this.gbKeilExePath.Controls.Add(this.tbKeil_path);
+            this.gbKeilExePath.Location = new System.Drawing.Point(5, 12);
+            this.gbKeilExePath.Name = "gbKeilExePath";
+            this.gbKeilExePath.Size = new System.Drawing.Size(779, 45);
+            this.gbKeilExePath.TabIndex = 21;
+            this.gbKeilExePath.TabStop = false;
+            this.gbKeilExePath.Text = "Keil Program Path";
             // 
             // tbKeil_path
             // 
@@ -261,7 +261,7 @@ namespace KEIL2VS
             this.ClientSize = new System.Drawing.Size(790, 705);
             this.Controls.Add(this.tb_predef);
             this.Controls.Add(this.lbppd);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.gbKeilExePath);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbSourceGroup);
             this.Controls.Add(this.gbTargetInfo);
@@ -279,8 +279,8 @@ namespace KEIL2VS
             this.gbTargetInfo.PerformLayout();
             this.gbSourceGroup.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gbKeilExePath.ResumeLayout(false);
+            this.gbKeilExePath.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -298,7 +298,7 @@ namespace KEIL2VS
         private ListBox GroupListBox;
         private GroupBox groupBox1;
         private ListBox FileBox;
-        private GroupBox groupBox2;
+        private GroupBox gbKeilExePath;
         private TextBox tbKeil_path;
         private Label lbppd;
         private TextBox tb_predef;
