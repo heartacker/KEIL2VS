@@ -4,4 +4,4 @@ KEIL2VS/bin
 Debug/
 Release/
 obj/
-keilProj/
+keilProj/*
