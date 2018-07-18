@@ -290,7 +290,6 @@ namespace KEIL2VS
 
         //private ComboBox elementHost;
         private Button CreateButton;
-        private ComboBox TargetListBOX;
         private GroupBox gbTargetGroup;
         private GroupBox gbTargetInfo;
         private TextBox TargetStatus;

@@ -117,14 +117,24 @@ namespace KEIL2VS
             this.SourcePathCBOX.SelectedIndex = 0;
         }
 
-        private void TargetListBox_Add(string[] Items)
+        //private void elementHost_Add(string[] Items)
+        //{
+        //    this.elementHost.Items.Clear();
+        //    foreach (string newItem in Items)
+        //    {
+        //        this.elementHost.Items.Add(newItem);
+        //    }
+        //}
+
+        private void elementHost_Add(string[] Items)
         {
-            this.TargetListBOX.Items.Clear();
+            this.elementHost.Items.Clear();
             foreach (string newItem in Items)
             {
-                this.TargetListBOX.Items.Add(newItem);
+                this.elementHost.Items.Add(newItem);
             }
         }
+
 
 
         private void GroupListBox_Add(string[] Items)
@@ -150,16 +160,16 @@ namespace KEIL2VS
             this.TargetStatus.Text = Str;
         }
 
-        private void TargetListBOX_SelectionChanged(object sander, EventArgs e)
+        private void elementHost_SelectionChanged(object sander, EventArgs e)
         {
             if (this.ProjectIno.CuruProjectFileDir != "")
             {
                 string[] array = this.MDK_TargetRead(this.ProjectIno.CuruProjectFileDir);
-                string[] array2 = this.MDK_GroupRead(this.ProjectIno.CuruProjectFileDir, array[this.TargetListBOX.SelectedIndex]);
+                string[] array2 = this.MDK_GroupRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
                 this.GroupListBox_Add(array2);
-                string[] items = this.MDK_SrcRead(this.ProjectIno.CuruProjectFileDir, array[this.TargetListBOX.SelectedIndex], array2[0]);
+                string[] items = this.MDK_SrcRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex], array2[0]);
                 this.SrcFileBox_Add(items);
-                string str = this.MDK_TargetStatusRead(this.ProjectIno.CuruProjectFileDir, array[this.TargetListBOX.SelectedIndex]);
+                string str = this.MDK_TargetStatusRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
                 this.TargetStatusBox_Add(str);
             }
         }
@@ -168,8 +178,8 @@ namespace KEIL2VS
             if (this.ProjectIno.CuruProjectFileDir != "")
             {
                 string[] array = this.MDK_TargetRead(this.ProjectIno.CuruProjectFileDir);
-                string[] array2 = this.MDK_GroupRead(this.ProjectIno.CuruProjectFileDir, array[this.TargetListBOX.SelectedIndex]);
-                string[] items = this.MDK_SrcRead(this.ProjectIno.CuruProjectFileDir, array[this.TargetListBOX.SelectedIndex], array2[this.GroupListBox.SelectedIndex]);
+                string[] array2 = this.MDK_GroupRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
+                string[] items = this.MDK_SrcRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex], array2[this.GroupListBox.SelectedIndex]);
                 this.SrcFileBox_Add(items);
             }
         }
@@ -264,7 +274,7 @@ namespace KEIL2VS
                 this.uprojInfo[0].fileFullname = this.SourcePathCBOX.Text;
 
             }
-            this.TargetListBOX.SelectedIndex = 0;
+            this.elementHost.SelectedIndex = 0;
         }
 
         private void KEIL2VSDragEnter(object sander, DragEventArgs e)
@@ -674,7 +684,7 @@ namespace KEIL2VS
             try
             {
                 string[] TargetArray = this.MDK_TargetRead(DocName);
-                this.TargetListBox_Add(TargetArray);
+                this.elementHost_Add(TargetArray);
                 this.ProjectIno.MDK_Target = TargetArray[0];
                 this.ProjectIno.IncludePath = this.MDK_IncludePathRead(DocName, TargetArray[0]);
                 this.ProjectIno.IncludePath += this.Config.UV4IncPath;
