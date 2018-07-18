@@ -1076,14 +1076,6 @@ namespace KEIL2VS
                     case DialogResult.Yes:
                         try
                         {
-                            //new Process
-                            //{
-                            //    StartInfo =
-                            //    {
-                            //        FileName = "devenv.exe",
-                            //        Arguments = docName
-                            //    }
-                            //}.Start();
                             Process.Start(docName);
                         }
                         catch
