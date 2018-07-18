@@ -1216,7 +1216,7 @@ namespace KEIL2VS
             predefineKeil = @"sbit=;sfr=;data=;xdata=;code=;idata=;pdata=;_at_=#;",
             predefine = @"VS;",
             regPath = @"SOFTWARE\WOW6432Node\Keil\Products\C51\",
-            notUvProj = "Read File Error! Maybe it is't MDK Project File",
+            notUvProj = "\nRead File Error! Maybe it is't MDK Project File",
             notkeilexe = "This is NOT KEIL PROGRAM!!\n",
             Sourepretext = "Open Or drop The MDK the Project File to here!",
             nameSp = "MAILTO:heartacker@outlook.com",
