@@ -91,9 +91,9 @@ namespace KEIL2VS
             this.elementHost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.elementHost.FormattingEnabled = true;
-            this.elementHost.Location = new System.Drawing.Point(0, 19);
+            this.elementHost.Location = new System.Drawing.Point(5, 19);
             this.elementHost.Name = "elementHost";
-            this.elementHost.Size = new System.Drawing.Size(567, 22);
+            this.elementHost.Size = new System.Drawing.Size(562, 22);
             this.elementHost.TabIndex = 0;
             this.elementHost.SelectionChangeCommitted += new System.EventHandler(this.ElementHost_SelectionChangeCommitted);
             // 
