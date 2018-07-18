@@ -247,8 +247,11 @@ namespace KEIL2VS
             {
                 TryDispuProjinfo(dropFilename);
             }
+            this.uprojInfo = new _uprojInfo[1];
+            this.uprojInfo[0].fileName = this.ProjectIno.ProjectName;
+            this.uprojInfo[0].fileFullname = this.ProjectIno.MDK_Project_File;
+            this.SourcePathCBOX.Text = this.uprojInfo[0].fileFullname;
             SourcePathComobox_add(this.uprojInfo);
-
         }
         private void TryDispuProjinfo(string fileFullname)
         {
