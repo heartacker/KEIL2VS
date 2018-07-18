@@ -179,6 +179,7 @@ namespace KEIL2VS
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.BackColor = System.Drawing.Color.LightSalmon;
             this.groupBox1.Controls.Add(this.btnOpenFolder);
             this.groupBox1.Controls.Add(this.SourcePathCBOX);
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -195,9 +196,9 @@ namespace KEIL2VS
             // 
             this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenFolder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnOpenFolder.Location = new System.Drawing.Point(467, 12);
+            this.btnOpenFolder.Location = new System.Drawing.Point(466, 12);
             this.btnOpenFolder.Name = "btnOpenFolder";
-            this.btnOpenFolder.Size = new System.Drawing.Size(107, 30);
+            this.btnOpenFolder.Size = new System.Drawing.Size(101, 30);
             this.btnOpenFolder.TabIndex = 1;
             this.btnOpenFolder.Text = "Open";
             this.btnOpenFolder.UseVisualStyleBackColor = false;
