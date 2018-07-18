@@ -31,6 +31,7 @@ namespace KEIL2VS
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.CreateButton = new System.Windows.Forms.Button();
             this.gbTargetGroup = new System.Windows.Forms.GroupBox();
             this.elementHost = new System.Windows.Forms.ComboBox();
@@ -278,6 +279,7 @@ namespace KEIL2VS
             this.Controls.Add(this.gbTargetGroup);
             this.Controls.Add(this.CreateButton);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
