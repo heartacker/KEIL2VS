@@ -1334,10 +1334,6 @@ namespace KEIL2VS
             {
                 return;
             }
-            //if (this.SourcePathCBOX.SelectedItem.ToString() == this.PreStr.selectnewfolder)
-            //{
-            //    btnOpenFolder_Click(sender, e);
-            //}
             else
             {
                 this.TryDispuProjinfo(this.uprojInfo[this.SourcePathCBOX.SelectedIndex].fileFullname);
