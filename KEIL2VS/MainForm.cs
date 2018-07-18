@@ -41,7 +41,6 @@ namespace KEIL2VS
 
         private void Keil2VS_Shown(object sender, EventArgs e)
         {
-
             if (!TryGetSoftwarePath(ref this.Config.UV4Path))
             {
                 this.ReadConfig(this.Config.DocName);
@@ -59,9 +58,9 @@ namespace KEIL2VS
                 this.Config.UV4LibPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\LIB");
                 this.tbKeil_path.BackColor = Color.LawnGreen;
                 this.tbKeil_path.Text = this.Config.UV4Path;
+                this.tbKeil_path.AllowDrop = false;
             }
             UpDateCurfolderUproj();
-            this.SourcePathCBOX.SelectedIndexChanged += new System.EventHandler(this.SourcePathCBOX_SelectedIndexChanged);
 
         }
 
@@ -158,20 +157,6 @@ namespace KEIL2VS
         private void TargetStatusBox_Add(string Str)
         {
             this.TargetStatus.Text = Str;
-        }
-
-        private void elementHost_SelectionChanged(object sander, EventArgs e)
-        {
-            if (this.ProjectIno.CuruProjectFileDir != "")
-            {
-                string[] array = this.MDK_TargetRead(this.ProjectIno.CuruProjectFileDir);
-                string[] array2 = this.MDK_GroupRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
-                this.GroupListBox_Add(array2);
-                string[] items = this.MDK_SrcRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex], array2[0]);
-                this.SrcFileBox_Add(items);
-                string str = this.MDK_TargetStatusRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
-                this.TargetStatusBox_Add(str);
-            }
         }
         private void GroupListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -271,7 +256,7 @@ namespace KEIL2VS
                 this.ProjectIno.VC_UserFileName = this.ProjectIno.VcxprojName + ".user";
                 this.uprojInfo = new _uprojInfo[1];
                 this.uprojInfo[0].fileName = this.ProjectIno.ProjectName;
-                this.uprojInfo[0].fileFullname = this.SourcePathCBOX.Text;
+                this.uprojInfo[0].fileFullname = this.ProjectIno.MDK_Project_File;
 
             }
             this.elementHost.SelectedIndex = 0;
@@ -1334,7 +1319,7 @@ namespace KEIL2VS
 
         }
 
-        private void SourcePathCBOX_SelectedIndexChanged(object sender, EventArgs e)
+        private void SourcePathCBOX_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (this.SourcePathCBOX.SelectedIndex < 0)
             {
@@ -1350,6 +1335,20 @@ namespace KEIL2VS
             }
         }
 
+        private void elementHost_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (this.ProjectIno.CuruProjectFileDir != "")
+            {
+                string[] array = this.MDK_TargetRead(this.ProjectIno.CuruProjectFileDir);
+                string[] array2 = this.MDK_GroupRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
+                this.GroupListBox_Add(array2);
+                string[] items = this.MDK_SrcRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex], array2[0]);
+                this.SrcFileBox_Add(items);
+                string str = this.MDK_TargetStatusRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
+                this.TargetStatusBox_Add(str);
+            }
+
+        }
         //private void Keil2VS_MouseEnter(object sender, EventArgs e)
         //{
         //    if (e.Data.GetDataPresent(DataFormats.FileDrop))
