@@ -18,6 +18,8 @@ void wait(WORD us)
 
 void main()
 {
+	islonger = TRUE;
+
 	if (islonger)
 	{
 		wait(2048);
