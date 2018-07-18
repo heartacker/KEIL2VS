@@ -174,68 +174,6 @@ namespace KEIL2VS
             }
         }
 
-        private void Tbkeil_path_DoubleClick(object sender, EventArgs e)
-        {
-            string tempPath = tbKeil_path.Text;
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                DefaultExt = "exe",
-                Filter = "Keil Exe File (UV4.exe)|UV4.exe",
-                Title = "Select Keil Vision4 Exe Path"
-            };
-
-            if (openFileDialog.ShowDialog() != DialogResult.OK)
-            {
-                tbKeil_path.Text = tempPath;
-                return;
-            }
-            string fileName = openFileDialog.FileName;
-            if (fileName != "")
-            {
-
-                this.Config.UV4Path = openFileDialog.FileName;
-                this.Config.UV4IncPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\INC");
-                this.Config.UV4LibPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\LIB");
-                this.Creat_Config(this.Config.DocName);
-                tbKeil_path.Text = this.Config.UV4Path;
-                tbKeil_path.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.tbKeil_path.Text = tempPath;
-                this.tbKeil_path.ForeColor = Color.Gray;
-            }
-        }
-
-        private bool MDK_check_keil_UV4(string text)
-        {
-            if (text.EndsWith("UV4.exe", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-            else return false;
-        }
-        private void Tbkeil_pathBOX_DragDrop(object sender, DragEventArgs e)
-        {
-            string path = tbKeil_path.Text;
-            this.tbKeil_path.ForeColor = Color.Black;
-            this.tbKeil_path.Text = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-            string text = this.tbKeil_path.Text;
-
-            if (this.MDK_check_keil_UV4(text))
-            {
-                this.Config.UV4Path = text;
-                this.Config.UV4IncPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\INC");
-                this.Config.UV4LibPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\LIB");
-                this.Creat_Config(this.Config.DocName);
-                return;
-            }
-            MessageBox.Show(this.PreStr.notkeilexe + "\nthis is" + this.tbKeil_path.Text);
-            this.tbKeil_path.Text = path;
-            this.tbKeil_path.ForeColor = Color.Gray;
-        }
-
-
 
         private void FileBox_DoubleClick(object sander, EventArgs e)
         {
@@ -338,6 +276,182 @@ namespace KEIL2VS
             }
             e.Effect = DragDropEffects.None;
         }
+        private void Tbkeil_path_DoubleClick(object sender, EventArgs e)
+        {
+            string tempPath = tbKeil_path.Text;
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                DefaultExt = "exe",
+                Filter = "Keil Exe File (UV4.exe)|UV4.exe",
+                Title = "Select Keil Vision4 Exe Path"
+            };
+
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                tbKeil_path.Text = tempPath;
+                return;
+            }
+            string fileName = openFileDialog.FileName;
+            if (fileName != "")
+            {
+
+                this.Config.UV4Path = openFileDialog.FileName;
+                this.Config.UV4IncPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\INC");
+                this.Config.UV4LibPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\LIB");
+                this.Creat_Config(this.Config.DocName);
+                tbKeil_path.Text = this.Config.UV4Path;
+                tbKeil_path.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.tbKeil_path.Text = tempPath;
+                this.tbKeil_path.ForeColor = Color.Gray;
+            }
+        }
+
+        private bool MDK_check_keil_UV4(string text)
+        {
+            if (text.EndsWith("UV4.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+            else return false;
+        }
+        private void Tbkeil_pathBOX_DragDrop(object sender, DragEventArgs e)
+        {
+            string path = tbKeil_path.Text;
+            this.tbKeil_path.ForeColor = Color.Black;
+            this.tbKeil_path.Text = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            string text = this.tbKeil_path.Text;
+
+            if (this.MDK_check_keil_UV4(text))
+            {
+                this.Config.UV4Path = text;
+                this.Config.UV4IncPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\INC");
+                this.Config.UV4LibPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\LIB");
+                this.Creat_Config(this.Config.DocName);
+                return;
+            }
+            MessageBox.Show(this.PreStr.notkeilexe + "\nthis is" + this.tbKeil_path.Text);
+            this.tbKeil_path.Text = path;
+            this.tbKeil_path.ForeColor = Color.Gray;
+        }
+        // Token: 0x0600000D RID: 13 RVA: 0x00002740 File Offset: 0x00000940
+        private void Creat_Config(string DocName)
+        {
+            if (DocName == "")
+            {
+                return;
+            }
+            this.Config.ToolName = "Keil2VisualStudio";
+            this.Config.ToolsVersion = this.PreStr.ToolsVersion;
+            XNamespace ns = this.PreStr.nameSp;
+            XElement xelement = new XElement(ns + "Tool", new object[]
+            {
+                new XAttribute("Name", this.Config.ToolName),
+                new XAttribute("Author", this.PreStr.author),
+                new XAttribute("ToolsVersion", this.Config.ToolsVersion),
+                new XElement(ns + "UV4Path", this.Config.UV4Path),
+                new XElement(ns + "UV4IncPath", this.Config.UV4IncPath),
+                new XElement(ns + "UV4LibPath", this.Config.UV4LibPath),
+
+        });
+            xelement.Save(DocName);
+        }
+
+        // Token: 0x0600000E RID: 14 RVA: 0x00002818 File Offset: 0x00000A18
+        private void ReadConfig(string DocName)
+        {
+            bool temp = File.Exists(DocName);
+            Color c = this.tbKeil_path.BackColor;
+            string t = this.tbKeil_path.Text;
+
+            if (!temp)
+            {
+                this.tbKeil_path.BackColor = Color.LightPink;
+                MessageBox.Show(this.PreStr.fristUse);
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    DefaultExt = "exe",
+                    Filter = "Keil Exe File (UV4.exe)|UV4.exe",
+                    Title = "Select Keil Vision4 Exe Path"
+                };
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    this.Config.UV4Path = openFileDialog.FileName;
+                    this.Config.UV4IncPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\INC");
+                    this.Config.UV4LibPath = this.Config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\LIB");
+                    this.Creat_Config(this.Config.DocName);
+                    this.tbKeil_path.BackColor = Color.LightGreen;
+                    this.tbKeil_path.Text = this.Config.UV4Path;
+                    return;
+                }
+                else
+                {
+                    this.tbKeil_path.Text = t;
+
+                }
+            }
+            else
+            {
+                XNamespace ns = this.PreStr.nameSp;
+                XDocument xdocument = XDocument.Load(DocName);
+
+                this.Config.ToolsVersion = xdocument.Root.Attribute("ToolsVersion").Value;
+                this.Config.UV4Path = xdocument.Root.Element(ns + "UV4Path").Value;
+                if (this.Config.ToolsVersion.Equals("0.1"))
+                {
+                    try
+                    {
+                        File.Delete(this.Config.DocName);
+                    }
+                    catch
+                    {
+                    }
+
+                    MessageBox.Show("配置版本更新,请重新设置keil 软件的安装路径");
+                    OpenFileDialog openFileDialog = new OpenFileDialog
+                    {
+                        InitialDirectory = this.Config.UV4Path,
+                        DefaultExt = "exe",
+                        Filter = "Keil Exe File (UV4.exe)|UV4.exe",
+                        Title = "Select Keil Vision4 Exe Path"
+                    };
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        this.Config.UV4Path = openFileDialog.FileName;
+                        this.Config.UV4IncPath = openFileDialog.FileName.Replace(@"UV4\UV4.exe", @"C51\INC");
+                        this.Config.UV4LibPath = openFileDialog.FileName.Replace(@"UV4\UV4.exe", @"C51\LIB");
+                        this.Creat_Config(this.Config.DocName);
+                        this.tbKeil_path.BackColor = Color.LightGreen;
+                        this.tbKeil_path.Text = this.Config.UV4Path;
+                        return;
+                    }
+                }
+                this.Config.UV4IncPath = xdocument.Root.Element(ns + "UV4IncPath").Value;
+                this.Config.UV4LibPath = xdocument.Root.Element(ns + "UV4LibPath").Value;
+                this.tbKeil_path.BackColor = Color.LightGreen;
+                this.tbKeil_path.Text = this.Config.UV4Path;
+            }
+        }
+
+        // Token: 0x0600000F RID: 15 RVA: 0x000028CC File Offset: 0x00000ACC
+        public string GetRelativePath(string basePath, string targetPath)
+        {
+            Uri uri = new Uri(basePath);
+            Uri uri2 = new Uri(targetPath);
+            return uri.MakeRelativeUri(uri2).ToString().Replace("/", "\\");
+        }
+
+        // Token: 0x06000010 RID: 16 RVA: 0x00002904 File Offset: 0x00000B04
+        private string GetFullPath(string basePath, string targetPat)
+        {
+            Uri baseUri = new Uri(basePath);
+            Uri uri = new Uri(baseUri, targetPat);
+            return uri.ToString().Replace("/", "\\").Replace("file:\\\\\\", "");
+        }
+
+
         private string[] MDK_TargetRead(string Doc)
         {
             if (Doc == "")

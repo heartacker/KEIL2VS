@@ -4,3 +4,13 @@ D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.Properties.Resourc
 D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.csproj.GenerateResource.cache
 D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.csproj.CoreCompileInputs.cache
 D:\Users\heart\Source\Repos\keil2vs\KEIL2VS\obj\Debug\KEIL2VS.MainForm.resources
+D:\git\KEIL2VS_GIT\KEIL2VS\bin\Debug\KEIL2VS.exe.config
+D:\git\KEIL2VS_GIT\KEIL2VS\bin\Debug\KEIL2VS.exe
+D:\git\KEIL2VS_GIT\KEIL2VS\bin\Debug\KEIL2VS.pdb
+D:\git\KEIL2VS_GIT\KEIL2VS\obj\Debug\KEIL2VS.csprojAssemblyReference.cache
+D:\git\KEIL2VS_GIT\KEIL2VS\obj\Debug\KEIL2VS.MainForm.resources
+D:\git\KEIL2VS_GIT\KEIL2VS\obj\Debug\KEIL2VS.Properties.Resources.resources
+D:\git\KEIL2VS_GIT\KEIL2VS\obj\Debug\KEIL2VS.csproj.GenerateResource.cache
+D:\git\KEIL2VS_GIT\KEIL2VS\obj\Debug\KEIL2VS.csproj.CoreCompileInputs.cache
+D:\git\KEIL2VS_GIT\KEIL2VS\obj\Debug\KEIL2VS.exe
+D:\git\KEIL2VS_GIT\KEIL2VS\obj\Debug\KEIL2VS.pdb

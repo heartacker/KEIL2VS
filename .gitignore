@@ -1,2 +1,6 @@
-.vs/
+//.gitignore
+.vs/*
 KEIL2VS/bin
+Debug/
+Release/
+obj/
