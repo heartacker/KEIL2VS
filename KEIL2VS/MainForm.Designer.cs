@@ -214,7 +214,7 @@ namespace KEIL2VS
             this.SourcePathCBOX.Name = "SourcePathCBOX";
             this.SourcePathCBOX.Size = new System.Drawing.Size(455, 22);
             this.SourcePathCBOX.TabIndex = 0;
-            this.SourcePathCBOX.Text = "Open Or drop The MDK the Project File to here";
+            this.SourcePathCBOX.Text = "Open Or drop The Keil the Project File to here";
             this.SourcePathCBOX.SelectionChangeCommitted += new System.EventHandler(this.SourcePathCBOX_SelectionChangeCommitted);
             this.SourcePathCBOX.DragDrop += new System.Windows.Forms.DragEventHandler(this.SourcePathCBOX_DragDrop);
             this.SourcePathCBOX.DragEnter += new System.Windows.Forms.DragEventHandler(this.KEIL2VSDragEnter);
