@@ -110,7 +110,7 @@ namespace KEIL2VS
             this.SourcePathCBOX.Items.Clear();
             for (int i = 0; i < it.GetLength(0); i++)
             {
-                this.SourcePathCBOX.Items.Add(it[i].fileName);
+                this.SourcePathCBOX.Items.Add(it[i].fileFullname);
             }
             //this.SourcePathCBOX.Items.Add(this.PreStr.selectnewfolder);
             this.SourcePathCBOX.SelectedIndex = 0;
@@ -132,6 +132,7 @@ namespace KEIL2VS
             {
                 this.elementHost.Items.Add(newItem);
             }
+            this.elementHost.SelectedIndex = 0;
         }
 
 
@@ -224,7 +225,13 @@ namespace KEIL2VS
                 return;
             }
             TryDispuProjinfo(fileName);
+            this.uprojInfo = new _uprojInfo[1];
+            this.uprojInfo[0].fileName = this.ProjectIno.ProjectName;
+            this.uprojInfo[0].fileFullname = this.ProjectIno.MDK_Project_File;
+
+            this.SourcePathCBOX.Text = this.uprojInfo[0].fileFullname;
             SourcePathComobox_add(this.uprojInfo);
+
         }
 
         private void SourcePathCBOX_DragDrop(object sender, DragEventArgs e)
@@ -254,12 +261,7 @@ namespace KEIL2VS
                 this.ProjectIno.VcxprojName = this.ProjectIno.ProjectName + ".vcxproj";
                 this.ProjectIno.VC_Filters_Name = this.ProjectIno.VcxprojName + ".filters";
                 this.ProjectIno.VC_UserFileName = this.ProjectIno.VcxprojName + ".user";
-                this.uprojInfo = new _uprojInfo[1];
-                this.uprojInfo[0].fileName = this.ProjectIno.ProjectName;
-                this.uprojInfo[0].fileFullname = this.ProjectIno.MDK_Project_File;
-
             }
-            this.elementHost.SelectedIndex = 0;
         }
 
         private void KEIL2VSDragEnter(object sander, DragEventArgs e)
