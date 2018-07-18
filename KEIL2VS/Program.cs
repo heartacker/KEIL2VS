@@ -16,7 +16,7 @@ namespace KEIL2VS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());//run
+            Application.Run(new MainForm());//run what？
         }
     }
 }
