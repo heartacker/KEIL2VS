@@ -125,7 +125,7 @@ namespace KEIL2VS
         //    }
         //}
 
-        private void elementHost_Add(string[] Items)
+        private void ElementHost_Add(string[] Items)
         {
             this.elementHost.Items.Clear();
             foreach (string newItem in Items)
@@ -204,7 +204,7 @@ namespace KEIL2VS
             }
 
         }
-        private void btnOpenFolder_Click(object sender, EventArgs e)
+        private void BtnOpenFolder_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
@@ -674,7 +674,7 @@ namespace KEIL2VS
             try
             {
                 string[] TargetArray = this.MDK_TargetRead(DocName);
-                this.elementHost_Add(TargetArray);
+                this.ElementHost_Add(TargetArray);
                 this.ProjectIno.MDK_Target = TargetArray[0];
                 this.ProjectIno.IncludePath = this.MDK_IncludePathRead(DocName, TargetArray[0]);
                 this.ProjectIno.IncludePath += this.Config.UV4IncPath;
@@ -1101,7 +1101,6 @@ namespace KEIL2VS
             //string strKeyName = "";     //"(Default)" key, which contains the intalled path 
             object objResult = null;
 
-            Microsoft.Win32.RegistryValueKind regValueKind;
             Microsoft.Win32.RegistryKey regKey = null;
             Microsoft.Win32.RegistryKey regSubKey = null;
 
@@ -1165,7 +1164,7 @@ namespace KEIL2VS
                 return false;
             }
         }
-        private void tb_predef_TextChanged(object sender, EventArgs e)
+        private void Tb_predef_TextChanged(object sender, EventArgs e)
         {
             if (!tb_predef.Text.EndsWith(";"))
             {
@@ -1177,15 +1176,15 @@ namespace KEIL2VS
             this.Config.PreDefine = tb_predef.Text;
         }
 
-        private void tb_predef_KeyDown(object sender, KeyEventArgs e)
+        private void Tb_predef_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                tb_predef_TextChanged(sender, e);
+                Tb_predef_TextChanged(sender, e);
             }
         }
 
-        private void lbppd_Click(object sender, EventArgs e)
+        private void Lbppd_Click(object sender, EventArgs e)
         {
             tb_predef.Text = this.PreStr.predefine;
         }
@@ -1340,7 +1339,7 @@ namespace KEIL2VS
             }
         }
 
-        private void elementHost_SelectionChangeCommitted(object sender, EventArgs e)
+        private void ElementHost_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (this.ProjectIno.CuruProjectFileDir != "")
             {

@@ -95,7 +95,7 @@ namespace KEIL2VS
             this.elementHost.Name = "elementHost";
             this.elementHost.Size = new System.Drawing.Size(567, 22);
             this.elementHost.TabIndex = 0;
-            this.elementHost.SelectionChangeCommitted += new System.EventHandler(this.elementHost_SelectionChangeCommitted);
+            this.elementHost.SelectionChangeCommitted += new System.EventHandler(this.ElementHost_SelectionChangeCommitted);
             // 
             // gbTargetInfo
             // 
@@ -202,7 +202,7 @@ namespace KEIL2VS
             this.btnOpenFolder.TabIndex = 1;
             this.btnOpenFolder.Text = "Open";
             this.btnOpenFolder.UseVisualStyleBackColor = false;
-            this.btnOpenFolder.Click += new System.EventHandler(this.btnOpenFolder_Click);
+            this.btnOpenFolder.Click += new System.EventHandler(this.BtnOpenFolder_Click);
             // 
             // SourcePathCBOX
             // 
@@ -256,7 +256,7 @@ namespace KEIL2VS
             this.lbppd.Size = new System.Drawing.Size(189, 14);
             this.lbppd.TabIndex = 23;
             this.lbppd.Text = "Add PreCompiled definition";
-            this.lbppd.Click += new System.EventHandler(this.lbppd_Click);
+            this.lbppd.Click += new System.EventHandler(this.Lbppd_Click);
             // 
             // tb_predef
             // 
@@ -267,8 +267,8 @@ namespace KEIL2VS
             this.tb_predef.Name = "tb_predef";
             this.tb_predef.Size = new System.Drawing.Size(365, 26);
             this.tb_predef.TabIndex = 24;
-            this.tb_predef.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_predef_KeyDown);
-            this.tb_predef.Leave += new System.EventHandler(this.tb_predef_TextChanged);
+            this.tb_predef.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tb_predef_KeyDown);
+            this.tb_predef.Leave += new System.EventHandler(this.Tb_predef_TextChanged);
             // 
             // sourcepathTip
             // 
