@@ -24,7 +24,7 @@ namespace KEIL2VS
             this.tbKeil_path.DoubleClick += this.Tbkeil_path_DoubleClick;
             this.tbKeil_path.DragDrop += this.Tbkeil_pathBOX_DragDrop;
             this.tbKeil_path.DragEnter += this.KEIL2VSDragEnter;
-
+            this.MinimumSize = new Size(this.Width, this.Height);
 
             base.AutoScaleMode = AutoScaleMode.None;
             this.ProjectIno.NMakeCleanCommandLine = "";
@@ -60,12 +60,12 @@ namespace KEIL2VS
                 this.tbKeil_path.Text = this.Config.UV4Path;
                 this.tbKeil_path.AllowDrop = false;
             }
-            UpDateCurfolderUproj();
+            UpDateCurfolderUproj(sender, e);
 
         }
 
 
-        private void UpDateCurfolderUproj()
+        private void UpDateCurfolderUproj(object sender, EventArgs e)
         {
             if (!ScanCurrentFolderHas_uProj(this.PreStr.ApplicationStartpath, ref this.fileInfos))
             {
@@ -88,20 +88,62 @@ namespace KEIL2VS
 
         private bool ScanCurrentFolderHas_uProj(string exeDir, ref FileInfo[] fileInfo)
         {
-            int cnt = 0;
+            int cnt_1 = 0, cnt_2 = 0, cnt_2_1 = 0, ficount = 0;
+            bool isfind = false;
             DirectoryInfo TheFolder = new DirectoryInfo(exeDir);
-            cnt = TheFolder.GetFiles("*.uvproj").Length;
-            if (0 != cnt)
+            cnt_1 = TheFolder.GetFiles("*.uvproj").Length;
+            cnt_2 = TheFolder.GetDirectories().Length;
+            FileInfo[] fileInfo1 = null, fileInfo2 = null;
+            if (0 != cnt_1)
             {
-                fileInfo = new FileInfo[cnt];
-                cnt = 0;
+                fileInfo1 = new FileInfo[cnt_1];
+                cnt_1 = 0;
                 foreach (FileInfo NextFile in TheFolder.GetFiles("*.uvproj"))
                 {
-                    fileInfo[cnt++] = NextFile;
+                    fileInfo1[cnt_1++] = NextFile;
                 }
-                return true;
+                isfind = true;
             }
-            return false;
+            if (cnt_2 != 0)
+            {
+                foreach (DirectoryInfo drinfo in TheFolder.GetDirectories())
+                {
+                    cnt_2_1 += drinfo.GetFiles("*.uvproj").Length;
+                }
+            }
+            if (cnt_2_1 != 0)
+            {
+                fileInfo2 = new FileInfo[cnt_2_1];
+                cnt_2_1 = 0;
+                foreach (DirectoryInfo drinfo in TheFolder.GetDirectories())
+                {
+                    foreach (FileInfo NextFile in drinfo.GetFiles("*.uvproj"))
+                    {
+                        fileInfo2[cnt_2_1++] = NextFile;
+                    }
+                }
+                isfind = true;
+            }
+            if (isfind)
+            {
+                fileInfo = new FileInfo[cnt_1 + cnt_2_1];
+                if (cnt_1 != 0)
+                {
+                    foreach (FileInfo f1 in fileInfo1)
+                    {
+                        fileInfo[ficount++] = f1;
+                    }
+                }
+
+                if (cnt_2_1 != 0)
+                {
+                    foreach (FileInfo f2 in fileInfo2)
+                    {
+                        fileInfo[ficount++] = f2;
+                    }
+                }
+            }
+            return isfind;
         }
 
 
@@ -820,7 +862,6 @@ namespace KEIL2VS
             xEl_Project.Save(DocName);
         }
 
-        // Token: 0x0600001B RID: 27 RVA: 0x00003AE4 File Offset: 0x00001CE4
         private void VC_Filters_Create(string DocName, string[] Targets)
         {
             if (DocName == "")
@@ -924,7 +965,6 @@ namespace KEIL2VS
             xEl_proj.Save(DocName);
         }
 
-        // Token: 0x0600001D RID: 29 RVA: 0x00004090 File Offset: 0x00002290
         private void VC_Creat_readme(string DocName, string ProjectName)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -965,7 +1005,6 @@ namespace KEIL2VS
             fileStream.Close();
         }
 
-        // Token: 0x06000019 RID: 25 RVA: 0x000031B8 File Offset: 0x000013B8
         private void VC_Creat_Sln(string DocName, string ProjectName, string[] Targets)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -1013,7 +1052,6 @@ namespace KEIL2VS
             stringBuilder.Clear();
         }
 
-        // Token: 0x0600001E RID: 30 RVA: 0x00004238 File Offset: 0x00002438
         private void CreateButton_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
@@ -1199,21 +1237,10 @@ namespace KEIL2VS
         {
             tb_predef.Text = this.PreStr.predefine;
         }
-
-
-
-        // Token: 0x04000001 RID: 1
         private XDocument document = new XDocument();
-
-        // Token: 0x04000002 RID: 2
         private XmlDocument xmlDoc = new XmlDocument();
-
-
         private FileInfo[] fileInfos;
-
         private _ProjectInfo ProjectIno;
-
-        // Token: 0x04000006 RID: 6
         private _Config Config;
         private _uprojInfo[] uprojInfo;
 
@@ -1241,76 +1268,33 @@ namespace KEIL2VS
             public string fileFullname;
         }
 
-        // Token: 0x02000003 RID: 3
         private struct _ProjectInfo
         {
-            // Token: 0x04000012 RID: 18
             public string UV4_Path;
-
-            // Token: 0x04000013 RID: 19
             public string MDK_Project_Path;
-
-            // Token: 0x04000014 RID: 20
             public string MDK_Project_File;
-
-            // Token: 0x04000015 RID: 21
             public string MDK_Target;
-
-            // Token: 0x04000016 RID: 22
             public string ProjectName;
-
-            // Token: 0x04000017 RID: 23
             public string IncludePath;
-
-            // Token: 0x04000018 RID: 24
             public string VCProject_Path;
-
-            // Token: 0x04000019 RID: 25
             public string VcxprojName;
-
-            // Token: 0x0400001A RID: 26
             public string VC_Filters_Name;
-
-            // Token: 0x0400001B RID: 27
             public string VC_UserFileName;
-
-            // Token: 0x0400001C RID: 28
             public string NMakePreprocessorDefinitions;
-
-            // Token: 0x0400001D RID: 29
             public string NMakeBuildCommandLine;
-
-            // Token: 0x0400001E RID: 30
             public string NMakeCleanCommandLine;
-
-            // Token: 0x0400001F RID: 31
             public string LocalDebuggerCommandArguments;
-
-            // Token: 0x04000020 RID: 32
             public string LocalDebuggerWorkingDirectory;
-
             public string CuruProjectFileDir;
         }
-
-        // Token: 0x02000004 RID: 4
         private struct _Config
         {
-            // Token: 0x04000021 RID: 33
             public string ToolName;
-
-            // Token: 0x04000022 RID: 34
             public string ToolsVersion;
-
-            // Token: 0x04000023 RID: 35
             public string UV4Path;
-
-            // Token: 0x04000024 RID: 36
             public string DocName;
-
             public string UV4IncPath;
-
             public string UV4LibPath;
-
             public string PreDefine;
         }
 
@@ -1363,6 +1347,14 @@ namespace KEIL2VS
                 this.TargetStatusBox_Add(str);
             }
 
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                UpDateCurfolderUproj(sender, e);
+            }
         }
         //private void Keil2VS_MouseEnter(object sender, EventArgs e)
         //{
