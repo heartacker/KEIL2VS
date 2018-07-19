@@ -1065,7 +1065,7 @@ namespace KEIL2VS
                 this.ProjectIno.VCProject_Path = Path.Combine(new string[]
                 {
                     folderBrowserDialog.SelectedPath,
-                    "Visual_Studio_Project"
+                    "VS"
                 }) + "\\";
                 if (!Directory.Exists(this.ProjectIno.VCProject_Path))
                 {
