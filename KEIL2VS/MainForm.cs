@@ -991,7 +991,7 @@ namespace KEIL2VS
             stringBuilder.Append("    它包含了这个项目中的各个Target的 Debug命令。\r\n");
             stringBuilder.Append("\r\n");
             stringBuilder.Append("以上文件由MDK Project  To Visual Studio Project 工具读取 Keil uVision4\r\n");
-            stringBuilder.Append("的项目文件：Template.uvproj 中的设定，按照Visual Studio 2010\r\n");
+            stringBuilder.Append("的项目文件：Template.uvproj 中的设定，按照Visual Studio 2017\r\n");
             stringBuilder.Append("中VC++ “生成文件项目” 的模板文件来生成的，如有疑问，请看MSDN~\r\n");
             stringBuilder.Append("\r\n");
             DateTime dt = DateTime.Now;

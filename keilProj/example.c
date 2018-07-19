@@ -13,6 +13,7 @@ void wait(WORD us)
 	for (; i < us; i++)
 	{
 		for (j = 0; j < 1000; i++)
+			;
 	}
 }
 
