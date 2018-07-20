@@ -88,60 +88,18 @@ namespace KEIL2VS
 
         private bool ScanCurrentFolderHas_uProj(string exeDir, ref FileInfo[] fileInfo)
         {
-            int cnt_1 = 0, cnt_2 = 0, cnt_2_1 = 0, ficount = 0;
+            int cnt_1 = 0;
             bool isfind = false;
-            DirectoryInfo TheFolder = new DirectoryInfo(exeDir);
-            cnt_1 = TheFolder.GetFiles("*.uvproj").Length;
-            cnt_2 = TheFolder.GetDirectories().Length;
-            FileInfo[] fileInfo1 = null, fileInfo2 = null;
+            string[] ppath = Directory.GetFiles(exeDir, "*.uvproj", SearchOption.AllDirectories);
+            cnt_1 = ppath.Length;
             if (0 != cnt_1)
             {
-                fileInfo1 = new FileInfo[cnt_1];
-                cnt_1 = 0;
-                foreach (FileInfo NextFile in TheFolder.GetFiles("*.uvproj"))
+                fileInfo = new FileInfo[cnt_1];
+                for (int i = 0; i < cnt_1; i++)
                 {
-                    fileInfo1[cnt_1++] = NextFile;
+                    fileInfo[i] = new FileInfo(ppath[i]);
                 }
                 isfind = true;
-            }
-            if (cnt_2 != 0)
-            {
-                foreach (DirectoryInfo drinfo in TheFolder.GetDirectories())
-                {
-                    cnt_2_1 += drinfo.GetFiles("*.uvproj").Length;
-                }
-            }
-            if (cnt_2_1 != 0)
-            {
-                fileInfo2 = new FileInfo[cnt_2_1];
-                cnt_2_1 = 0;
-                foreach (DirectoryInfo drinfo in TheFolder.GetDirectories())
-                {
-                    foreach (FileInfo NextFile in drinfo.GetFiles("*.uvproj"))
-                    {
-                        fileInfo2[cnt_2_1++] = NextFile;
-                    }
-                }
-                isfind = true;
-            }
-            if (isfind)
-            {
-                fileInfo = new FileInfo[cnt_1 + cnt_2_1];
-                if (cnt_1 != 0)
-                {
-                    foreach (FileInfo f1 in fileInfo1)
-                    {
-                        fileInfo[ficount++] = f1;
-                    }
-                }
-
-                if (cnt_2_1 != 0)
-                {
-                    foreach (FileInfo f2 in fileInfo2)
-                    {
-                        fileInfo[ficount++] = f2;
-                    }
-                }
             }
             return isfind;
         }
