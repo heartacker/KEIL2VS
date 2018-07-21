@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using KEIL2VS.Properties;
 
 namespace KEIL2VS
 {
@@ -90,14 +91,16 @@ namespace KEIL2VS
         {
             int cnt_1 = 0;
             bool isfind = false;
-            string[] ppath = Directory.GetFiles(exeDir, "*.uvproj", SearchOption.AllDirectories);
-            cnt_1 = ppath.Length;
+            string[] projPath = Directory.GetFiles(exeDir, "*.uvproj", SearchOption.AllDirectories);
+            cnt_1 = projPath.Length;
+
             if (0 != cnt_1)
             {
                 fileInfo = new FileInfo[cnt_1];
                 for (int i = 0; i < cnt_1; i++)
                 {
-                    fileInfo[i] = new FileInfo(ppath[i]);
+
+                    fileInfo[i] = new FileInfo(projPath[i]);
                 }
                 isfind = true;
             }
@@ -255,16 +258,14 @@ namespace KEIL2VS
         }
         private void TryDispuProjinfo(string fileFullname)
         {
-            if (this.MDK_Display_Info(fileFullname))
-            {
-                this.ProjectIno.CuruProjectFileDir = fileFullname;
-                this.ProjectIno.MDK_Project_File = fileFullname;
-                this.ProjectIno.MDK_Project_Path = Path.GetDirectoryName(fileFullname) + "\\";
-                this.ProjectIno.ProjectName = Path.GetFileNameWithoutExtension(fileFullname);
-                this.ProjectIno.VcxprojName = this.ProjectIno.ProjectName + ".vcxproj";
-                this.ProjectIno.VC_Filters_Name = this.ProjectIno.VcxprojName + ".filters";
-                this.ProjectIno.VC_UserFileName = this.ProjectIno.VcxprojName + ".user";
-            }
+            if (!this.MDK_Display_Info(fileFullname)) return;
+            this.ProjectIno.CuruProjectFileDir = fileFullname;
+            this.ProjectIno.MDK_Project_File = fileFullname;
+            this.ProjectIno.MDK_Project_Path = Path.GetDirectoryName(fileFullname) + "\\";
+            this.ProjectIno.ProjectName = Path.GetFileNameWithoutExtension(fileFullname);
+            this.ProjectIno.VcxprojName = this.ProjectIno.ProjectName + ".vcxproj";
+            this.ProjectIno.VC_Filters_Name = this.ProjectIno.VcxprojName + ".filters";
+            this.ProjectIno.VC_UserFileName = this.ProjectIno.VcxprojName + ".user";
         }
 
         private void KEIL2VSDragEnter(object sander, DragEventArgs e)
@@ -283,7 +284,7 @@ namespace KEIL2VS
             {
                 DefaultExt = "exe",
                 Filter = "Keil Exe File (UV4.exe)|UV4.exe",
-                Title = "Select Keil Vision4 Exe Path"
+                Title = Resources.SELUV4PATH
             };
 
             if (openFileDialog.ShowDialog() != DialogResult.OK)
@@ -374,7 +375,7 @@ namespace KEIL2VS
                 {
                     DefaultExt = "exe",
                     Filter = "Keil Exe File (UV4.exe)|UV4.exe",
-                    Title = "Select Keil Vision4 Exe Path"
+                    Title = Resources.SELUV4PATH
                 };
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -397,39 +398,14 @@ namespace KEIL2VS
                 XNamespace ns = this.PreStr.nameSp;
                 XDocument xdocument = XDocument.Load(DocName);
 
-                this.Config.ToolsVersion = xdocument.Root.Attribute("ToolsVersion").Value;
-                this.Config.UV4Path = xdocument.Root.Element(ns + "UV4Path").Value;
-                if (this.Config.ToolsVersion.Equals("0.1"))
+                if (xdocument.Root != null)
                 {
-                    try
-                    {
-                        File.Delete(this.Config.DocName);
-                    }
-                    catch
-                    {
-                    }
-
-                    MessageBox.Show("配置版本更新,请重新设置keil 软件的安装路径");
-                    OpenFileDialog openFileDialog = new OpenFileDialog
-                    {
-                        InitialDirectory = this.Config.UV4Path,
-                        DefaultExt = "exe",
-                        Filter = "Keil Exe File (UV4.exe)|UV4.exe",
-                        Title = "Select Keil Vision4 Exe Path"
-                    };
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        this.Config.UV4Path = openFileDialog.FileName;
-                        this.Config.UV4IncPath = openFileDialog.FileName.Replace(@"UV4\UV4.exe", @"C51\INC");
-                        this.Config.UV4LibPath = openFileDialog.FileName.Replace(@"UV4\UV4.exe", @"C51\LIB");
-                        this.Creat_Config(this.Config.DocName);
-                        this.tbKeil_path.BackColor = Color.LightGreen;
-                        this.tbKeil_path.Text = this.Config.UV4Path;
-                        return;
-                    }
+                    this.Config.ToolsVersion = xdocument.Root.Attribute("ToolsVersion")?.Value;
+                    this.Config.UV4Path = xdocument.Root.Element(ns + "UV4Path")?.Value;
+                    this.Config.UV4IncPath = xdocument.Root.Element(ns + "UV4IncPath").Value;
+                    this.Config.UV4LibPath = xdocument.Root.Element(ns + "UV4LibPath").Value;
                 }
-                this.Config.UV4IncPath = xdocument.Root.Element(ns + "UV4IncPath").Value;
-                this.Config.UV4LibPath = xdocument.Root.Element(ns + "UV4LibPath").Value;
+
                 this.tbKeil_path.BackColor = Color.LightGreen;
                 this.tbKeil_path.Text = this.Config.UV4Path;
             }
@@ -483,7 +459,7 @@ namespace KEIL2VS
             }
             this.xmlDoc.Load(Doc);
             XmlNodeList xmlNodeList = this.xmlDoc.SelectNodes(".//Targets/Target");
-            foreach (object obj in xmlNodeList)
+            foreach (var obj in xmlNodeList)
             {
                 XmlNode xmlNode = (XmlNode)obj;
                 if (xmlNode.SelectSingleNode("./TargetName").InnerText == TargetName)
@@ -509,7 +485,6 @@ namespace KEIL2VS
         // Token: 0x06000013 RID: 19 RVA: 0x00002BD0 File Offset: 0x00000DD0
         private string MDK_DefineRead(string Doc, string TargetName)
         {
-            string defineString = "";
             if (Doc == "")
             {
                 return "";
@@ -525,13 +500,13 @@ namespace KEIL2VS
                 XmlNode xmlNode = (XmlNode)obj;
                 if (xmlNode.SelectSingleNode("./TargetName").InnerText == TargetName)
                 {
-                    defineString = xmlNode.SelectSingleNode(".//VariousControls/Define").InnerText;
-                    if (!defineString.EndsWith(","))
+                    string defineString = xmlNode.SelectSingleNode(".//VariousControls/Define").InnerText;
+                    if (!"".EndsWith(","))
                     {
                         defineString += ";";
                     }
-                    defineString = defineString.Replace(',', ';');
-                    return defineString;
+                    defineString = "".Replace(',', ';');
+                    return "";
                 }
             }
             return null;
@@ -1062,7 +1037,7 @@ namespace KEIL2VS
                 docName = this.ProjectIno.VCProject_Path + this.ProjectIno.ProjectName + ".sln";
 
                 DialogResult dr = MessageBox.Show(
-                    "The Visual Studio Project Creat Complete!\n打开VS工程(是)\n打开文件夹(否)\n退出(取消)", "Enjoy VS Coding!",
+                    KEIL2VS.Properties.Resources.sueecssTip, "Enjoy VS Coding!",
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
                 Uri baseUri = new Uri(docName);
                 docName = GetFullPath(docName, "");
@@ -1294,16 +1269,14 @@ namespace KEIL2VS
 
         private void ElementHost_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (this.ProjectIno.CuruProjectFileDir != "")
-            {
-                string[] array = this.MDK_TargetRead(this.ProjectIno.CuruProjectFileDir);
-                string[] array2 = this.MDK_GroupRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
-                this.GroupListBox_Add(array2);
-                string[] items = this.MDK_SrcRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex], array2[0]);
-                this.SrcFileBox_Add(items);
-                string str = this.MDK_TargetStatusRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
-                this.TargetStatusBox_Add(str);
-            }
+            if (this.ProjectIno.CuruProjectFileDir == "") return;
+            string[] array = this.MDK_TargetRead(this.ProjectIno.CuruProjectFileDir);
+            string[] array2 = this.MDK_GroupRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
+            this.GroupListBox_Add(array2);
+            string[] items = this.MDK_SrcRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex], array2[0]);
+            this.SrcFileBox_Add(items);
+            string str = this.MDK_TargetStatusRead(this.ProjectIno.CuruProjectFileDir, array[this.elementHost.SelectedIndex]);
+            this.TargetStatusBox_Add(str);
 
         }
 
