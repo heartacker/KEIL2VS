@@ -1,4 +1,6 @@
 //.gitignore
+#VS
+/.VS
 .vs/*
 KEIL2VS/bin
 Debug/
