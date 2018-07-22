@@ -1060,21 +1060,15 @@ namespace KEIL2VS
                         {
                             Process.Start(docName);
                         }
-                        catch
+                        catch 
                         {
-
-                            throw;
                         }
 
                         break;
                     case DialogResult.No:
                         Process.Start(ProjectIno.VCProject_Path);
                         break;
-                    default:
-                        break;
                 }
-
-                return;
             }
         }
         private bool TryGetSoftwarePath(ref string path)
