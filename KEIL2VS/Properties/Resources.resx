@@ -126,4 +126,10 @@
   <data name="updateConfig" xml:space="preserve">
     <value>配置更新,请重新选择配置！</value>
   </data>
+  <data name="vsp_path" xml:space="preserve">
+    <value>Please select the Visual Studio Project Path</value>
+  </data>
+  <data name="enjoy_vs" xml:space="preserve">
+    <value>Enjoy VS Coding!</value>
+  </data>
 </root>

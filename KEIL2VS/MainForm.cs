@@ -49,7 +49,7 @@ namespace KEIL2VS
             if (!TryGetSoftwarePath(ref _config.UV4Path))
             {
                 ReadConfig(_config.DocName);
-                _projectIno.UV4_Path = _config.UV4Path + " ";
+                _projectIno.UV4Path = _config.UV4Path + " ";
             }
             else
             {
@@ -176,7 +176,7 @@ namespace KEIL2VS
                 return;
             }
             var text = FileBox.SelectedItem.ToString();
-            text = GetFullPath(_projectIno.MDK_Project_Path, text);
+            text = GetFullPath(_projectIno.MdkProjectPath, text);
             try
             {
                 new Process
@@ -219,7 +219,7 @@ namespace KEIL2VS
             TryDispuProjinfo(fileName);
             _uprojInfo = new UprojInfo[1];
             _uprojInfo[0].FileName = _projectIno.ProjectName;
-            _uprojInfo[0].FileFullname = _projectIno.MDK_Project_File;
+            _uprojInfo[0].FileFullname = _projectIno.MdkProjectFile;
 
             SourcePathCBOX.Text = _uprojInfo[0].FileFullname;
             SourcePathComobox_add(_uprojInfo);
@@ -238,7 +238,7 @@ namespace KEIL2VS
             TryDispuProjinfo(dropFilename);
             _uprojInfo = new UprojInfo[1];
             _uprojInfo[0].FileName = _projectIno.ProjectName;
-            _uprojInfo[0].FileFullname = _projectIno.MDK_Project_File;
+            _uprojInfo[0].FileFullname = _projectIno.MdkProjectFile;
             SourcePathCBOX.Text = _uprojInfo[0].FileFullname;
             SourcePathComobox_add(_uprojInfo);
         }
@@ -246,12 +246,12 @@ namespace KEIL2VS
         {
             if (!MDK_Display_Info(fileFullname)) return;
             _projectIno.CuruProjectFileDir = fileFullname;
-            _projectIno.MDK_Project_File = fileFullname;
-            _projectIno.MDK_Project_Path = Path.GetDirectoryName(fileFullname) + "\\";
+            _projectIno.MdkProjectFile = fileFullname;
+            _projectIno.MdkProjectPath = Path.GetDirectoryName(fileFullname) + "\\";
             _projectIno.ProjectName = Path.GetFileNameWithoutExtension(fileFullname);
             _projectIno.VcxprojName = _projectIno.ProjectName + ".vcxproj";
-            _projectIno.VC_Filters_Name = _projectIno.VcxprojName + ".filters";
-            _projectIno.VC_UserFileName = _projectIno.VcxprojName + ".user";
+            _projectIno.VcFiltersName = _projectIno.VcxprojName + ".filters";
+            _projectIno.VcUserFileName = _projectIno.VcxprojName + ".user";
         }
 
         private void Keil2VsDragEnter(object sander, DragEventArgs e)
@@ -325,9 +325,9 @@ namespace KEIL2VS
             tbKeil_path.ForeColor = Color.Gray;
         }
         // Token: 0x0600000D RID: 13 RVA: 0x00002740 File Offset: 0x00000940
-        private void Creat_Config(string DocName)
+        private void Creat_Config(string docName)
         {
-            if (DocName == "")
+            if (docName == "")
             {
                 return;
             }
@@ -342,17 +342,16 @@ namespace KEIL2VS
                 new XElement(ns + "UV4IncPath", _config.UV4IncPath),
                 new XElement(ns + "UV4LibPath", _config.UV4LibPath)
                 );
-            xelement.Save(DocName);
+            xelement.Save(docName);
         }
 
         // Token: 0x0600000E RID: 14 RVA: 0x00002818 File Offset: 0x00000A18
         private void ReadConfig(string docName)
         {
-            var temp = File.Exists(docName);
             Color c = tbKeil_path.BackColor;
             var t = tbKeil_path.Text;
 
-            if (!temp)
+            if (!File.Exists(docName))
             {
                 tbKeil_path.BackColor = Color.LightPink;
                 MessageBox.Show(_preStr.FristUse);
@@ -461,22 +460,22 @@ namespace KEIL2VS
         }
 
         // Token: 0x06000013 RID: 19 RVA: 0x00002BD0 File Offset: 0x00000DD0
-        private string MDK_DefineRead(string Doc, string TargetName)
+        private string MDK_DefineRead(string doc, string targetName)
         {
-            if (Doc == "")
+            if (doc == "")
             {
                 return "";
             }
-            if (TargetName == "")
+            if (targetName == "")
             {
                 return "";
             }
-            xmlDoc.Load(Doc);
+            xmlDoc.Load(doc);
             XmlNodeList xmlNodeList = xmlDoc.SelectNodes(".//Targets/Target");
             foreach (object obj in xmlNodeList)
             {
                 var xmlNode = (XmlNode)obj;
-                if (xmlNode.SelectSingleNode("./TargetName").InnerText != TargetName) continue;
+                if (xmlNode.SelectSingleNode("./TargetName").InnerText != targetName) continue;
                 var defineString = xmlNode.SelectSingleNode(".//VariousControls/Define").InnerText;
                 if (!defineString.EndsWith(","))
                 {
@@ -528,27 +527,25 @@ namespace KEIL2VS
             foreach (object obj in xmlNodeList)
             {
                 var xmlNode = (XmlNode)obj;
-                if (xmlNode.SelectSingleNode("./TargetName").InnerText == targetName)
+                if (xmlNode.SelectSingleNode("./TargetName").InnerText != targetName) continue;
+                XmlNodeList xmlNodeList2 = xmlNode.SelectNodes(".//Groups/*");
+                string[] array = new string[xmlNodeList2.Count];
+                var num = 0;
+                foreach (object obj2 in xmlNodeList2)
                 {
-                    XmlNodeList xmlNodeList2 = xmlNode.SelectNodes(".//Groups/*");
-                    string[] array = new string[xmlNodeList2.Count];
-                    var num = 0;
-                    foreach (object obj2 in xmlNodeList2)
-                    {
-                        var xmlNode2 = (XmlNode)obj2;
-                        array[num] = xmlNode2.SelectSingleNode("./GroupName").InnerText;
-                        num++;
-                    }
-                    return array;
+                    var xmlNode2 = (XmlNode)obj2;
+                    array[num] = xmlNode2.SelectSingleNode("./GroupName").InnerText;
+                    num++;
                 }
+                return array;
             }
             return null;
         }
 
         // Token: 0x06000016 RID: 22 RVA: 0x00002E88 File Offset: 0x00001088
-        private string[] MDK_SrcRead(string Doc, string TargetName, string Group)
+        private string[] MDK_SrcRead(string doc, string targetName, string Group)
         {
-            if (Doc == "")
+            if (doc == "")
             {
                 return null;
             }
@@ -556,34 +553,34 @@ namespace KEIL2VS
             {
                 return null;
             }
-            xmlDoc.Load(Doc);
+            xmlDoc.Load(doc);
             XmlNodeList xmlNodeList = xmlDoc.SelectNodes(".//Targets/Target");
+            if (xmlNodeList == null) return null;
             foreach (object obj in xmlNodeList)
             {
-                var xmlNode = (XmlNode)obj;
-                if (xmlNode.SelectSingleNode("./TargetName").InnerText == TargetName)
+                var xmlNode = (XmlNode) obj;
+                if (xmlNode.SelectSingleNode("./TargetName")?.InnerText != targetName) continue;
+                XmlNodeList xmlNodeList2 = xmlNode.SelectNodes(".//Groups/Group");
+                if (xmlNodeList2 == null) continue;
+                foreach (object obj2 in xmlNodeList2)
                 {
-                    XmlNodeList xmlNodeList2 = xmlNode.SelectNodes(".//Groups/Group");
-                    foreach (object obj2 in xmlNodeList2)
+                    var xmlNode2 = (XmlNode) obj2;
+                    if (xmlNode2.SelectSingleNode("./GroupName")?.InnerText != Group) continue;
+                    XmlNodeList xmlNodeList3 = xmlNode2.SelectNodes("./Files/File");
+                    string[] array = new string[xmlNodeList3.Count];
+                    var num = 0;
+                    foreach (object obj3 in xmlNodeList3)
                     {
-                        var xmlNode2 = (XmlNode)obj2;
-                        if (xmlNode2.SelectSingleNode("./GroupName").InnerText == Group)
-                        {
-                            XmlNodeList xmlNodeList3 = xmlNode2.SelectNodes("./Files/File");
-                            string[] array = new string[xmlNodeList3.Count];
-                            var num = 0;
-                            foreach (object obj3 in xmlNodeList3)
-                            {
-                                var xmlNode3 = (XmlNode)obj3;
-                                var innerText = xmlNode3.SelectSingleNode("./FilePath").InnerText;
-                                array[num] = innerText;
-                                num++;
-                            }
-                            return array;
-                        }
+                        var xmlNode3 = (XmlNode) obj3;
+                        var innerText = xmlNode3.SelectSingleNode("./FilePath").InnerText;
+                        array[num] = innerText;
+                        num++;
                     }
+
+                    return array;
                 }
             }
+
             return null;
         }
 
@@ -626,13 +623,13 @@ namespace KEIL2VS
             {
                 string[] targetArray = MDK_TargetRead(docName);
                 ElementHost_Add(targetArray);
-                _projectIno.MDK_Target = targetArray[0];
+                _projectIno.MdkTarget = targetArray[0];
                 _projectIno.IncludePath = MDK_IncludePathRead(docName, targetArray[0]);
                 _projectIno.IncludePath += _config.UV4IncPath;
                 _projectIno.NMakePreprocessorDefinitions = MDK_DefineRead(docName, targetArray[0]);
-                string[] GroupArray = MDK_GroupRead(docName, _projectIno.MDK_Target);
-                GroupListBox_Add(GroupArray);
-                string[] items = MDK_SrcRead(docName, targetArray[0], GroupArray[0]);
+                string[] groupArray = MDK_GroupRead(docName, _projectIno.MdkTarget);
+                GroupListBox_Add(groupArray);
+                string[] items = MDK_SrcRead(docName, targetArray[0], groupArray[0]);
                 SrcFileBox_Add(items);
                 var str = MDK_TargetStatusRead(docName, targetArray[0]);
                 TargetStatusBox_Add(str);
@@ -653,51 +650,56 @@ namespace KEIL2VS
                 return;
             }
             XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";
-            var xEl_Project = new XElement(ns + "Project", new XAttribute("DefaultTargets", "Build"), new XAttribute("ToolsVersion", "15.0"));
+            var xElProject = new XElement(ns + "Project", new XAttribute("DefaultTargets", "Build"), new XAttribute("ToolsVersion", "15.0"));
             var xEl_ItemGroup = new XElement(ns + "ItemGroup", new XAttribute("Label", "ProjectConfigurations"));
             foreach (var targetName in targets)
             {
                 xEl_ItemGroup.Add(new XElement(ns + "ProjectConfiguration", new XAttribute("Include", "Target|Win32".Replace("Target", targetName)), new XElement(ns + "Configuration", targetName), new XElement(ns + "Platform", "Win32")));
             }
-            xEl_Project.Add(xEl_ItemGroup);
+            xElProject.Add(xEl_ItemGroup);
             var xEl_PropertyGroup = new XElement(ns + "PropertyGroup", new XAttribute("Label", "Globals"), new XElement(ns + "ProjectGuid", Guid.NewGuid().ToString("B")), new XElement(ns + "Keyword", "MakeFileProj"), new XElement(ns + "WindowsTargetPlatformVersion", "10.0.17134.0"));
-            xEl_Project.Add(xEl_PropertyGroup);
-            xEl_Project.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.Default.props")));
+            xElProject.Add(xEl_PropertyGroup);
+            xElProject.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.Default.props")));
             foreach (var newValue in targets)
             {
-                xEl_Project.Add(new XElement(ns + "PropertyGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)), new XAttribute("Label", "Configuration"), new XElement(ns + "ConfigurationType", "Makefile"), new XElement(ns + "UseDebugLibraries", "true"), new XElement(ns + "PlatformToolset", "v141")));
+                xElProject.Add(new XElement(ns + "PropertyGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)), new XAttribute("Label", "Configuration"), new XElement(ns + "ConfigurationType", "Makefile"), new XElement(ns + "UseDebugLibraries", "true"), new XElement(ns + "PlatformToolset", "v141")));
             }
-            xEl_Project.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.props")), new XElement(ns + "ImportGroup", new XAttribute("Label", "ExtensionSettings")));
+            xElProject.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.props")), new XElement(ns + "ImportGroup", new XAttribute("Label", "ExtensionSettings")));
             foreach (var newValue2 in targets)
             {
-                xEl_Project.Add(new XElement(ns + "ImportGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue2)), new XAttribute("Label", "PropertySheets"), new XElement(ns + "Import", new XAttribute("Project", "$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props"), new XAttribute("Condition", "exists('$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props')"), new XAttribute("Label", "LocalAppDataPlatform"))));
+                xElProject.Add(new XElement(ns + "ImportGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue2)), new XAttribute("Label", "PropertySheets"), new XElement(ns + "Import", new XAttribute("Project", "$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props"), new XAttribute("Condition", "exists('$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props')"), new XAttribute("Label", "LocalAppDataPlatform"))));
             }
-            xEl_Project.Add(new XElement(ns + "PropertyGroup", new XAttribute("Label", "UserMacros")));
+            xElProject.Add(new XElement(ns + "PropertyGroup", new XAttribute("Label", "UserMacros")));
             foreach (var oneTarget in targets)
             {
-                var includepathTemp = MDK_IncludePathRead(_projectIno.MDK_Project_File, oneTarget);
+                var includepathTemp = MDK_IncludePathRead(_projectIno.MdkProjectFile, oneTarget);
                 string[] array = includepathTemp.Split(';');
                 string keilIncludePath = null;
-                for (var m = 0; m < array.Length; m++)
+                foreach (var targetPat in array)
                 {
-                    var fullPath = GetFullPath(_projectIno.MDK_Project_Path, array[m]);
-                    keilIncludePath = keilIncludePath + GetRelativePath(_projectIno.VCProject_Path, fullPath) + ";";
+                    var fullPath = GetFullPath(_projectIno.MdkProjectPath, targetPat);
+                    keilIncludePath = keilIncludePath + GetRelativePath(_projectIno.VcProjectPath, fullPath) + ";";
                 }
+                //for (var m = 0; m < array.Length; m++)
+                //{
+                //    var fullPath = GetFullPath(_projectIno.MDK_Project_Path, array[m]);
+                //    keilIncludePath = keilIncludePath + GetRelativePath(_projectIno.VCProject_Path, fullPath) + ";";
+                //}
                 keilIncludePath += _config.UV4IncPath + ";";
 
-                xEl_Project.Add(new XElement(ns + "PropertyGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", oneTarget)), new XElement(ns + "NMakeOutput", "Template.bin".Replace("Template", _projectIno.ProjectName)), new XElement(ns + "NMakePreprocessorDefinitions",_preStr.PredefineKeil+_config.PreDefine+ MDK_DefineRead(_projectIno.MDK_Project_File, oneTarget)), new XElement(ns + "IncludePath", keilIncludePath), new XElement(ns + "NMakeBuildCommandLine", _projectIno.NMakeBuildCommandLine.Replace("Target", oneTarget)), new XElement(ns + "LibraryPath",@"$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;"+_config.UV4LibPath+";")));
+                xElProject.Add(new XElement(ns + "PropertyGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", oneTarget)), new XElement(ns + "NMakeOutput", "Template.bin".Replace("Template", _projectIno.ProjectName)), new XElement(ns + "NMakePreprocessorDefinitions",_preStr.PredefineKeil+_config.PreDefine+ MDK_DefineRead(_projectIno.MdkProjectFile, oneTarget)), new XElement(ns + "IncludePath", keilIncludePath), new XElement(ns + "NMakeBuildCommandLine", _projectIno.NMakeBuildCommandLine.Replace("Target", oneTarget)), new XElement(ns + "LibraryPath",@"$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;"+_config.UV4LibPath+";")));
             }
-            xEl_Project.Add(new XElement(ns + "ItemDefinitionGroup", ""));
-            string[] array2 = MDK_GroupRead(_projectIno.MDK_Project_File, targets[0]);
+            xElProject.Add(new XElement(ns + "ItemDefinitionGroup", ""));
+            string[] array2 = MDK_GroupRead(_projectIno.MdkProjectFile, targets[0]);
             var xElNone = new XElement(ns + "ItemGroup", "");
             var xElClCompile = new XElement(ns + "ItemGroup", "");
             foreach (var group in array2)
             {
-                string[] array4 = MDK_SrcRead(_projectIno.MDK_Project_File, targets[0], group);
+                string[] array4 = MDK_SrcRead(_projectIno.MdkProjectFile, targets[0], group);
                 foreach (var targetPat in array4)
                 {
-                    var text5 = GetFullPath(_projectIno.MDK_Project_Path, targetPat);
-                    text5 = GetRelativePath(_projectIno.VCProject_Path, text5);
+                    var text5 = GetFullPath(_projectIno.MdkProjectPath, targetPat);
+                    text5 = GetRelativePath(_projectIno.VcProjectPath, text5);
                     if (text5.EndsWith(".c"))
                     {
                         xElClCompile.Add(new XElement(ns + "ClCompile", new XAttribute("Include", text5)));
@@ -709,11 +711,11 @@ namespace KEIL2VS
                 }
             }
             xElNone.Add(new XElement(ns + "None", new XAttribute("Include", "Readme.txt")));
-            xEl_Project.Add(xElNone);
-            xEl_Project.Add(xElClCompile);
-            xEl_Project.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.targets")));
-            xEl_Project.Add(new XElement(ns + "ImportGroup", new XAttribute("Label", "ExtensionTargets"), ""));
-            xEl_Project.Save(docName);
+            xElProject.Add(xElNone);
+            xElProject.Add(xElClCompile);
+            xElProject.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.targets")));
+            xElProject.Add(new XElement(ns + "ImportGroup", new XAttribute("Label", "ExtensionTargets"), ""));
+            xElProject.Save(docName);
         }
 
         private void VC_Filters_Create(string docName, string[] targets)
@@ -725,9 +727,9 @@ namespace KEIL2VS
             XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";
             var xelement = new XElement(ns + "Project", new XAttribute("DefaultTargets", "Build"), new XAttribute("ToolsVersion", "4.0"));
             var xElItemGroup = new XElement(ns + "ItemGroup", "");
-            var sourceFiles = "资源文件";
+            const string sourceFiles = "资源文件";
             xElItemGroup.Add(new XElement(ns + "Filter", new XAttribute("Include", sourceFiles), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx")), new XElement(ns + "Filter", new XAttribute("Include", "include"), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "h;hpp;hxx;hm;inl;inc;xsd")), new XElement(ns + "Filter", new XAttribute("Include", "项目说明"), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "txt")));
-            string[] groups = MDK_GroupRead(_projectIno.MDK_Project_File, _projectIno.MDK_Target);
+            string[] groups = MDK_GroupRead(_projectIno.MdkProjectFile, _projectIno.MdkTarget);
             foreach (var str in groups)
             {
                 xElItemGroup.Add(new XElement(ns + "Filter", new XAttribute("Include", sourceFiles + "\\" + str), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B"))));
@@ -737,18 +739,18 @@ namespace KEIL2VS
             var xEl_itemGroup = new XElement(ns + "ItemGroup", "");
             foreach (var group in groups)
             {
-                string[] src_inThisGroup = MDK_SrcRead(_projectIno.MDK_Project_File, targets[0], group);
-                foreach (var src_path in src_inThisGroup)
+                string[] srcInThisGroup = MDK_SrcRead(_projectIno.MdkProjectFile, targets[0], group);
+                foreach (var src_path in srcInThisGroup)
                 {
-                    var sr_Full_path = GetFullPath(_projectIno.MDK_Project_Path, src_path);
-                    sr_Full_path = GetRelativePath(_projectIno.VCProject_Path, sr_Full_path);
-                    if (sr_Full_path.EndsWith(".c"))
+                    var srFullPath = GetFullPath(_projectIno.MdkProjectPath, src_path);
+                    srFullPath = GetRelativePath(_projectIno.VcProjectPath, srFullPath);
+                    if (srFullPath.EndsWith(".c"))
                     {
-                        xEl_itemGroup.Add(new XElement(ns + "ClCompile", new XAttribute("Include", sr_Full_path), new XElement(ns + "Filter", sourceFiles +"\\" + group)));
+                        xEl_itemGroup.Add(new XElement(ns + "ClCompile", new XAttribute("Include", srFullPath), new XElement(ns + "Filter", sourceFiles +"\\" + group)));
                     }
                     else
                     {
-                        xElItemGroup.Add(new XElement(ns + "None", new XAttribute("Include", sr_Full_path), new XElement(ns + "Filter", sourceFiles+"\\" + group)));
+                        xElItemGroup.Add(new XElement(ns + "None", new XAttribute("Include", srFullPath), new XElement(ns + "Filter", sourceFiles+"\\" + group)));
                     }
                 }
             }
@@ -767,7 +769,7 @@ namespace KEIL2VS
             var xEl_proj = new XElement(ns + "Project", new XAttribute("ToolsVersion", "4.0"));
             foreach (var newValue in targets)
             {
-                xEl_proj.Add(new XElement(ns + "PropertyGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)), new XElement(ns + "LocalDebuggerCommand", _projectIno.UV4_Path), new XElement(ns + "LocalDebuggerCommandArguments", Debugcmd.Replace("Target", newValue)), new XElement(ns + "LocalDebuggerWorkingDirectory", workingDirectory), new XElement(ns + "DebuggerFlavor", "WindowsLocalDebugger")));
+                xEl_proj.Add(new XElement(ns + "PropertyGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)), new XElement(ns + "LocalDebuggerCommand", _projectIno.UV4Path), new XElement(ns + "LocalDebuggerCommandArguments", Debugcmd.Replace("Target", newValue)), new XElement(ns + "LocalDebuggerWorkingDirectory", workingDirectory), new XElement(ns + "DebuggerFlavor", "WindowsLocalDebugger")));
             }
             xEl_proj.Save(docName);
         }
@@ -812,7 +814,7 @@ namespace KEIL2VS
             fileStream.Close();
         }
 
-        private void VC_Creat_Sln(string DocName, string ProjectName, string[] Targets)
+        private static void VC_Creat_Sln(string docName, string projectName, string[] targets)
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.Append("Microsoft Visual Studio Solution File, Format Version 12.00\r\n");
@@ -823,7 +825,7 @@ namespace KEIL2VS
             stringBuilder.Append("\r\nEndProject\r\n");
             stringBuilder.Append("Global\r\n");
             stringBuilder.Append("\tGlobalSection(SolutionConfigurationPlatforms) = preSolution\r\n");
-            foreach (var newValue in Targets)
+            foreach (var newValue in targets)
             {
                 var text = "\t\tDebug|Win32 = Debug|Win32\r\n";
                 text = text.Replace("Debug", newValue);
@@ -832,7 +834,7 @@ namespace KEIL2VS
             stringBuilder.Append("\tEndGlobalSection\r\n");
             stringBuilder.Append("\tGlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n");
             var newValue2 = Guid.NewGuid().ToString("B");
-            foreach (var newValue3 in Targets)
+            foreach (var newValue3 in targets)
             {
                 var text2 = "\t\tGUID.Debug|Win32.ActiveCfg = Debug|Win32\r\n";
                 var text3 = "\t\tGUID.Debug|Win32.Build.0 = Debug|Win32\r\n";
@@ -851,8 +853,8 @@ namespace KEIL2VS
             stringBuilder.Append("\t\tSolutionGuid = {" + Guid.NewGuid().ToString("B") + "}\r\n");
             stringBuilder.Append("\tEndGlobalSection\r\n");
             stringBuilder.Append("EndGlobal\r\n");
-            stringBuilder = stringBuilder.Replace("Template", ProjectName);
-            FileStream fileStream = File.OpenWrite(DocName);
+            stringBuilder = stringBuilder.Replace("Template", projectName);
+            FileStream fileStream = File.OpenWrite(docName);
             byte[] bytes = new UTF8Encoding(true).GetBytes(stringBuilder.ToString());
             fileStream.Write(bytes, 0, bytes.Length);
             fileStream.Close();
@@ -864,46 +866,46 @@ namespace KEIL2VS
             var folderBrowserDialog = new FolderBrowserDialog
             {
                 //RootFolder = Environment.SpecialFolder.MyComputer,
-                Description = "Please select the Visual Studio Project Path",
-                SelectedPath = _projectIno.MDK_Project_Path
+                Description = Resources.vsp_path,
+                SelectedPath = _projectIno.MdkProjectPath
             };
             if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
-            _projectIno.VCProject_Path = Path.Combine(new[]
+            _projectIno.VcProjectPath = Path.Combine(new[]
             {
                 folderBrowserDialog.SelectedPath,
                 "VS"
             }) + "\\";
-            if (!Directory.Exists(_projectIno.VCProject_Path))
+            if (!Directory.Exists(_projectIno.VcProjectPath))
             {
-                Directory.CreateDirectory(_projectIno.VCProject_Path);
+                Directory.CreateDirectory(_projectIno.VcProjectPath);
             }
-            string[] targets = MDK_TargetRead(_projectIno.MDK_Project_File);
-            var relativePath = GetRelativePath(_projectIno.VCProject_Path, _projectIno.MDK_Project_File);
-            _projectIno.NMakeBuildCommandLine = string.Concat("\"", _projectIno.UV4_Path, "\" -b ", relativePath, " -t \"Target\" -j0 -o Build.log");
+            string[] targets = MDK_TargetRead(_projectIno.MdkProjectFile);
+            var relativePath = GetRelativePath(_projectIno.VcProjectPath, _projectIno.MdkProjectFile);
+            _projectIno.NMakeBuildCommandLine = string.Concat("\"", _projectIno.UV4Path, "\" -b ", relativePath, " -t \"Target\" -j0 -o Build.log");
             _projectIno.LocalDebuggerCommandArguments = "-d " + _projectIno.ProjectName + ".uvproj -t \"Target\"";
 
-            var docName = _projectIno.VCProject_Path + _projectIno.ProjectName + ".sln";
+            var docName = _projectIno.VcProjectPath + _projectIno.ProjectName + ".sln";
             VC_Creat_Sln(docName, _projectIno.ProjectName, targets);
 
-            docName = _projectIno.VCProject_Path + _projectIno.VC_Filters_Name;
+            docName = _projectIno.VcProjectPath + _projectIno.VcFiltersName;
             VC_Filters_Create(docName, targets);
 
-            docName = _projectIno.VCProject_Path + _projectIno.VcxprojName;
+            docName = _projectIno.VcProjectPath + _projectIno.VcxprojName;
             VC_vcxproj_Create(docName, targets);
 
-            _projectIno.LocalDebuggerWorkingDirectory = GetRelativePath(_projectIno.VCProject_Path, _projectIno.MDK_Project_Path);
+            _projectIno.LocalDebuggerWorkingDirectory = GetRelativePath(_projectIno.VcProjectPath, _projectIno.MdkProjectPath);
 
-            docName = _projectIno.VCProject_Path + _projectIno.VC_UserFileName;
+            docName = _projectIno.VcProjectPath + _projectIno.VcUserFileName;
             VC_Create_UserFile(docName, _projectIno.LocalDebuggerCommandArguments, _projectIno.LocalDebuggerWorkingDirectory, targets);
 
-            docName = _projectIno.VCProject_Path + "readme.txt";
+            docName = _projectIno.VcProjectPath + "readme.txt";
             VC_Creat_readme(docName, _projectIno.ProjectName);
 
 
-            docName = _projectIno.VCProject_Path + _projectIno.ProjectName + ".sln";
+            docName = _projectIno.VcProjectPath + _projectIno.ProjectName + ".sln";
 
             DialogResult dr = MessageBox.Show(
-                Resources.sueecssTip, "Enjoy VS Coding!",
+                Resources.sueecssTip, Resources.enjoy_vs,
                 MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
             var baseUri = new Uri(docName);
             docName = GetFullPath(docName, "");
@@ -932,7 +934,7 @@ namespace KEIL2VS
 
                     break;
                 case DialogResult.No:
-                    Process.Start(_projectIno.VCProject_Path);
+                    Process.Start(_projectIno.VcProjectPath);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -1033,7 +1035,7 @@ namespace KEIL2VS
         private XmlDocument xmlDoc = new XmlDocument();
         private FileInfo[] _fileInfos;
         private ProjectInfo _projectIno;
-        private _Config _config;
+        private Config _config;
         private UprojInfo[] _uprojInfo;
 
         private readonly PreStr _preStr = new PreStr
@@ -1062,16 +1064,16 @@ namespace KEIL2VS
 
         private struct ProjectInfo
         {
-            public string UV4_Path;
-            public string MDK_Project_Path;
-            public string MDK_Project_File;
-            public string MDK_Target;
+            public string UV4Path;
+            public string MdkProjectPath;
+            public string MdkProjectFile;
+            public string MdkTarget;
             public string ProjectName;
             public string IncludePath;
-            public string VCProject_Path;
+            public string VcProjectPath;
             public string VcxprojName;
-            public string VC_Filters_Name;
-            public string VC_UserFileName;
+            public string VcFiltersName;
+            public string VcUserFileName;
             public string NMakePreprocessorDefinitions;
             public string NMakeBuildCommandLine;
             public string NMakeCleanCommandLine;
@@ -1079,7 +1081,7 @@ namespace KEIL2VS
             public string LocalDebuggerWorkingDirectory;
             public string CuruProjectFileDir;
         }
-        private struct _Config
+        private struct Config
         {
             public string ToolName;
             public string ToolsVersion;
