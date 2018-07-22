@@ -653,15 +653,15 @@ namespace KEIL2VS
             var xEl_ItemGroup = new XElement(ns + "ItemGroup", new XAttribute("Label", "ProjectConfigurations"));
             foreach (var targetName in targets)
             {
-                xEl_ItemGroup.Add(new XElement(ns + "ProjectConfiguration", 
-                    new XAttribute("Include", "Target|Win32".Replace("Target", targetName)), 
-                    new XElement(ns + "Configuration", targetName), 
+                xEl_ItemGroup.Add(new XElement(ns + "ProjectConfiguration",
+                    new XAttribute("Include", "Target|Win32".Replace("Target", targetName)),
+                    new XElement(ns + "Configuration", targetName),
                     new XElement(ns + "Platform", "Win32")));
             }
             xElProject.Add(xEl_ItemGroup);
             var xEl_PropertyGroup = new XElement(ns + "PropertyGroup",
-                new XAttribute("Label", "Globals"), 
-                new XElement(ns + "ProjectGuid", Guid.NewGuid().ToString("B")), 
+                new XAttribute("Label", "Globals"),
+                new XElement(ns + "ProjectGuid", Guid.NewGuid().ToString("B")),
                 new XElement(ns + "Keyword", "MakeFileProj"),
                 new XElement(ns + "WindowsTargetPlatformVersion", "10.0.17134.0"));
             xElProject.Add(xEl_PropertyGroup);
@@ -670,8 +670,8 @@ namespace KEIL2VS
             foreach (var newValue in targets)
             {
                 xElProject.Add(new XElement(ns + "PropertyGroup",
-                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)), 
-                    new XAttribute("Label", "Configuration"), 
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)),
+                    new XAttribute("Label", "Configuration"),
                     new XElement(ns + "ConfigurationType", "Makefile"),
                     new XElement(ns + "UseDebugLibraries", "true"),
                     new XElement(ns + "PlatformToolset", "v141")));
@@ -709,11 +709,11 @@ namespace KEIL2VS
                 keilIncludePath += _config.UV4IncPath + ";";
 
                 xElProject.Add(new XElement(ns + "PropertyGroup",
-                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", oneTarget)), 
-                    new XElement(ns + "NMakeOutput", "Template.bin".Replace("Template", _projectIno.ProjectName)), 
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", oneTarget)),
+                    new XElement(ns + "NMakeOutput", "Template.bin".Replace("Template", _projectIno.ProjectName)),
                     new XElement(ns + "NMakePreprocessorDefinitions", _preStr.PredefineKeil + _config.PreDefine + MDK_DefineRead(_projectIno.MdkProjectFile, oneTarget)),
                     new XElement(ns + "IncludePath", keilIncludePath),
-                    new XElement(ns + "NMakeBuildCommandLine", _projectIno.NMakeBuildCommandLine.Replace("Target", oneTarget)), 
+                    new XElement(ns + "NMakeBuildCommandLine", _projectIno.NMakeBuildCommandLine.Replace("Target", oneTarget)),
                     new XElement(ns + "LibraryPath", @"$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;" + _config.UV4LibPath + ";")));
             }
             xElProject.Add(new XElement(ns + "ItemDefinitionGroup", ""));
@@ -753,37 +753,43 @@ namespace KEIL2VS
             }
             XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";
             var xelement = new XElement(ns + "Project", new XAttribute("DefaultTargets", "Build"), new XAttribute("ToolsVersion", "4.0"));
-            var xElItemGroup = new XElement(ns + "ItemGroup", "");
+            var xElItemGroup1 = new XElement(ns + "ItemGroup", "");
             const string sourceFiles = "资源文件";
-            xElItemGroup.Add(new XElement(ns + "Filter", new XAttribute("Include", sourceFiles), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx")), new XElement(ns + "Filter", new XAttribute("Include", "include"), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "h;hpp;hxx;hm;inl;inc;xsd")), new XElement(ns + "Filter", new XAttribute("Include", "项目说明"), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "txt")));
+            xElItemGroup1.Add(new XElement(ns + "Filter", new XAttribute("Include", sourceFiles), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx")), new XElement(ns + "Filter", new XAttribute("Include", "include"), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "h;hpp;hxx;hm;inl;inc;xsd")), new XElement(ns + "Filter", new XAttribute("Include", "项目说明"), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "txt")));
             string[] groups = MDK_GroupRead(_projectIno.MdkProjectFile, _projectIno.MdkTarget);
             foreach (var str in groups)
             {
-                xElItemGroup.Add(new XElement(ns + "Filter", new XAttribute("Include", sourceFiles + "\\" + str), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B"))));
+                xElItemGroup1.Add(new XElement(ns + "Filter", new XAttribute("Include", sourceFiles + "\\" + str), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B"))));
             }
-            xelement.Add(xElItemGroup);
-            xElItemGroup = new XElement(ns + "ItemGroup", "");
-            var xEl_itemGroup = new XElement(ns + "ItemGroup", "");
+            xelement.Add(xElItemGroup1);
+            xElItemGroup1 = new XElement(ns + "ItemGroup", "");
+            var xElItemGroup2 = new XElement(ns + "ItemGroup", "");
             foreach (var group in groups)
             {
                 string[] srcInThisGroup = MDK_SrcRead(_projectIno.MdkProjectFile, targets[0], group);
-                foreach (var src_path in srcInThisGroup)
+                foreach (var srcPath in srcInThisGroup)
                 {
-                    var srFullPath = GetFullPath(_projectIno.MdkProjectPath, src_path);
+                    var srFullPath = GetFullPath(_projectIno.MdkProjectPath, srcPath);
                     srFullPath = GetRelativePath(_projectIno.VcProjectPath, srFullPath);
                     if (srFullPath.EndsWith(".c"))
                     {
-                        xEl_itemGroup.Add(new XElement(ns + "ClCompile", new XAttribute("Include", srFullPath), new XElement(ns + "Filter", sourceFiles + "\\" + group)));
+                        xElItemGroup2.Add(new XElement(ns + "ClCompile",
+                            new XAttribute("Include", srFullPath),
+                            new XElement(ns + "Filter", sourceFiles + "\\" + group)));
                     }
                     else
                     {
-                        xElItemGroup.Add(new XElement(ns + "None", new XAttribute("Include", srFullPath), new XElement(ns + "Filter", sourceFiles + "\\" + group)));
+                        xElItemGroup1.Add(new XElement(ns + "None",
+                            new XAttribute("Include", srFullPath),
+                            new XElement(ns + "Filter", sourceFiles + "\\" + group)));
                     }
                 }
             }
-            xElItemGroup.Add(new XElement(ns + "None", new XAttribute("Include", "Readme.txt"), new XElement(ns + "Filter", sourceFiles)));
-            xelement.Add(xEl_itemGroup);
-            xelement.Add(xElItemGroup);
+            xElItemGroup1.Add(new XElement(ns + "None",
+                new XAttribute("Include", "Readme.txt"),
+                new XElement(ns + "Filter", sourceFiles)));
+            xelement.Add(xElItemGroup1);
+            xelement.Add(xElItemGroup2);
             xelement.Save(docName);
         }
         private void VC_Create_UserFile(string docName, string Debugcmd, string workingDirectory, string[] targets)
