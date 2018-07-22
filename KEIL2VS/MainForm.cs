@@ -79,15 +79,15 @@ namespace KEIL2VS
             if (!ScanCurrentFolderHas_uProj(PreStr.ApplicationStartpath, ref fileInfos))
                 return;
 
-            uprojInfo = new _uprojInfo[fileInfos.GetLength(0)];
+            uprojInfo = new UprojInfo[fileInfos.GetLength(0)];
             for (var i = 0; i < fileInfos.GetLength(0); i++)
             {
-                uprojInfo[i].fileName = fileInfos[i].Name;
-                uprojInfo[i].fileFullname = fileInfos[i].FullName;
+                uprojInfo[i].FileName = fileInfos[i].Name;
+                uprojInfo[i].FileFullname = fileInfos[i].FullName;
             }
             SourcePathComobox_add(uprojInfo);
             sourcepathTip.Show(PreStr.FindUprojInThisFolder, SourcePathCBOX, SourcePathCBOX.Location.X + 200, SourcePathCBOX.Top - 100, 1000 * 10);
-            TryDispuProjinfo(uprojInfo[0].fileFullname);
+            TryDispuProjinfo(uprojInfo[0].FileFullname);
         }
 
 
@@ -107,12 +107,12 @@ namespace KEIL2VS
         }
 
 
-        private void SourcePathComobox_add(_uprojInfo[] it)
+        private void SourcePathComobox_add(UprojInfo[] it)
         {
             SourcePathCBOX.Items.Clear();
             for (var i = 0; i < it.GetLength(0); i++)
             {
-                SourcePathCBOX.Items.Add(it[i].fileFullname);
+                SourcePathCBOX.Items.Add(it[i].FileFullname);
             }
             //this.SourcePathCBOX.Items.Add(this.PreStr.selectnewfolder);
             SourcePathCBOX.SelectedIndex = 0;
@@ -217,11 +217,11 @@ namespace KEIL2VS
             if (!MDK_CheckProject(fileName)) return;
 
             TryDispuProjinfo(fileName);
-            uprojInfo = new _uprojInfo[1];
-            uprojInfo[0].fileName = ProjectIno.ProjectName;
-            uprojInfo[0].fileFullname = ProjectIno.MDK_Project_File;
+            uprojInfo = new UprojInfo[1];
+            uprojInfo[0].FileName = ProjectIno.ProjectName;
+            uprojInfo[0].FileFullname = ProjectIno.MDK_Project_File;
 
-            SourcePathCBOX.Text = uprojInfo[0].fileFullname;
+            SourcePathCBOX.Text = uprojInfo[0].FileFullname;
             SourcePathComobox_add(uprojInfo);
 
         }
@@ -236,10 +236,10 @@ namespace KEIL2VS
             }
 
             TryDispuProjinfo(dropFilename);
-            uprojInfo = new _uprojInfo[1];
-            uprojInfo[0].fileName = ProjectIno.ProjectName;
-            uprojInfo[0].fileFullname = ProjectIno.MDK_Project_File;
-            SourcePathCBOX.Text = uprojInfo[0].fileFullname;
+            uprojInfo = new UprojInfo[1];
+            uprojInfo[0].FileName = ProjectIno.ProjectName;
+            uprojInfo[0].FileFullname = ProjectIno.MDK_Project_File;
+            SourcePathCBOX.Text = uprojInfo[0].FileFullname;
             SourcePathComobox_add(uprojInfo);
         }
         private void TryDispuProjinfo(string fileFullname)
@@ -867,75 +867,75 @@ namespace KEIL2VS
                 Description = "Please select the Visual Studio Project Path",
                 SelectedPath = ProjectIno.MDK_Project_Path
             };
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
+            ProjectIno.VCProject_Path = Path.Combine(new[]
             {
-                ProjectIno.VCProject_Path = Path.Combine(new[]
-                {
-                    folderBrowserDialog.SelectedPath,
-                    "VS"
-                }) + "\\";
-                if (!Directory.Exists(ProjectIno.VCProject_Path))
-                {
-                    Directory.CreateDirectory(ProjectIno.VCProject_Path);
-                }
-                string[] targets = MDK_TargetRead(ProjectIno.MDK_Project_File);
-                var relativePath = GetRelativePath(ProjectIno.VCProject_Path, ProjectIno.MDK_Project_File);
-                ProjectIno.NMakeBuildCommandLine = string.Concat("\"", ProjectIno.UV4_Path, "\" -b ", relativePath, " -t \"Target\" -j0 -o Build.log");
-                ProjectIno.LocalDebuggerCommandArguments = "-d " + ProjectIno.ProjectName + ".uvproj -t \"Target\"";
+                folderBrowserDialog.SelectedPath,
+                "VS"
+            }) + "\\";
+            if (!Directory.Exists(ProjectIno.VCProject_Path))
+            {
+                Directory.CreateDirectory(ProjectIno.VCProject_Path);
+            }
+            string[] targets = MDK_TargetRead(ProjectIno.MDK_Project_File);
+            var relativePath = GetRelativePath(ProjectIno.VCProject_Path, ProjectIno.MDK_Project_File);
+            ProjectIno.NMakeBuildCommandLine = string.Concat("\"", ProjectIno.UV4_Path, "\" -b ", relativePath, " -t \"Target\" -j0 -o Build.log");
+            ProjectIno.LocalDebuggerCommandArguments = "-d " + ProjectIno.ProjectName + ".uvproj -t \"Target\"";
 
-                var docName = ProjectIno.VCProject_Path + ProjectIno.ProjectName + ".sln";
-                VC_Creat_Sln(docName, ProjectIno.ProjectName, targets);
+            var docName = ProjectIno.VCProject_Path + ProjectIno.ProjectName + ".sln";
+            VC_Creat_Sln(docName, ProjectIno.ProjectName, targets);
 
-                docName = ProjectIno.VCProject_Path + ProjectIno.VC_Filters_Name;
-                VC_Filters_Create(docName, targets);
+            docName = ProjectIno.VCProject_Path + ProjectIno.VC_Filters_Name;
+            VC_Filters_Create(docName, targets);
 
-                docName = ProjectIno.VCProject_Path + ProjectIno.VcxprojName;
-                VC_vcxproj_Create(docName, targets);
+            docName = ProjectIno.VCProject_Path + ProjectIno.VcxprojName;
+            VC_vcxproj_Create(docName, targets);
 
-                ProjectIno.LocalDebuggerWorkingDirectory = GetRelativePath(ProjectIno.VCProject_Path, ProjectIno.MDK_Project_Path);
+            ProjectIno.LocalDebuggerWorkingDirectory = GetRelativePath(ProjectIno.VCProject_Path, ProjectIno.MDK_Project_Path);
 
-                docName = ProjectIno.VCProject_Path + ProjectIno.VC_UserFileName;
-                VC_Create_UserFile(docName, ProjectIno.LocalDebuggerCommandArguments, ProjectIno.LocalDebuggerWorkingDirectory, targets);
+            docName = ProjectIno.VCProject_Path + ProjectIno.VC_UserFileName;
+            VC_Create_UserFile(docName, ProjectIno.LocalDebuggerCommandArguments, ProjectIno.LocalDebuggerWorkingDirectory, targets);
 
-                docName = ProjectIno.VCProject_Path + "readme.txt";
-                VC_Creat_readme(docName, ProjectIno.ProjectName);
+            docName = ProjectIno.VCProject_Path + "readme.txt";
+            VC_Creat_readme(docName, ProjectIno.ProjectName);
 
 
-                docName = ProjectIno.VCProject_Path + ProjectIno.ProjectName + ".sln";
+            docName = ProjectIno.VCProject_Path + ProjectIno.ProjectName + ".sln";
 
-                DialogResult dr = MessageBox.Show(
-                    Resources.sueecssTip, "Enjoy VS Coding!",
-                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-                var baseUri = new Uri(docName);
-                docName = GetFullPath(docName, "");
-                switch (dr)
-                {
-                    case DialogResult.None:
-                        break;
-                    case DialogResult.OK:
-                        break;
-                    case DialogResult.Cancel:
-                        break;
-                    case DialogResult.Abort:
-                        break;
-                    case DialogResult.Retry:
-                        break;
-                    case DialogResult.Ignore:
-                        break;
-                    case DialogResult.Yes:
-                        try
-                        {
-                            Process.Start(docName);
-                        }
-                        catch
-                        {
-                        }
+            DialogResult dr = MessageBox.Show(
+                Resources.sueecssTip, "Enjoy VS Coding!",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+            var baseUri = new Uri(docName);
+            docName = GetFullPath(docName, "");
+            switch (dr)
+            {
+                case DialogResult.None:
+                    break;
+                case DialogResult.OK:
+                    break;
+                case DialogResult.Cancel:
+                    break;
+                case DialogResult.Abort:
+                    break;
+                case DialogResult.Retry:
+                    break;
+                case DialogResult.Ignore:
+                    break;
+                case DialogResult.Yes:
+                    try
+                    {
+                        Process.Start(docName);
+                    }
+                    catch
+                    {
+                    }
 
-                        break;
-                    case DialogResult.No:
-                        Process.Start(ProjectIno.VCProject_Path);
-                        break;
-                }
+                    break;
+                case DialogResult.No:
+                    Process.Start(ProjectIno.VCProject_Path);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
         private bool TryGetSoftwarePath(ref string path)
@@ -1032,9 +1032,9 @@ namespace KEIL2VS
         private XDocument document = new XDocument();
         private XmlDocument xmlDoc = new XmlDocument();
         private FileInfo[] fileInfos;
-        private _ProjectInfo ProjectIno;
+        private ProjectInfo ProjectIno;
         private _Config Config;
-        private _uprojInfo[] uprojInfo;
+        private UprojInfo[] uprojInfo;
 
         private _PreStr PreStr = new _PreStr
         {
@@ -1054,13 +1054,13 @@ namespace KEIL2VS
             FindUprojInThisFolder = "Oops!,Find uproject in this folder!\n Plz select one to convert!",
             selectnewfolder = "Select new Folder"
         };
-        struct _uprojInfo
+        struct UprojInfo
         {
-            public string fileName;
-            public string fileFullname;
+            public string FileName;
+            public string FileFullname;
         }
 
-        private struct _ProjectInfo
+        private struct ProjectInfo
         {
             public string UV4_Path;
             public string MDK_Project_Path;
@@ -1121,7 +1121,7 @@ namespace KEIL2VS
                 return;
             }
 
-            TryDispuProjinfo(uprojInfo[SourcePathCBOX.SelectedIndex].fileFullname);
+            TryDispuProjinfo(uprojInfo[SourcePathCBOX.SelectedIndex].FileFullname);
         }
 
         private void ElementHost_SelectionChangeCommitted(object sender, EventArgs e)
