@@ -22,7 +22,7 @@ namespace KEIL2VS.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace KEIL2VS.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("KEIL2VS.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace KEIL2VS.Properties {
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace KEIL2VS.Properties {
         /// <summary>
         ///   查找类似 Enjoy VS Coding! 的本地化字符串。
         /// </summary>
-        internal static string enjoy_vs {
+        public static string enjoy_vs {
             get {
                 return ResourceManager.GetString("enjoy_vs", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace KEIL2VS.Properties {
         /// <summary>
         ///   查找类似 Select Keil Vision4 Exe Path 的本地化字符串。
         /// </summary>
-        internal static string SELUV4PATH {
+        public static string SELUV4PATH {
             get {
                 return ResourceManager.GetString("SELUV4PATH", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace KEIL2VS.Properties {
         /// <summary>
         ///   查找类似 The Visual Studio Project Creat Complete!\n打开VS工程(是)\n打开文件夹(否)\n退出(取消) 的本地化字符串。
         /// </summary>
-        internal static string sueecssTip {
+        public static string sueecssTip {
             get {
                 return ResourceManager.GetString("sueecssTip", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace KEIL2VS.Properties {
         /// <summary>
         ///   查找类似 配置更新,请重新选择配置！ 的本地化字符串。
         /// </summary>
-        internal static string updateConfig {
+        public static string updateConfig {
             get {
                 return ResourceManager.GetString("updateConfig", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace KEIL2VS.Properties {
         /// <summary>
         ///   查找类似 Please select the Visual Studio Project Path 的本地化字符串。
         /// </summary>
-        internal static string vsp_path {
+        public static string vsp_path {
             get {
                 return ResourceManager.GetString("vsp_path", resourceCulture);
             }
