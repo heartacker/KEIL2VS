@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
@@ -558,20 +560,20 @@ namespace KEIL2VS
             if (xmlNodeList == null) return null;
             foreach (object obj in xmlNodeList)
             {
-                var xmlNode = (XmlNode) obj;
+                var xmlNode = (XmlNode)obj;
                 if (xmlNode.SelectSingleNode("./TargetName")?.InnerText != targetName) continue;
                 XmlNodeList xmlNodeList2 = xmlNode.SelectNodes(".//Groups/Group");
                 if (xmlNodeList2 == null) continue;
                 foreach (object obj2 in xmlNodeList2)
                 {
-                    var xmlNode2 = (XmlNode) obj2;
+                    var xmlNode2 = (XmlNode)obj2;
                     if (xmlNode2.SelectSingleNode("./GroupName")?.InnerText != Group) continue;
                     XmlNodeList xmlNodeList3 = xmlNode2.SelectNodes("./Files/File");
                     string[] array = new string[xmlNodeList3.Count];
                     var num = 0;
                     foreach (object obj3 in xmlNodeList3)
                     {
-                        var xmlNode3 = (XmlNode) obj3;
+                        var xmlNode3 = (XmlNode)obj3;
                         var innerText = xmlNode3.SelectSingleNode("./FilePath").InnerText;
                         array[num] = innerText;
                         num++;
@@ -585,16 +587,13 @@ namespace KEIL2VS
         }
 
         // Token: 0x06000017 RID: 23 RVA: 0x00003058 File Offset: 0x00001258
-        private bool MDK_CheckProject(string DocName)
+        private bool MDK_CheckProject(string docName)
         {
-            if (DocName == "")
-            {
-                return false;
-            }
+            if (docName == "") return false;
             bool isuproj;
             try
             {
-                xmlDoc.Load(DocName);
+                xmlDoc.Load(docName);
                 XmlNode xmlNode = xmlDoc.SelectSingleNode(".//Header");
                 if (xmlNode == null)
                 {
@@ -611,7 +610,7 @@ namespace KEIL2VS
             }
             catch
             {
-                MessageBox.Show(DocName + _preStr.NotUvProj, "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                MessageBox.Show(docName + _preStr.NotUvProj, "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
                 isuproj = false;
             }
             return isuproj;
@@ -643,7 +642,7 @@ namespace KEIL2VS
             }
             return result;
         }
-        private void VC_vcxproj_Create(string docName, string[] targets)
+        private void VC_vcxproj_Create(string docName, IReadOnlyList<string> targets)
         {
             if (docName == "")
             {
@@ -654,20 +653,42 @@ namespace KEIL2VS
             var xEl_ItemGroup = new XElement(ns + "ItemGroup", new XAttribute("Label", "ProjectConfigurations"));
             foreach (var targetName in targets)
             {
-                xEl_ItemGroup.Add(new XElement(ns + "ProjectConfiguration", new XAttribute("Include", "Target|Win32".Replace("Target", targetName)), new XElement(ns + "Configuration", targetName), new XElement(ns + "Platform", "Win32")));
+                xEl_ItemGroup.Add(new XElement(ns + "ProjectConfiguration", 
+                    new XAttribute("Include", "Target|Win32".Replace("Target", targetName)), 
+                    new XElement(ns + "Configuration", targetName), 
+                    new XElement(ns + "Platform", "Win32")));
             }
             xElProject.Add(xEl_ItemGroup);
-            var xEl_PropertyGroup = new XElement(ns + "PropertyGroup", new XAttribute("Label", "Globals"), new XElement(ns + "ProjectGuid", Guid.NewGuid().ToString("B")), new XElement(ns + "Keyword", "MakeFileProj"), new XElement(ns + "WindowsTargetPlatformVersion", "10.0.17134.0"));
+            var xEl_PropertyGroup = new XElement(ns + "PropertyGroup",
+                new XAttribute("Label", "Globals"), 
+                new XElement(ns + "ProjectGuid", Guid.NewGuid().ToString("B")), 
+                new XElement(ns + "Keyword", "MakeFileProj"),
+                new XElement(ns + "WindowsTargetPlatformVersion", "10.0.17134.0"));
             xElProject.Add(xEl_PropertyGroup);
-            xElProject.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.Default.props")));
+            xElProject.Add(new XElement(ns + "Import",
+                new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.Default.props")));
             foreach (var newValue in targets)
             {
-                xElProject.Add(new XElement(ns + "PropertyGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)), new XAttribute("Label", "Configuration"), new XElement(ns + "ConfigurationType", "Makefile"), new XElement(ns + "UseDebugLibraries", "true"), new XElement(ns + "PlatformToolset", "v141")));
+                xElProject.Add(new XElement(ns + "PropertyGroup",
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)), 
+                    new XAttribute("Label", "Configuration"), 
+                    new XElement(ns + "ConfigurationType", "Makefile"),
+                    new XElement(ns + "UseDebugLibraries", "true"),
+                    new XElement(ns + "PlatformToolset", "v141")));
             }
-            xElProject.Add(new XElement(ns + "Import", new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.props")), new XElement(ns + "ImportGroup", new XAttribute("Label", "ExtensionSettings")));
+            xElProject.Add(new XElement(ns + "Import",
+                new XAttribute("Project", "$(VCTargetsPath)\\Microsoft.Cpp.props")),
+                new XElement(ns + "ImportGroup",
+                new XAttribute("Label", "ExtensionSettings")));
             foreach (var newValue2 in targets)
             {
-                xElProject.Add(new XElement(ns + "ImportGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue2)), new XAttribute("Label", "PropertySheets"), new XElement(ns + "Import", new XAttribute("Project", "$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props"), new XAttribute("Condition", "exists('$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props')"), new XAttribute("Label", "LocalAppDataPlatform"))));
+                xElProject.Add(new XElement(ns + "ImportGroup",
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue2)),
+                    new XAttribute("Label", "PropertySheets"),
+                    new XElement(ns + "Import",
+                    new XAttribute("Project", "$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props"),
+                    new XAttribute("Condition", "exists('$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props')"),
+                    new XAttribute("Label", "LocalAppDataPlatform"))));
             }
             xElProject.Add(new XElement(ns + "PropertyGroup", new XAttribute("Label", "UserMacros")));
             foreach (var oneTarget in targets)
@@ -687,7 +708,13 @@ namespace KEIL2VS
                 //}
                 keilIncludePath += _config.UV4IncPath + ";";
 
-                xElProject.Add(new XElement(ns + "PropertyGroup", new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", oneTarget)), new XElement(ns + "NMakeOutput", "Template.bin".Replace("Template", _projectIno.ProjectName)), new XElement(ns + "NMakePreprocessorDefinitions",_preStr.PredefineKeil+_config.PreDefine+ MDK_DefineRead(_projectIno.MdkProjectFile, oneTarget)), new XElement(ns + "IncludePath", keilIncludePath), new XElement(ns + "NMakeBuildCommandLine", _projectIno.NMakeBuildCommandLine.Replace("Target", oneTarget)), new XElement(ns + "LibraryPath",@"$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;"+_config.UV4LibPath+";")));
+                xElProject.Add(new XElement(ns + "PropertyGroup",
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", oneTarget)), 
+                    new XElement(ns + "NMakeOutput", "Template.bin".Replace("Template", _projectIno.ProjectName)), 
+                    new XElement(ns + "NMakePreprocessorDefinitions", _preStr.PredefineKeil + _config.PreDefine + MDK_DefineRead(_projectIno.MdkProjectFile, oneTarget)),
+                    new XElement(ns + "IncludePath", keilIncludePath),
+                    new XElement(ns + "NMakeBuildCommandLine", _projectIno.NMakeBuildCommandLine.Replace("Target", oneTarget)), 
+                    new XElement(ns + "LibraryPath", @"$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;" + _config.UV4LibPath + ";")));
             }
             xElProject.Add(new XElement(ns + "ItemDefinitionGroup", ""));
             string[] array2 = MDK_GroupRead(_projectIno.MdkProjectFile, targets[0]);
@@ -746,11 +773,11 @@ namespace KEIL2VS
                     srFullPath = GetRelativePath(_projectIno.VcProjectPath, srFullPath);
                     if (srFullPath.EndsWith(".c"))
                     {
-                        xEl_itemGroup.Add(new XElement(ns + "ClCompile", new XAttribute("Include", srFullPath), new XElement(ns + "Filter", sourceFiles +"\\" + group)));
+                        xEl_itemGroup.Add(new XElement(ns + "ClCompile", new XAttribute("Include", srFullPath), new XElement(ns + "Filter", sourceFiles + "\\" + group)));
                     }
                     else
                     {
-                        xElItemGroup.Add(new XElement(ns + "None", new XAttribute("Include", srFullPath), new XElement(ns + "Filter", sourceFiles+"\\" + group)));
+                        xElItemGroup.Add(new XElement(ns + "None", new XAttribute("Include", srFullPath), new XElement(ns + "Filter", sourceFiles + "\\" + group)));
                     }
                 }
             }
