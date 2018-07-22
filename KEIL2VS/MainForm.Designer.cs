@@ -1,4 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace KEIL2VS
 {
@@ -7,7 +10,7 @@ namespace KEIL2VS
         /// <summary>
         /// 必需的设计器变量。
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// 清理所有正在使用的资源。
@@ -30,25 +33,25 @@ namespace KEIL2VS
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.CreateButton = new System.Windows.Forms.Button();
-            this.gbTargetGroup = new System.Windows.Forms.GroupBox();
-            this.elementHost = new System.Windows.Forms.ComboBox();
-            this.gbTargetInfo = new System.Windows.Forms.GroupBox();
-            this.TargetStatus = new System.Windows.Forms.TextBox();
-            this.gbSourceGroup = new System.Windows.Forms.GroupBox();
-            this.FileBox = new System.Windows.Forms.ListBox();
-            this.GroupListBox = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnFreshFoldor = new System.Windows.Forms.Button();
-            this.btnOpenFolder = new System.Windows.Forms.Button();
-            this.SourcePathCBOX = new System.Windows.Forms.ComboBox();
-            this.gbKeilExePath = new System.Windows.Forms.GroupBox();
-            this.tbKeil_path = new System.Windows.Forms.TextBox();
-            this.lbppd = new System.Windows.Forms.Label();
-            this.tb_predef = new System.Windows.Forms.TextBox();
-            this.sourcepathTip = new System.Windows.Forms.ToolTip(this.components);
+            this.components = new Container();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
+            this.CreateButton = new Button();
+            this.gbTargetGroup = new GroupBox();
+            this.elementHost = new ComboBox();
+            this.gbTargetInfo = new GroupBox();
+            this.TargetStatus = new TextBox();
+            this.gbSourceGroup = new GroupBox();
+            this.FileBox = new ListBox();
+            this.GroupListBox = new ListBox();
+            this.groupBox1 = new GroupBox();
+            this.btnFreshFoldor = new Button();
+            this.btnOpenFolder = new Button();
+            this.SourcePathCBOX = new ComboBox();
+            this.gbKeilExePath = new GroupBox();
+            this.tbKeil_path = new TextBox();
+            this.lbppd = new Label();
+            this.tb_predef = new TextBox();
+            this.sourcepathTip = new ToolTip(this.components);
             this.gbTargetGroup.SuspendLayout();
             this.gbTargetInfo.SuspendLayout();
             this.gbSourceGroup.SuspendLayout();
@@ -58,189 +61,189 @@ namespace KEIL2VS
             // 
             // CreateButton
             // 
-            this.CreateButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CreateButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.CreateButton.Font = new System.Drawing.Font("Consolas", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreateButton.Location = new System.Drawing.Point(5, 595);
-            this.CreateButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.CreateButton.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
+            this.CreateButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.CreateButton.Font = new Font("Consolas", 15F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.CreateButton.Location = new Point(5, 595);
+            this.CreateButton.Margin = new Padding(3, 4, 3, 4);
             this.CreateButton.Name = "CreateButton";
-            this.CreateButton.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.CreateButton.Size = new System.Drawing.Size(629, 42);
+            this.CreateButton.Padding = new Padding(3, 4, 3, 4);
+            this.CreateButton.Size = new Size(629, 42);
             this.CreateButton.TabIndex = 8;
             this.CreateButton.Text = "Create Visual Studio Project";
             this.CreateButton.UseVisualStyleBackColor = true;
-            this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
+            this.CreateButton.Click += new EventHandler(this.CreateButton_Click);
             // 
             // gbTargetGroup
             // 
-            this.gbTargetGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbTargetGroup.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
             this.gbTargetGroup.Controls.Add(this.elementHost);
-            this.gbTargetGroup.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbTargetGroup.Location = new System.Drawing.Point(5, 147);
-            this.gbTargetGroup.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbTargetGroup.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.gbTargetGroup.Location = new Point(5, 147);
+            this.gbTargetGroup.Margin = new Padding(3, 4, 3, 4);
             this.gbTargetGroup.Name = "gbTargetGroup";
-            this.gbTargetGroup.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbTargetGroup.Size = new System.Drawing.Size(629, 48);
+            this.gbTargetGroup.Padding = new Padding(3, 4, 3, 4);
+            this.gbTargetGroup.Size = new Size(629, 48);
             this.gbTargetGroup.TabIndex = 20;
             this.gbTargetGroup.TabStop = false;
             this.gbTargetGroup.Text = "Target Groups";
             // 
             // elementHost
             // 
-            this.elementHost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.elementHost.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
             this.elementHost.FormattingEnabled = true;
-            this.elementHost.Location = new System.Drawing.Point(5, 19);
+            this.elementHost.Location = new Point(5, 19);
             this.elementHost.Name = "elementHost";
-            this.elementHost.Size = new System.Drawing.Size(617, 22);
+            this.elementHost.Size = new Size(617, 22);
             this.elementHost.TabIndex = 0;
-            this.elementHost.SelectionChangeCommitted += new System.EventHandler(this.ElementHost_SelectionChangeCommitted);
+            this.elementHost.SelectionChangeCommitted += new EventHandler(this.ElementHost_SelectionChangeCommitted);
             // 
             // gbTargetInfo
             // 
-            this.gbTargetInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbTargetInfo.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
             this.gbTargetInfo.Controls.Add(this.TargetStatus);
-            this.gbTargetInfo.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbTargetInfo.Location = new System.Drawing.Point(5, 199);
-            this.gbTargetInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbTargetInfo.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.gbTargetInfo.Location = new Point(5, 199);
+            this.gbTargetInfo.Margin = new Padding(3, 4, 3, 4);
             this.gbTargetInfo.Name = "gbTargetInfo";
-            this.gbTargetInfo.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbTargetInfo.Size = new System.Drawing.Size(629, 158);
+            this.gbTargetInfo.Padding = new Padding(3, 4, 3, 4);
+            this.gbTargetInfo.Size = new Size(629, 158);
             this.gbTargetInfo.TabIndex = 5;
             this.gbTargetInfo.TabStop = false;
             this.gbTargetInfo.Text = "Target Info";
             // 
             // TargetStatus
             // 
-            this.TargetStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TargetStatus.BackColor = System.Drawing.SystemColors.Window;
-            this.TargetStatus.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TargetStatus.Location = new System.Drawing.Point(5, 19);
-            this.TargetStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.TargetStatus.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
+            | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
+            this.TargetStatus.BackColor = SystemColors.Window;
+            this.TargetStatus.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.TargetStatus.Location = new Point(5, 19);
+            this.TargetStatus.Margin = new Padding(3, 4, 3, 4);
             this.TargetStatus.Multiline = true;
             this.TargetStatus.Name = "TargetStatus";
             this.TargetStatus.ReadOnly = true;
-            this.TargetStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TargetStatus.Size = new System.Drawing.Size(617, 134);
+            this.TargetStatus.ScrollBars = ScrollBars.Both;
+            this.TargetStatus.Size = new Size(617, 134);
             this.TargetStatus.TabIndex = 0;
             // 
             // gbSourceGroup
             // 
-            this.gbSourceGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbSourceGroup.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
+            | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
             this.gbSourceGroup.Controls.Add(this.FileBox);
             this.gbSourceGroup.Controls.Add(this.GroupListBox);
-            this.gbSourceGroup.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbSourceGroup.Location = new System.Drawing.Point(5, 363);
-            this.gbSourceGroup.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbSourceGroup.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.gbSourceGroup.Location = new Point(5, 363);
+            this.gbSourceGroup.Margin = new Padding(3, 4, 3, 4);
             this.gbSourceGroup.Name = "gbSourceGroup";
-            this.gbSourceGroup.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbSourceGroup.Size = new System.Drawing.Size(629, 224);
+            this.gbSourceGroup.Padding = new Padding(3, 4, 3, 4);
+            this.gbSourceGroup.Size = new Size(629, 224);
             this.gbSourceGroup.TabIndex = 6;
             this.gbSourceGroup.TabStop = false;
             this.gbSourceGroup.Text = "Source Groups";
             // 
             // FileBox
             // 
-            this.FileBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FileBox.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
+            | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
             this.FileBox.FormattingEnabled = true;
             this.FileBox.HorizontalScrollbar = true;
             this.FileBox.IntegralHeight = false;
             this.FileBox.ItemHeight = 14;
-            this.FileBox.Location = new System.Drawing.Point(264, 16);
+            this.FileBox.Location = new Point(264, 16);
             this.FileBox.Name = "FileBox";
-            this.FileBox.Size = new System.Drawing.Size(358, 203);
+            this.FileBox.Size = new Size(358, 203);
             this.FileBox.TabIndex = 1;
             // 
             // GroupListBox
             // 
-            this.GroupListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.GroupListBox.BackColor = System.Drawing.SystemColors.Window;
-            this.GroupListBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupListBox.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Bottom) 
+            | AnchorStyles.Left)));
+            this.GroupListBox.BackColor = SystemColors.Window;
+            this.GroupListBox.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             this.GroupListBox.FormattingEnabled = true;
             this.GroupListBox.HorizontalScrollbar = true;
             this.GroupListBox.IntegralHeight = false;
             this.GroupListBox.ItemHeight = 14;
-            this.GroupListBox.Location = new System.Drawing.Point(5, 16);
-            this.GroupListBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.GroupListBox.Location = new Point(5, 16);
+            this.GroupListBox.Margin = new Padding(3, 4, 3, 4);
             this.GroupListBox.Name = "GroupListBox";
-            this.GroupListBox.Size = new System.Drawing.Size(255, 203);
+            this.GroupListBox.Size = new Size(255, 203);
             this.GroupListBox.TabIndex = 0;
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.BackColor = System.Drawing.Color.LightSalmon;
+            this.groupBox1.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
+            this.groupBox1.BackColor = Color.LightSalmon;
             this.groupBox1.Controls.Add(this.btnFreshFoldor);
             this.groupBox1.Controls.Add(this.btnOpenFolder);
             this.groupBox1.Controls.Add(this.SourcePathCBOX);
-            this.groupBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(5, 64);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new Point(5, 64);
+            this.groupBox1.Margin = new Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(629, 47);
+            this.groupBox1.Padding = new Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new Size(629, 47);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Keil Project File Path";
             // 
             // btnFreshFoldor
             // 
-            this.btnFreshFoldor.BackColor = System.Drawing.Color.LimeGreen;
-            this.btnFreshFoldor.Location = new System.Drawing.Point(515, 13);
+            this.btnFreshFoldor.BackColor = Color.LimeGreen;
+            this.btnFreshFoldor.Location = new Point(515, 13);
             this.btnFreshFoldor.Name = "btnFreshFoldor";
-            this.btnFreshFoldor.Size = new System.Drawing.Size(32, 28);
+            this.btnFreshFoldor.Size = new Size(32, 28);
             this.btnFreshFoldor.TabIndex = 2;
             this.btnFreshFoldor.Text = "F5";
             this.btnFreshFoldor.UseVisualStyleBackColor = false;
             this.btnFreshFoldor.Visible = false;
-            this.btnFreshFoldor.Click += new System.EventHandler(this.UpDateCurfolderUproj);
+            this.btnFreshFoldor.Click += new EventHandler(this.UpDateCurfolderUproj);
             // 
             // btnOpenFolder
             // 
-            this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenFolder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnOpenFolder.Location = new System.Drawing.Point(546, 12);
+            this.btnOpenFolder.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
+            this.btnOpenFolder.BackColor = Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnOpenFolder.Location = new Point(546, 12);
             this.btnOpenFolder.Name = "btnOpenFolder";
-            this.btnOpenFolder.Size = new System.Drawing.Size(76, 30);
+            this.btnOpenFolder.Size = new Size(76, 30);
             this.btnOpenFolder.TabIndex = 1;
             this.btnOpenFolder.Text = "Open";
             this.btnOpenFolder.UseVisualStyleBackColor = false;
-            this.btnOpenFolder.Click += new System.EventHandler(this.BtnOpenFolder_Click);
+            this.btnOpenFolder.Click += new EventHandler(this.BtnOpenFolder_Click);
             // 
             // SourcePathCBOX
             // 
             this.SourcePathCBOX.AllowDrop = true;
-            this.SourcePathCBOX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SourcePathCBOX.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
             this.SourcePathCBOX.FormattingEnabled = true;
-            this.SourcePathCBOX.Location = new System.Drawing.Point(5, 17);
+            this.SourcePathCBOX.Location = new Point(5, 17);
             this.SourcePathCBOX.Name = "SourcePathCBOX";
-            this.SourcePathCBOX.Size = new System.Drawing.Size(510, 22);
+            this.SourcePathCBOX.Size = new Size(510, 22);
             this.SourcePathCBOX.TabIndex = 0;
             this.SourcePathCBOX.Text = "Open Or drop The Keil the Project File to here";
-            this.SourcePathCBOX.SelectionChangeCommitted += new System.EventHandler(this.SourcePathCBOX_SelectionChangeCommitted);
-            this.SourcePathCBOX.DragDrop += new System.Windows.Forms.DragEventHandler(this.SourcePathCBOX_DragDrop);
-            this.SourcePathCBOX.DragEnter += new System.Windows.Forms.DragEventHandler(this.KEIL2VSDragEnter);
+            this.SourcePathCBOX.SelectionChangeCommitted += new EventHandler(this.SourcePathCBOX_SelectionChangeCommitted);
+            this.SourcePathCBOX.DragDrop += new DragEventHandler(this.SourcePathCBOX_DragDrop);
+            this.SourcePathCBOX.DragEnter += new DragEventHandler(this.Keil2VsDragEnter);
             // 
             // gbKeilExePath
             // 
-            this.gbKeilExePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbKeilExePath.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
             this.gbKeilExePath.Controls.Add(this.tbKeil_path);
-            this.gbKeilExePath.Location = new System.Drawing.Point(5, 12);
+            this.gbKeilExePath.Location = new Point(5, 12);
             this.gbKeilExePath.Name = "gbKeilExePath";
-            this.gbKeilExePath.Size = new System.Drawing.Size(629, 45);
+            this.gbKeilExePath.Size = new Size(629, 45);
             this.gbKeilExePath.TabIndex = 21;
             this.gbKeilExePath.TabStop = false;
             this.gbKeilExePath.Text = "Keil Program Path";
@@ -248,41 +251,41 @@ namespace KEIL2VS
             // tbKeil_path
             // 
             this.tbKeil_path.AllowDrop = true;
-            this.tbKeil_path.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbKeil_path.BackColor = System.Drawing.SystemColors.Window;
-            this.tbKeil_path.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbKeil_path.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.tbKeil_path.Location = new System.Drawing.Point(7, 14);
-            this.tbKeil_path.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbKeil_path.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom) 
+            | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
+            this.tbKeil_path.BackColor = SystemColors.Window;
+            this.tbKeil_path.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.tbKeil_path.ForeColor = SystemColors.AppWorkspace;
+            this.tbKeil_path.Location = new Point(7, 14);
+            this.tbKeil_path.Margin = new Padding(3, 4, 3, 4);
             this.tbKeil_path.Name = "tbKeil_path";
             this.tbKeil_path.ReadOnly = true;
-            this.tbKeil_path.Size = new System.Drawing.Size(615, 22);
+            this.tbKeil_path.Size = new Size(615, 22);
             this.tbKeil_path.TabIndex = 2;
             this.tbKeil_path.Text = "Double-click or drag and drop The Keil Program  to here";
             // 
             // lbppd
             // 
             this.lbppd.AutoSize = true;
-            this.lbppd.Location = new System.Drawing.Point(12, 123);
+            this.lbppd.Location = new Point(12, 123);
             this.lbppd.Name = "lbppd";
-            this.lbppd.Size = new System.Drawing.Size(189, 14);
+            this.lbppd.Size = new Size(189, 14);
             this.lbppd.TabIndex = 23;
             this.lbppd.Text = "Add PreCompiled definition";
-            this.lbppd.Click += new System.EventHandler(this.Lbppd_Click);
+            this.lbppd.Click += new EventHandler(this.Lbppd_Click);
             // 
             // tb_predef
             // 
-            this.tb_predef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_predef.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_predef.Location = new System.Drawing.Point(207, 118);
+            this.tb_predef.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
+            | AnchorStyles.Right)));
+            this.tb_predef.Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.tb_predef.Location = new Point(207, 118);
             this.tb_predef.Name = "tb_predef";
-            this.tb_predef.Size = new System.Drawing.Size(420, 26);
+            this.tb_predef.Size = new Size(420, 26);
             this.tb_predef.TabIndex = 24;
-            this.tb_predef.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tb_predef_KeyDown);
-            this.tb_predef.Leave += new System.EventHandler(this.Tb_predef_TextChanged);
+            this.tb_predef.KeyDown += new KeyEventHandler(this.Tb_predef_KeyDown);
+            this.tb_predef.Leave += new EventHandler(this.Tb_predef_TextChanged);
             // 
             // sourcepathTip
             // 
@@ -291,9 +294,9 @@ namespace KEIL2VS
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 644);
+            this.AutoScaleDimensions = new SizeF(7F, 14F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.ClientSize = new Size(640, 644);
             this.Controls.Add(this.tb_predef);
             this.Controls.Add(this.lbppd);
             this.Controls.Add(this.gbKeilExePath);
@@ -302,16 +305,16 @@ namespace KEIL2VS
             this.Controls.Add(this.gbTargetInfo);
             this.Controls.Add(this.gbTargetGroup);
             this.Controls.Add(this.CreateButton);
-            this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Margin = new Padding(3, 4, 3, 4);
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Convert Keil Project to Visual Studio Project";
-            this.Load += new System.EventHandler(this.Keil2VS_Load);
-            this.Shown += new System.EventHandler(this.Keil2VS_Shown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
+            this.Load += new EventHandler(this.Keil2VS_Load);
+            this.Shown += new EventHandler(this.Keil2VS_Shown);
+            this.KeyDown += new KeyEventHandler(this.MainForm_KeyDown);
             this.gbTargetGroup.ResumeLayout(false);
             this.gbTargetInfo.ResumeLayout(false);
             this.gbTargetInfo.PerformLayout();
