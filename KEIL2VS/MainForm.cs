@@ -907,25 +907,34 @@ namespace KEIL2VS
             fileStream.Close();
             stringBuilder.Clear();
         }
-
+        bool fixVSPath = true;
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            if (cboxbatch.Visible&&cboxbatch.Checked)
+            if (cboxbatch.Visible && cboxbatch.Checked)
             {
 
             }
-            var folderBrowserDialog = new FolderBrowserDialog
+            if (!fixVSPath)
             {
-                //RootFolder = Environment.SpecialFolder.MyComputer,
-                Description = Resources.vsp_path,
-                SelectedPath = _projectIno.MdkProjectPath
-            };
-            if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
-            _projectIno.VcProjectPath = Path.Combine(new[]
-            {
+                var folderBrowserDialog = new FolderBrowserDialog
+                {
+                    //RootFolder = Environment.SpecialFolder.MyComputer,
+                    Description = Resources.vsp_path,
+                    SelectedPath = _projectIno.MdkProjectPath
+                };
+                if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
+                _projectIno.VcProjectPath = Path.Combine(new[]
+                {
                 folderBrowserDialog.SelectedPath,
                 "VS"
-            }) + "\\";
+                }) + "\\";
+
+            }
+            else
+            {
+                _projectIno.VcProjectPath = _projectIno.MdkProjectPath + "VS\\";
+            }
+
             if (!Directory.Exists(_projectIno.VcProjectPath))
             {
                 Directory.CreateDirectory(_projectIno.VcProjectPath);
@@ -956,8 +965,13 @@ namespace KEIL2VS
             docName = _projectIno.VcProjectPath + _projectIno.ProjectName + ".sln";
 
             DialogResult dr = MessageBox.Show(
-                Resources.sueecssTip, Resources.enjoy_vs,
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+                Resources.sueecssTip1 + "\r\n" +
+                Resources.sueecssTip2 + "\r\n" +
+                Resources.sueecssTip3 + "\r\n" +
+                Resources.sueecssTip4,
+                Resources.enjoy_vs,
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Information);
             var baseUri = new Uri(docName);
             docName = GetFullPath(docName, "");
             switch (dr)
@@ -981,6 +995,7 @@ namespace KEIL2VS
                     }
                     catch
                     {
+                        MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     break;
@@ -1206,8 +1221,15 @@ namespace KEIL2VS
                 return;
             }
             llbeUprojPath.Links[llbeUprojPath.Links.IndexOf(e.Link)].Visited = true;
+            try
+            {
+                Process.Start(targetUrl);
+            }
+            catch
+            {
+                MessageBox.Show("无法打开当前keil项目！\n请确任安装好keil软件!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            Process.Start(targetUrl);
         }
         //private void Keil2VS_MouseEnter(object sender, EventArgs e)
         //{

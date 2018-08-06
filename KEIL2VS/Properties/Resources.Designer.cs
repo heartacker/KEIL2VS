@@ -79,11 +79,38 @@ namespace KEIL2VS.Properties {
         }
         
         /// <summary>
-        ///   查找类似 The Visual Studio Project Creat Complete!\n打开VS工程(是)\n打开文件夹(否)\n退出(取消) 的本地化字符串。
+        ///   查找类似 The Visual Studio Project Creat Complete! 的本地化字符串。
         /// </summary>
-        public static string sueecssTip {
+        public static string sueecssTip1 {
             get {
-                return ResourceManager.GetString("sueecssTip", resourceCulture);
+                return ResourceManager.GetString("sueecssTip1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开VS工程(是) 的本地化字符串。
+        /// </summary>
+        public static string sueecssTip2 {
+            get {
+                return ResourceManager.GetString("sueecssTip2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开文件夹(否) 的本地化字符串。
+        /// </summary>
+        public static string sueecssTip3 {
+            get {
+                return ResourceManager.GetString("sueecssTip3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 退出(取消) 的本地化字符串。
+        /// </summary>
+        public static string sueecssTip4 {
+            get {
+                return ResourceManager.GetString("sueecssTip4", resourceCulture);
             }
         }
         

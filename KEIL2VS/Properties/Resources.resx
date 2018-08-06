@@ -120,8 +120,8 @@
   <data name="SELUV4PATH" xml:space="preserve">
     <value>Select Keil Vision4 Exe Path</value>
   </data>
-  <data name="sueecssTip" xml:space="preserve">
-    <value>The Visual Studio Project Creat Complete!\n打开VS工程(是)\n打开文件夹(否)\n退出(取消)</value>
+  <data name="sueecssTip1" xml:space="preserve">
+    <value>The Visual Studio Project Creat Complete!</value>
   </data>
   <data name="updateConfig" xml:space="preserve">
     <value>配置更新,请重新选择配置！</value>
@@ -131,5 +131,14 @@
   </data>
   <data name="enjoy_vs" xml:space="preserve">
     <value>Enjoy VS Coding!</value>
+  </data>
+  <data name="sueecssTip2" xml:space="preserve">
+    <value>打开VS工程(是)</value>
+  </data>
+  <data name="sueecssTip3" xml:space="preserve">
+    <value>打开文件夹(否)</value>
+  </data>
+  <data name="sueecssTip4" xml:space="preserve">
+    <value>退出(取消)</value>
   </data>
 </root>
