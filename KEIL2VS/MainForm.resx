@@ -7330,7 +7330,4 @@
         AAAAAAAAAAAAAAAAAAA=
 </value>
   </data>
-  <data name="configupdate" xml:space="preserve">
-    <value>配置版本更新,请重新设置keil 软件的安装路径</value>
-  </data>
 </root>

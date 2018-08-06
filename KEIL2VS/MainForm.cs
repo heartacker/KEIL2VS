@@ -72,7 +72,6 @@ namespace KEIL2VS
                 tbKeil_path.AllowDrop = false;
             }
             UpDateCurfolderUproj(sender, e);
-
         }
 
 
@@ -114,8 +113,13 @@ namespace KEIL2VS
             SourcePathCBOX.Items.Clear();
             for (var i = 0; i < it.GetLength(0); i++)
             {
-                SourcePathCBOX.Items.Add(it[i].FileFullname);
+
+                SourcePathCBOX.Items.Add(it[i].FileName);
             }
+
+
+            cboxbatch.Visible = it.Length <= 1 ? false : true;
+
             //this.SourcePathCBOX.Items.Add(this.preStr.selectnewfolder);
             SourcePathCBOX.SelectedIndex = 0;
         }
@@ -247,6 +251,7 @@ namespace KEIL2VS
         private void TryDispuProjinfo(string fileFullname)
         {
             if (!MDK_Display_Info(fileFullname)) return;
+            UpdataLinkOfProject(fileFullname);
             _projectIno.CuruProjectFileDir = fileFullname;
             _projectIno.MdkProjectFile = fileFullname;
             _projectIno.MdkProjectPath = Path.GetDirectoryName(fileFullname) + "\\";
@@ -254,6 +259,15 @@ namespace KEIL2VS
             _projectIno.VcxprojName = _projectIno.ProjectName + ".vcxproj";
             _projectIno.VcFiltersName = _projectIno.VcxprojName + ".filters";
             _projectIno.VcUserFileName = _projectIno.VcxprojName + ".user";
+        }
+
+        private void UpdataLinkOfProject(string fileFullname)
+        {
+            llbeUprojPath.Links.Clear();
+            string padleft = "";
+            llbeUprojPath.Text = padleft + fileFullname;
+            llbeUprojPath.Links.Add(padleft.Length, fileFullname.Length, fileFullname);
+            llbeUprojPath.Links[0].Visited = false;
         }
 
         private void Keil2VsDragEnter(object sander, DragEventArgs e)
@@ -896,6 +910,10 @@ namespace KEIL2VS
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
+            if (cboxbatch.Visible&&cboxbatch.Checked)
+            {
+
+            }
             var folderBrowserDialog = new FolderBrowserDialog
             {
                 //RootFolder = Environment.SpecialFolder.MyComputer,
@@ -1178,6 +1196,18 @@ namespace KEIL2VS
             {
                 UpDateCurfolderUproj(sender, e);
             }
+        }
+
+        private void llbeUprojPath_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string targetUrl = e.Link.LinkData as string;
+            if (string.IsNullOrEmpty(targetUrl))
+            {
+                return;
+            }
+            llbeUprojPath.Links[llbeUprojPath.Links.IndexOf(e.Link)].Visited = true;
+
+            Process.Start(targetUrl);
         }
         //private void Keil2VS_MouseEnter(object sender, EventArgs e)
         //{
