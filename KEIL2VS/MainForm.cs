@@ -77,7 +77,21 @@ namespace KEIL2VS
 
         private void UpDateCurfolderUproj(object sender, EventArgs e)
         {
-            if (!ScanCurrentFolderHas_uProj(_preStr.ApplicationStartpath, ref _fileInfos))
+            string scanpath = _preStr.ApplicationStartpath;
+            //try
+            //{
+            //    if ((Button)sender == btnRefresh)
+            //    {
+            //        scanpath = new FileInfo(_uprojInfo[SourcePathCBOX.SelectedIndex].FileFullname).DirectoryName;
+            //    }
+            //}
+            //catch
+            //{
+
+
+            //}
+
+            if (!ScanCurrentFolderHas_uProj(scanpath, ref _fileInfos))
                 return;
 
             _uprojInfo = new UprojInfo[_fileInfos.GetLength(0)];
@@ -87,7 +101,7 @@ namespace KEIL2VS
                 _uprojInfo[i].FileFullname = _fileInfos[i].FullName;
             }
             SourcePathComobox_add(_uprojInfo);
-            sourcepathTip.Show(_preStr.FindUprojInThisFolder, SourcePathCBOX, SourcePathCBOX.Location.X + 200, SourcePathCBOX.Top - 100, 1000 * 10);
+            //sourcepathTip.Show(_preStr.FindUprojInThisFolder, SourcePathCBOX, SourcePathCBOX.Location.X + 200, SourcePathCBOX.Top - 100, 1000 * 10);
             TryDispuProjinfo(_uprojInfo[0].FileFullname);
         }
 
@@ -497,8 +511,8 @@ namespace KEIL2VS
                 {
                     defineString += ";";
                 }
-                defineString = "".Replace(',', ';');
-                return "";
+                defineString = defineString.Replace(',', ';');
+                return defineString;
             }
             return null;
         }

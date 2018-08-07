@@ -70,6 +70,16 @@ namespace KEIL2VS.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap refresh {
+            get {
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Select Keil Vision4 Exe Path 的本地化字符串。
         /// </summary>
         public static string SELUV4PATH {
