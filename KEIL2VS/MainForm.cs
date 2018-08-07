@@ -197,11 +197,7 @@ namespace KEIL2VS
             {
                 new Process
                 {
-                    StartInfo =
-                {
-                    FileName = "notepad++.exe",
-                    Arguments = text
-                }
+                    StartInfo = { FileName = "notepad++.exe", Arguments = text }
                 }.Start();
             }
             catch
@@ -209,11 +205,7 @@ namespace KEIL2VS
 
                 new Process
                 {
-                    StartInfo =
-                {
-                    FileName = "notepad.exe",
-                    Arguments = text
-                }
+                    StartInfo = { FileName = "notepad.exe", Arguments = text }
                 }.Start();
             }
 
@@ -236,7 +228,6 @@ namespace KEIL2VS
             _uprojInfo = new UprojInfo[1];
             _uprojInfo[0].FileName = _projectIno.ProjectName;
             _uprojInfo[0].FileFullname = _projectIno.MdkProjectFile;
-
             SourcePathCBOX.Text = _uprojInfo[0].FileFullname;
             SourcePathComobox_add(_uprojInfo);
 
