@@ -127,13 +127,9 @@ namespace KEIL2VS
             SourcePathCBOX.Items.Clear();
             for (var i = 0; i < it.GetLength(0); i++)
             {
-
                 SourcePathCBOX.Items.Add(it[i].FileName);
             }
-
-
             //cboxbatch.Visible = it.Length <= 1 ? false : true;
-
             //this.SourcePathCBOX.Items.Add(this.preStr.selectnewfolder);
             SourcePathCBOX.SelectedIndex = 0;
         }
