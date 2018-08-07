@@ -211,6 +211,7 @@ namespace KEIL2VS
             this.cboxbatch.TabIndex = 4;
             this.cboxbatch.Text = "Batch";
             this.cboxbatch.UseVisualStyleBackColor = true;
+            this.cboxbatch.Visible = false;
             // 
             // llbeUprojPath
             // 

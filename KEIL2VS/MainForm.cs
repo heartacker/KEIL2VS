@@ -132,7 +132,7 @@ namespace KEIL2VS
             }
 
 
-            cboxbatch.Visible = it.Length <= 1 ? false : true;
+            //cboxbatch.Visible = it.Length <= 1 ? false : true;
 
             //this.SourcePathCBOX.Items.Add(this.preStr.selectnewfolder);
             SourcePathCBOX.SelectedIndex = 0;
