@@ -203,10 +203,7 @@ namespace KEIL2VS
             catch
             {
 
-                new Process
-                {
-                    StartInfo = { FileName = "notepad.exe", Arguments = text }
-                }.Start();
+                Process.Start(text);
             }
 
         }
