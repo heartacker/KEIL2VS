@@ -1229,6 +1229,11 @@ namespace KEIL2VS
             }
 
         }
+
+        private void cboxtrack_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
         //private void Keil2VS_MouseEnter(object sender, EventArgs e)
         //{
         //    if (e.Data.GetDataPresent(DataFormats.FileDrop))

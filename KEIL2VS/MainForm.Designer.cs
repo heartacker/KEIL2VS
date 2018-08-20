@@ -54,6 +54,7 @@ namespace KEIL2VS
             this.lbppd = new System.Windows.Forms.Label();
             this.tb_predef = new System.Windows.Forms.TextBox();
             this.sourcepathTip = new System.Windows.Forms.ToolTip(this.components);
+            this.cboxtrack = new System.Windows.Forms.CheckBox();
             this.gbTargetGroup.SuspendLayout();
             this.gbTargetInfo.SuspendLayout();
             this.gbSourceGroup.SuspendLayout();
@@ -186,6 +187,7 @@ namespace KEIL2VS
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.LightSalmon;
+            this.groupBox1.Controls.Add(this.cboxtrack);
             this.groupBox1.Controls.Add(this.btnRefresh);
             this.groupBox1.Controls.Add(this.cboxbatch);
             this.groupBox1.Controls.Add(this.llbeUprojPath);
@@ -196,7 +198,7 @@ namespace KEIL2VS
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(753, 92);
+            this.groupBox1.Size = new System.Drawing.Size(753, 106);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Keil Project File Path";
@@ -209,7 +211,7 @@ namespace KEIL2VS
             this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnRefresh.FlatAppearance.BorderSize = 0;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Location = new System.Drawing.Point(641, 59);
+            this.btnRefresh.Location = new System.Drawing.Point(641, 73);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(23, 22);
             this.btnRefresh.TabIndex = 5;
@@ -220,7 +222,7 @@ namespace KEIL2VS
             // 
             this.cboxbatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboxbatch.AutoSize = true;
-            this.cboxbatch.Location = new System.Drawing.Point(685, 13);
+            this.cboxbatch.Location = new System.Drawing.Point(686, 22);
             this.cboxbatch.Name = "cboxbatch";
             this.cboxbatch.Size = new System.Drawing.Size(61, 18);
             this.cboxbatch.TabIndex = 4;
@@ -232,10 +234,11 @@ namespace KEIL2VS
             // 
             this.llbeUprojPath.AutoEllipsis = true;
             this.llbeUprojPath.AutoSize = true;
+            this.llbeUprojPath.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llbeUprojPath.LinkColor = System.Drawing.Color.Green;
-            this.llbeUprojPath.Location = new System.Drawing.Point(7, 19);
+            this.llbeUprojPath.Location = new System.Drawing.Point(7, 27);
             this.llbeUprojPath.Name = "llbeUprojPath";
-            this.llbeUprojPath.Size = new System.Drawing.Size(266, 14);
+            this.llbeUprojPath.Size = new System.Drawing.Size(342, 19);
             this.llbeUprojPath.TabIndex = 3;
             this.llbeUprojPath.TabStop = true;
             this.llbeUprojPath.Text = "Please select one uproject to convert";
@@ -245,7 +248,7 @@ namespace KEIL2VS
             // 
             this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenFolder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnOpenFolder.Location = new System.Drawing.Point(670, 55);
+            this.btnOpenFolder.Location = new System.Drawing.Point(670, 69);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(76, 30);
             this.btnOpenFolder.TabIndex = 1;
@@ -258,10 +261,11 @@ namespace KEIL2VS
             this.SourcePathCBOX.AllowDrop = true;
             this.SourcePathCBOX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.SourcePathCBOX.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SourcePathCBOX.FormattingEnabled = true;
-            this.SourcePathCBOX.Location = new System.Drawing.Point(5, 59);
+            this.SourcePathCBOX.Location = new System.Drawing.Point(5, 71);
             this.SourcePathCBOX.Name = "SourcePathCBOX";
-            this.SourcePathCBOX.Size = new System.Drawing.Size(630, 22);
+            this.SourcePathCBOX.Size = new System.Drawing.Size(630, 27);
             this.SourcePathCBOX.TabIndex = 0;
             this.SourcePathCBOX.Text = "Open Or drop The Keil the Project File to here";
             this.SourcePathCBOX.SelectionChangeCommitted += new System.EventHandler(this.SourcePathCBOX_SelectionChangeCommitted);
@@ -300,7 +304,7 @@ namespace KEIL2VS
             // lbppd
             // 
             this.lbppd.AutoSize = true;
-            this.lbppd.Location = new System.Drawing.Point(12, 168);
+            this.lbppd.Location = new System.Drawing.Point(12, 174);
             this.lbppd.Name = "lbppd";
             this.lbppd.Size = new System.Drawing.Size(189, 14);
             this.lbppd.TabIndex = 23;
@@ -312,7 +316,7 @@ namespace KEIL2VS
             this.tb_predef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_predef.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_predef.Location = new System.Drawing.Point(207, 163);
+            this.tb_predef.Location = new System.Drawing.Point(207, 169);
             this.tb_predef.Name = "tb_predef";
             this.tb_predef.Size = new System.Drawing.Size(544, 26);
             this.tb_predef.TabIndex = 24;
@@ -323,6 +327,17 @@ namespace KEIL2VS
             // 
             this.sourcepathTip.IsBalloon = true;
             this.sourcepathTip.ToolTipTitle = "Pooppoo";
+            // 
+            // cboxtrack
+            // 
+            this.cboxtrack.AutoSize = true;
+            this.cboxtrack.Location = new System.Drawing.Point(601, -1);
+            this.cboxtrack.Name = "cboxtrack";
+            this.cboxtrack.Size = new System.Drawing.Size(152, 18);
+            this.cboxtrack.TabIndex = 6;
+            this.cboxtrack.Text = "Track This Project";
+            this.cboxtrack.UseVisualStyleBackColor = true;
+            this.cboxtrack.CheckedChanged += new System.EventHandler(this.cboxtrack_CheckedChanged);
             // 
             // MainForm
             // 
@@ -382,6 +397,7 @@ namespace KEIL2VS
         private LinkLabel llbeUprojPath;
         private CheckBox cboxbatch;
         private Button btnRefresh;
+        private CheckBox cboxtrack;
     }
 }
 
