@@ -51,7 +51,6 @@ namespace KEIL2VS
             if (!TryGetSoftwarePath(ref _config.UV4Path))
             {
                 ReadConfig(_config.DocName);
-                _projectIno.UV4Path = _config.UV4Path + " ";
             }
             else
             {
@@ -71,6 +70,10 @@ namespace KEIL2VS
                 tbKeil_path.Text = _config.UV4Path;
                 tbKeil_path.AllowDrop = false;
             }
+            #region BUILD PART 0
+            _projectIno.UV4Path = _config.UV4Path + " ";
+            //_projectIno.UV4Path = "UV4";
+            #endregion
             UpDateCurfolderUproj(sender, e);
         }
 
@@ -939,8 +942,14 @@ namespace KEIL2VS
             }
             string[] targets = MDK_TargetRead(_projectIno.MdkProjectFile);
             var relativePath = GetRelativePath(_projectIno.VcProjectPath, _projectIno.MdkProjectFile);
-            _projectIno.NMakeBuildCommandLine = string.Concat("\"", _projectIno.UV4Path, "\" -b ", relativePath, " -t \"Target\" -j0 -o Build.log");
+            #region BUILD PART
+            _projectIno.NMakeBuildCommandLine = string.Concat(_projectIno.UV4Path, " -b ", _projectIno.MdkProjectFile);
+            //_projectIno.NMakeBuildCommandLine = string.Concat(_projectIno.UV4Path, " -b ", _projectIno.MdkProjectFile, " -t \"Target\" -j0 -o Build.log");
+            //_projectIno.NMakeBuildCommandLine = string.Concat(_projectIno.UV4Path, " -b ", relativePath, " -t \"Target\" -j0 -o Build.log");
             _projectIno.LocalDebuggerCommandArguments = "-d " + _projectIno.ProjectName + ".uvproj -t \"Target\"";
+
+            #endregion
+
 
             var docName = _projectIno.VcProjectPath + _projectIno.ProjectName + ".sln";
             VC_Creat_Sln(docName, _projectIno.ProjectName, targets);
