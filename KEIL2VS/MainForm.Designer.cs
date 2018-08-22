@@ -44,6 +44,7 @@ namespace KEIL2VS
             this.FileBox = new System.Windows.Forms.ListBox();
             this.GroupListBox = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboxtrack = new System.Windows.Forms.CheckBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.cboxbatch = new System.Windows.Forms.CheckBox();
             this.llbeUprojPath = new System.Windows.Forms.LinkLabel();
@@ -54,7 +55,6 @@ namespace KEIL2VS
             this.lbppd = new System.Windows.Forms.Label();
             this.tb_predef = new System.Windows.Forms.TextBox();
             this.sourcepathTip = new System.Windows.Forms.ToolTip(this.components);
-            this.cboxtrack = new System.Windows.Forms.CheckBox();
             this.gbTargetGroup.SuspendLayout();
             this.gbTargetInfo.SuspendLayout();
             this.gbSourceGroup.SuspendLayout();
@@ -64,7 +64,7 @@ namespace KEIL2VS
             // 
             // CreateButton
             // 
-            this.CreateButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.CreateButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CreateButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CreateButton.Font = new System.Drawing.Font("Consolas", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -80,7 +80,7 @@ namespace KEIL2VS
             // 
             // gbTargetGroup
             // 
-            this.gbTargetGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.gbTargetGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbTargetGroup.Controls.Add(this.elementHost);
             this.gbTargetGroup.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -95,7 +95,7 @@ namespace KEIL2VS
             // 
             // elementHost
             // 
-            this.elementHost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.elementHost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.elementHost.FormattingEnabled = true;
             this.elementHost.Location = new System.Drawing.Point(5, 19);
@@ -106,7 +106,7 @@ namespace KEIL2VS
             // 
             // gbTargetInfo
             // 
-            this.gbTargetInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.gbTargetInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbTargetInfo.Controls.Add(this.TargetStatus);
             this.gbTargetInfo.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -121,8 +121,8 @@ namespace KEIL2VS
             // 
             // TargetStatus
             // 
-            this.TargetStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.TargetStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TargetStatus.BackColor = System.Drawing.SystemColors.Window;
             this.TargetStatus.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -137,8 +137,8 @@ namespace KEIL2VS
             // 
             // gbSourceGroup
             // 
-            this.gbSourceGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.gbSourceGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbSourceGroup.Controls.Add(this.FileBox);
             this.gbSourceGroup.Controls.Add(this.GroupListBox);
@@ -154,8 +154,8 @@ namespace KEIL2VS
             // 
             // FileBox
             // 
-            this.FileBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.FileBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FileBox.FormattingEnabled = true;
             this.FileBox.HorizontalScrollbar = true;
@@ -168,7 +168,7 @@ namespace KEIL2VS
             // 
             // GroupListBox
             // 
-            this.GroupListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.GroupListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.GroupListBox.BackColor = System.Drawing.SystemColors.Window;
             this.GroupListBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -184,7 +184,7 @@ namespace KEIL2VS
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.LightSalmon;
             this.groupBox1.Controls.Add(this.cboxtrack);
@@ -202,6 +202,18 @@ namespace KEIL2VS
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Keil Project File Path";
+            // 
+            // cboxtrack
+            // 
+            this.cboxtrack.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.cboxtrack.AutoSize = true;
+            this.cboxtrack.Location = new System.Drawing.Point(601, -1);
+            this.cboxtrack.Name = "cboxtrack";
+            this.cboxtrack.Size = new System.Drawing.Size(152, 18);
+            this.cboxtrack.TabIndex = 6;
+            this.cboxtrack.Text = "Track This Project";
+            this.cboxtrack.UseVisualStyleBackColor = true;
+            this.cboxtrack.CheckedChanged += new System.EventHandler(this.Cboxtrack_CheckedChanged);
             // 
             // btnRefresh
             // 
@@ -242,7 +254,7 @@ namespace KEIL2VS
             this.llbeUprojPath.TabIndex = 3;
             this.llbeUprojPath.TabStop = true;
             this.llbeUprojPath.Text = "Please select one uproject to convert";
-            this.llbeUprojPath.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbeUprojPath_LinkClicked);
+            this.llbeUprojPath.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklabelUprojPath_LinkClicked);
             // 
             // btnOpenFolder
             // 
@@ -259,7 +271,7 @@ namespace KEIL2VS
             // SourcePathCBOX
             // 
             this.SourcePathCBOX.AllowDrop = true;
-            this.SourcePathCBOX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.SourcePathCBOX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SourcePathCBOX.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SourcePathCBOX.FormattingEnabled = true;
@@ -274,7 +286,7 @@ namespace KEIL2VS
             // 
             // gbKeilExePath
             // 
-            this.gbKeilExePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.gbKeilExePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbKeilExePath.Controls.Add(this.tbKeil_path);
             this.gbKeilExePath.Location = new System.Drawing.Point(5, 12);
@@ -287,8 +299,8 @@ namespace KEIL2VS
             // tbKeil_path
             // 
             this.tbKeil_path.AllowDrop = true;
-            this.tbKeil_path.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tbKeil_path.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbKeil_path.BackColor = System.Drawing.SystemColors.Window;
             this.tbKeil_path.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -313,7 +325,7 @@ namespace KEIL2VS
             // 
             // tb_predef
             // 
-            this.tb_predef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tb_predef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_predef.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_predef.Location = new System.Drawing.Point(207, 169);
@@ -327,17 +339,6 @@ namespace KEIL2VS
             // 
             this.sourcepathTip.IsBalloon = true;
             this.sourcepathTip.ToolTipTitle = "Pooppoo";
-            // 
-            // cboxtrack
-            // 
-            this.cboxtrack.AutoSize = true;
-            this.cboxtrack.Location = new System.Drawing.Point(601, -1);
-            this.cboxtrack.Name = "cboxtrack";
-            this.cboxtrack.Size = new System.Drawing.Size(152, 18);
-            this.cboxtrack.TabIndex = 6;
-            this.cboxtrack.Text = "Track This Project";
-            this.cboxtrack.UseVisualStyleBackColor = true;
-            this.cboxtrack.CheckedChanged += new System.EventHandler(this.cboxtrack_CheckedChanged);
             // 
             // MainForm
             // 

@@ -1220,7 +1220,7 @@ namespace KEIL2VS
             }
         }
 
-        private void llbeUprojPath_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinklabelUprojPath_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string targetUrl = e.Link.LinkData as string;
             if (string.IsNullOrEmpty(targetUrl))
@@ -1239,7 +1239,7 @@ namespace KEIL2VS
 
         }
 
-        private void cboxtrack_CheckedChanged(object sender, EventArgs e)
+        private void Cboxtrack_CheckedChanged(object sender, EventArgs e)
         {
 
         }
