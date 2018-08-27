@@ -207,7 +207,7 @@ namespace KEIL2VS
             // 
             this.cboxtrack.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.cboxtrack.AutoSize = true;
-            this.cboxtrack.Location = new System.Drawing.Point(601, -1);
+            this.cboxtrack.Location = new System.Drawing.Point(600, 0);
             this.cboxtrack.Name = "cboxtrack";
             this.cboxtrack.Size = new System.Drawing.Size(152, 18);
             this.cboxtrack.TabIndex = 6;
