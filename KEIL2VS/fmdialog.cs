@@ -12,9 +12,14 @@ namespace KEIL2VS
 {
     public partial class fmdialog : Form
     {
-        public fmdialog()
+        public fmdialog(string tipsMessage)
         {
-            InitializeComponent();
+            InitializeComponent(tipsMessage);
+        }
+
+        private void btnOpenAndtrack_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
