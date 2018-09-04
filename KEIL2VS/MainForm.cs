@@ -75,6 +75,7 @@ namespace KEIL2VS
             //_projectIno.UV4Path = "UV4";
             #endregion
             UpDateCurfolderUproj(sender, e);
+            ShowDialog(new fmdialog("恭喜") { Visible = true });
         }
 
 
