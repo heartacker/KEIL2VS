@@ -75,7 +75,9 @@ namespace KEIL2VS
             //_projectIno.UV4Path = "UV4";
             #endregion
             UpDateCurfolderUproj(sender, e);
-            ShowDialog(new fmdialog("恭喜") { Visible = true });
+            fmdia = new Fmdialog("恭喜");
+            fmdia.ShowDialog();
+
         }
 
 
@@ -1185,6 +1187,8 @@ namespace KEIL2VS
             public string ApplicationStartpath { get; set; }
             public string Sourepretext { get; set; }
         }
+
+        Fmdialog fmdia;
 
         private void SourcePathCBOX_SelectionChangeCommitted(object sender, EventArgs e)
         {

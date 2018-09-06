@@ -1,13 +1,12 @@
 ﻿namespace KEIL2VS
 {
-    partial class fmdialog
+    partial class Fmdialog
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        const string str = "成功地将Keil Project 转为Visual Studio Project！\n请重载（如已经打开）或者打开当前Project ，享受visual Studi" +
-   "o 带来的高效和便利吧";
+        static public string TipMessage=string.Empty;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -28,7 +27,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent(string TipMessage = str)
+        private void InitializeComponent()
         {
             this.btnOpenAndtrack = new System.Windows.Forms.Button();
             this.rtbDialog = new System.Windows.Forms.RichTextBox();
@@ -46,18 +45,21 @@
             this.btnOpenAndtrack.TabIndex = 0;
             this.btnOpenAndtrack.Text = "打开并监控此工程";
             this.btnOpenAndtrack.UseVisualStyleBackColor = true;
-            this.btnOpenAndtrack.Click += new System.EventHandler(this.btnOpenAndtrack_Click);
+            this.btnOpenAndtrack.Click += new System.EventHandler(this.BtnAction);
             // 
             // rtbDialog
             // 
             this.rtbDialog.BackColor = System.Drawing.SystemColors.Control;
             this.rtbDialog.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbDialog.Enabled = false;
             this.rtbDialog.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rtbDialog.Location = new System.Drawing.Point(16, 12);
             this.rtbDialog.Name = "rtbDialog";
+            this.rtbDialog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.rtbDialog.Size = new System.Drawing.Size(399, 77);
             this.rtbDialog.TabIndex = 1;
             this.rtbDialog.Text = TipMessage;
+            //this.rtbDialog.Text = TipMessage;
             // 
             // btnOpenOnly
             // 
@@ -78,6 +80,7 @@
             this.btmOpenFolderOnly.TabIndex = 3;
             this.btmOpenFolderOnly.Text = "打开当前工程文件夹";
             this.btmOpenFolderOnly.UseVisualStyleBackColor = true;
+            this.btmOpenFolderOnly.Click += new System.EventHandler(this.BtnAction);
             // 
             // btnCancel
             // 
@@ -89,7 +92,7 @@
             this.btnCancel.Text = "什么都不做";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // fmdialog
+            // Fmdialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -100,8 +103,8 @@
             this.Controls.Add(this.rtbDialog);
             this.Controls.Add(this.btnOpenAndtrack);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "fmdialog";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Name = "Fmdialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "生成成功~~";
             this.TransparencyKey = System.Drawing.Color.Transparent;
