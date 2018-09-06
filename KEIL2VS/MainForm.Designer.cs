@@ -74,7 +74,7 @@ namespace KEIL2VS
             this.CreateButton.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CreateButton.Size = new System.Drawing.Size(753, 42);
             this.CreateButton.TabIndex = 8;
-            this.CreateButton.Text = "Create Visual Studio Project";
+            this.CreateButton.Text = "Create/Open Visual Studio Project";
             this.CreateButton.UseVisualStyleBackColor = true;
             this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
             // 
@@ -84,7 +84,7 @@ namespace KEIL2VS
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbTargetGroup.Controls.Add(this.elementHost);
             this.gbTargetGroup.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbTargetGroup.Location = new System.Drawing.Point(5, 192);
+            this.gbTargetGroup.Location = new System.Drawing.Point(5, 196);
             this.gbTargetGroup.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbTargetGroup.Name = "gbTargetGroup";
             this.gbTargetGroup.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -194,7 +194,7 @@ namespace KEIL2VS
             this.groupBox1.Controls.Add(this.btnOpenFolder);
             this.groupBox1.Controls.Add(this.SourcePathCBOX);
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(5, 64);
+            this.groupBox1.Location = new System.Drawing.Point(5, 48);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -234,7 +234,7 @@ namespace KEIL2VS
             // 
             this.cboxbatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboxbatch.AutoSize = true;
-            this.cboxbatch.Location = new System.Drawing.Point(686, 22);
+            this.cboxbatch.Location = new System.Drawing.Point(515, -1);
             this.cboxbatch.Name = "cboxbatch";
             this.cboxbatch.Size = new System.Drawing.Size(61, 18);
             this.cboxbatch.TabIndex = 4;
@@ -245,12 +245,11 @@ namespace KEIL2VS
             // llbeUprojPath
             // 
             this.llbeUprojPath.AutoEllipsis = true;
-            this.llbeUprojPath.AutoSize = true;
             this.llbeUprojPath.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llbeUprojPath.LinkColor = System.Drawing.Color.Green;
-            this.llbeUprojPath.Location = new System.Drawing.Point(7, 27);
+            this.llbeUprojPath.Location = new System.Drawing.Point(7, 31);
             this.llbeUprojPath.Name = "llbeUprojPath";
-            this.llbeUprojPath.Size = new System.Drawing.Size(342, 19);
+            this.llbeUprojPath.Size = new System.Drawing.Size(739, 19);
             this.llbeUprojPath.TabIndex = 3;
             this.llbeUprojPath.TabStop = true;
             this.llbeUprojPath.Text = "Please select one uproject to convert";
@@ -289,7 +288,7 @@ namespace KEIL2VS
             this.gbKeilExePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbKeilExePath.Controls.Add(this.tbKeil_path);
-            this.gbKeilExePath.Location = new System.Drawing.Point(5, 12);
+            this.gbKeilExePath.Location = new System.Drawing.Point(5, 1);
             this.gbKeilExePath.Name = "gbKeilExePath";
             this.gbKeilExePath.Size = new System.Drawing.Size(753, 45);
             this.gbKeilExePath.TabIndex = 21;
@@ -315,8 +314,10 @@ namespace KEIL2VS
             // 
             // lbppd
             // 
+            this.lbppd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbppd.AutoSize = true;
-            this.lbppd.Location = new System.Drawing.Point(12, 174);
+            this.lbppd.Location = new System.Drawing.Point(12, 173);
             this.lbppd.Name = "lbppd";
             this.lbppd.Size = new System.Drawing.Size(189, 14);
             this.lbppd.TabIndex = 23;

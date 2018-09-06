@@ -6,7 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        static public string TipMessage=string.Empty;
+        static public string TipMessage="";
 
         /// <summary>
         /// Clean up any resources being used.
@@ -39,9 +39,9 @@
             // btnOpenAndtrack
             // 
             this.btnOpenAndtrack.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOpenAndtrack.Location = new System.Drawing.Point(16, 95);
+            this.btnOpenAndtrack.Location = new System.Drawing.Point(12, 95);
             this.btnOpenAndtrack.Name = "btnOpenAndtrack";
-            this.btnOpenAndtrack.Size = new System.Drawing.Size(87, 44);
+            this.btnOpenAndtrack.Size = new System.Drawing.Size(80, 50);
             this.btnOpenAndtrack.TabIndex = 0;
             this.btnOpenAndtrack.Text = "打开并监控此工程";
             this.btnOpenAndtrack.UseVisualStyleBackColor = true;
@@ -53,30 +53,30 @@
             this.rtbDialog.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbDialog.Enabled = false;
             this.rtbDialog.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rtbDialog.Location = new System.Drawing.Point(16, 12);
+            this.rtbDialog.Location = new System.Drawing.Point(12, 9);
             this.rtbDialog.Name = "rtbDialog";
             this.rtbDialog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbDialog.Size = new System.Drawing.Size(399, 77);
+            this.rtbDialog.Size = new System.Drawing.Size(400, 80);
             this.rtbDialog.TabIndex = 1;
-            this.rtbDialog.Text = TipMessage;
-            //this.rtbDialog.Text = TipMessage;
+            this.rtbDialog.Text = "";
             // 
             // btnOpenOnly
             // 
             this.btnOpenOnly.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOpenOnly.Location = new System.Drawing.Point(136, 95);
+            this.btnOpenOnly.Location = new System.Drawing.Point(118, 95);
             this.btnOpenOnly.Name = "btnOpenOnly";
-            this.btnOpenOnly.Size = new System.Drawing.Size(61, 44);
+            this.btnOpenOnly.Size = new System.Drawing.Size(80, 50);
             this.btnOpenOnly.TabIndex = 2;
             this.btnOpenOnly.Text = "仅打开此工程";
             this.btnOpenOnly.UseVisualStyleBackColor = true;
+            this.btnOpenOnly.Click += new System.EventHandler(this.BtnAction);
             // 
             // btmOpenFolderOnly
             // 
             this.btmOpenFolderOnly.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btmOpenFolderOnly.Location = new System.Drawing.Point(230, 95);
+            this.btmOpenFolderOnly.Location = new System.Drawing.Point(224, 95);
             this.btmOpenFolderOnly.Name = "btmOpenFolderOnly";
-            this.btmOpenFolderOnly.Size = new System.Drawing.Size(75, 44);
+            this.btmOpenFolderOnly.Size = new System.Drawing.Size(80, 50);
             this.btmOpenFolderOnly.TabIndex = 3;
             this.btmOpenFolderOnly.Text = "打开当前工程文件夹";
             this.btmOpenFolderOnly.UseVisualStyleBackColor = true;
@@ -85,18 +85,19 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCancel.Location = new System.Drawing.Point(338, 95);
+            this.btnCancel.Location = new System.Drawing.Point(330, 95);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(63, 44);
+            this.btnCancel.Size = new System.Drawing.Size(80, 50);
             this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "什么都不做";
+            this.btnCancel.Text = " 什      么 都不做";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.BtnAction);
             // 
             // Fmdialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 157);
+            this.ClientSize = new System.Drawing.Size(427, 170);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btmOpenFolderOnly);
             this.Controls.Add(this.btnOpenOnly);

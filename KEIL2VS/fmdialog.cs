@@ -30,11 +30,30 @@ namespace KEIL2VS
 
         private void BtnAction(object sender, EventArgs e)
         {
-            if ((Button)sender == btnCancel)
+            var btn = (Button)sender;
+            if (btn == btnCancel)
+            {
+                nextAction = NextAction.None;
+            }
+            else if (btn == btnOpenAndtrack)
+            {
+                nextAction = NextAction.OPenAndTrack;
+            }
+            else if (btn == btnOpenOnly)
             {
 
+                nextAction = NextAction.OpenOnly;
             }
-
+            else if (btn == btmOpenFolderOnly)
+            {
+                nextAction = NextAction.OPenFolder;
+            }
+            else
+            {
+                nextAction = NextAction.None;
+            }
+            this.Close();
         }
+
     }
 }
