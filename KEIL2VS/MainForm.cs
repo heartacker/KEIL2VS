@@ -28,6 +28,7 @@ namespace KEIL2VS
         private Infos.ProjectInfo projectIno;
         private Infos.Config config;
         private Infos.UprojInfo[] uprojInfo;
+        FileSystemWatcher watcher = new FileSystemWatcher();
 
         Fmdialog fmdia;
 
@@ -502,8 +503,45 @@ namespace KEIL2VS
 
             if (!Directory.Exists(projectIno.VcProjectPath))
             {
-                Directory.CreateDirectory(projectIno.VcProjectPath);
+                try
+                {
+                    Directory.CreateDirectory(projectIno.VcProjectPath);
+                }
+                catch (System.UnauthorizedAccessException)
+                {
+                    DialogResult dr = new DialogResult();
+                    dr = MessageBox.Show("没有权限在当前项目目录创建工程文件夹和解决方案文件。" +
+                         "\n1. 请确认当前文件夹时否为只读文件夹！" +
+                         "\n2. 请确认是否使用管理员身份打开当前工具！",
+                         "创建失败",
+                         MessageBoxButtons.OK,
+                         MessageBoxIcon.Error);
+                    switch (dr)
+                    {
+                        case DialogResult.OK:
+                            break;
+                        case DialogResult.None:
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                        case DialogResult.Abort:
+                            break;
+                        case DialogResult.Retry:
+                            break;
+                        case DialogResult.Ignore:
+                            break;
+                        case DialogResult.Yes:
+                            break;
+                        case DialogResult.No:
+                            break;
+                        default:
+                            break;
+                    }
+                    return;
+                }
+
             }
+
             string[] targets = VsGen.MDK_TargetRead(projectIno.MdkProjectFile);
             var relativePath = VsGen.GetRelativePath(projectIno.VcProjectPath, projectIno.MdkProjectFile);
             #region BUILD PART
@@ -728,7 +766,25 @@ namespace KEIL2VS
         private void Cboxtrack_CheckedChanged(object sender, EventArgs e)
         {
 
+            FileWatchStart();
         }
+
+        private void FileWatchStart(FileInfo fileInfo, bool isNew)
+        {
+            watcher.EnableRaisingEvents = false;
+            watcher.BeginInit();
+            watcher.Path = fileInfo.DirectoryName;
+            //watcher.Filter = "*.xlsm|*.xlsx";
+            watcher.IncludeSubdirectories = true;
+            watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher.Changed += new FileSystemEventHandler(FileInfoChange);
+            //watcher.Created += new FileSystemEventHandler(FileInfoChange);
+            //watcher.Deleted += new FileSystemEventHandler(FileInfoChange);
+            //watcher.Renamed += new RenamedEventHandler(FileInfoChange_Rename);
+            watcher.EndInit();
+            watcher.EnableRaisingEvents = true;
+        }
+
         //private void Keil2VS_MouseEnter(object sender, EventArgs e)
         //{
         //    if (e.Data.GetDataPresent(DataFormats.FileDrop))
