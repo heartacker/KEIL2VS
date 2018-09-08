@@ -6,7 +6,6 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        static public string TipMessage="";
 
         /// <summary>
         /// Clean up any resources being used.
@@ -109,6 +108,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "生成成功~~";
             this.TransparencyKey = System.Drawing.Color.Transparent;
+            this.Load += new System.EventHandler(this.Fmdialog_Load);
             this.ResumeLayout(false);
 
         }

@@ -31,7 +31,7 @@ namespace KEIL2VS
 
         Fmdialog fmdia;
 
-        private  Infos.PreStr preStr = new Infos.PreStr
+        private Infos.PreStr preStr = new Infos.PreStr
         {
             ToolsVersion = "0.3",
             ApplicationStartpath = Path.GetDirectoryName(Application.ExecutablePath),
@@ -106,8 +106,6 @@ namespace KEIL2VS
             //_projectIno.UV4Path = "UV4";
             #endregion
             UpDateCurfolderUproj(sender, e);
-            fmdia = new Fmdialog("恭喜");
-            fmdia.ShowDialog();
 
         }
 
@@ -256,7 +254,7 @@ namespace KEIL2VS
             var fileName = openFileDialog.FileName;
             if (fileName == "") return;
 
-            if (!VsGen.MDK_CheckProject(fileName,ref preStr)) return;
+            if (!VsGen.MDK_CheckProject(fileName, ref preStr)) return;
 
             TryDispuProjinfo(fileName);
             uprojInfo = new Infos.UprojInfo[1];
@@ -473,9 +471,10 @@ namespace KEIL2VS
         }
 
         bool fixVSPath = true;
-        
+
         private void CreateButton_Click(object sender, EventArgs e)
         {
+            cboxtrack.Checked = false;
             if (cboxbatch.Visible && cboxbatch.Checked)
             {
 
@@ -520,47 +519,39 @@ namespace KEIL2VS
             VsGen.VC_Creat_Sln(docName, projectIno.ProjectName, targets);
 
             docName = projectIno.VcProjectPath + projectIno.VcFiltersName;
-            VsGen.VC_Filters_Create(docName, targets,ref projectIno);
+            VsGen.VC_Filters_Create(docName, targets, ref projectIno);
 
             docName = projectIno.VcProjectPath + projectIno.VcxprojName;
-            VsGen.VC_vcxproj_Create(docName, targets,ref projectIno, ref preStr, ref config);
+            VsGen.VC_vcxproj_Create(docName, targets, ref projectIno, ref preStr, ref config);
 
             projectIno.LocalDebuggerWorkingDirectory = VsGen.GetRelativePath(projectIno.VcProjectPath, projectIno.MdkProjectPath);
 
             docName = projectIno.VcProjectPath + projectIno.VcUserFileName;
-            VsGen.VC_Create_UserFile(docName, projectIno.LocalDebuggerCommandArguments, projectIno.LocalDebuggerWorkingDirectory, targets,ref projectIno);
+            VsGen.VC_Create_UserFile(docName, projectIno.LocalDebuggerCommandArguments, projectIno.LocalDebuggerWorkingDirectory, targets, ref projectIno);
 
             docName = projectIno.VcProjectPath + "readme.txt";
-            VsGen.VC_Creat_readme(docName, projectIno.ProjectName,ref preStr);
+            VsGen.VC_Creat_readme(docName, projectIno.ProjectName, ref preStr);
 
 
             docName = projectIno.VcProjectPath + projectIno.ProjectName + ".sln";
 
-            DialogResult dr = MessageBox.Show(
-                Resources.sueecssTip1 + "\r\n" +
-                Resources.sueecssTip2 + "\r\n" +
-                Resources.sueecssTip3 + "\r\n" +
-                Resources.sueecssTip4,
-                Resources.enjoy_vs,
-                MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Information);
             var baseUri = new Uri(docName);
             docName = VsGen.GetFullPath(docName, "");
-            switch (dr)
+            fmdia = new Fmdialog(
+
+                Resources.sueecssTip1 + "\r\n" +
+                Resources.enjoy_vs
+
+            );
+            Fmdialog.NextAction nextAct = Fmdialog.NextAction.None;
+            fmdia.ShowDialog();
+            nextAct = fmdia.nextAction;
+            switch (nextAct)
             {
-                case DialogResult.None:
+                case Fmdialog.NextAction.None:
                     break;
-                case DialogResult.OK:
-                    break;
-                case DialogResult.Cancel:
-                    break;
-                case DialogResult.Abort:
-                    break;
-                case DialogResult.Retry:
-                    break;
-                case DialogResult.Ignore:
-                    break;
-                case DialogResult.Yes:
+                case Fmdialog.NextAction.OPenAndTrack:
+                    cboxtrack.Checked = true;
                     try
                     {
                         Process.Start(docName);
@@ -571,11 +562,21 @@ namespace KEIL2VS
                     }
 
                     break;
-                case DialogResult.No:
+                case Fmdialog.NextAction.OpenOnly:
+                    try
+                    {
+                        Process.Start(docName);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    break;
+                case Fmdialog.NextAction.OPenFolder:
                     Process.Start(projectIno.VcProjectPath);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
         }
         private bool TryGetUV4Path(ref string path)

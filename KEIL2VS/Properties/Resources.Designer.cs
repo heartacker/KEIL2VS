@@ -47,7 +47,7 @@ namespace KEIL2VS.Properties {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
+        ///   重写当前线程的 CurrentUICulture 属性
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -94,33 +94,6 @@ namespace KEIL2VS.Properties {
         public static string sueecssTip1 {
             get {
                 return ResourceManager.GetString("sueecssTip1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 打开VS工程(是) 的本地化字符串。
-        /// </summary>
-        public static string sueecssTip2 {
-            get {
-                return ResourceManager.GetString("sueecssTip2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 打开文件夹(否) 的本地化字符串。
-        /// </summary>
-        public static string sueecssTip3 {
-            get {
-                return ResourceManager.GetString("sueecssTip3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 退出(取消) 的本地化字符串。
-        /// </summary>
-        public static string sueecssTip4 {
-            get {
-                return ResourceManager.GetString("sueecssTip4", resourceCulture);
             }
         }
         

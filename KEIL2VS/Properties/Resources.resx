@@ -132,15 +132,6 @@
   <data name="enjoy_vs" xml:space="preserve">
     <value>Enjoy VS Coding!</value>
   </data>
-  <data name="sueecssTip2" xml:space="preserve">
-    <value>打开VS工程(是)</value>
-  </data>
-  <data name="sueecssTip3" xml:space="preserve">
-    <value>打开文件夹(否)</value>
-  </data>
-  <data name="sueecssTip4" xml:space="preserve">
-    <value>退出(取消)</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

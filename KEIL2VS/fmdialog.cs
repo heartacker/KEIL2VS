@@ -15,12 +15,13 @@ namespace KEIL2VS
         public Fmdialog(string tipsMessage = "成功地将Keil Project 转为Visual Studio Project！\n请重载（如已经打开）或者打开当前Project ，享受visual Studi" +
    "o 带来的高效和便利吧")
         {
-            Fmdialog.TipMessage = tipsMessage;
+            this.TipMessage = tipsMessage;
             InitializeComponent();
         }
-        static NextAction nextAction = NextAction.None;
+        string TipMessage;
+        public NextAction nextAction = NextAction.None;
 
-        enum NextAction
+        public enum NextAction
         {
             None,
             OPenAndTrack,
@@ -55,5 +56,9 @@ namespace KEIL2VS
             this.Close();
         }
 
+        private void Fmdialog_Load(object sender, EventArgs e)
+        {
+            this.rtbDialog.Text = TipMessage;
+        }
     }
 }
