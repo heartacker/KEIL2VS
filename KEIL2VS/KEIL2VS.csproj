@@ -67,6 +67,8 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProjGen\infos.cs" />
+    <Compile Include="ProjGen\keil2vsGen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fmdialog.resx">
       <DependentUpon>fmdialog.cs</DependentUpon>
