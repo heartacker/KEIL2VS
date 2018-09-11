@@ -821,7 +821,7 @@ namespace KEIL2VS
             }
             else
             {
-                string uPdateInfo =" 此Keil工程的配置等信息已被更改！\n是否需要更新到VS Project？\n建议先保存VS工程然后同步并重新加载！\n为了更好的Coding体验。建议同步此配置到VS工程!";
+                string uPdateInfo ="此Keil工程的配置等信息已被更改！\n是否需要更新到VS Project？\n建议先保存VS工程然后同步并重新加载！\n为了更好的Coding体验。建议同步此配置到VS工程!";
                 if (rbMsg == null || rbMsg.IsDisposed)
                 {
 
@@ -829,7 +829,7 @@ namespace KEIL2VS
                     rbMsg.Text = fi.Name;
 
                 }
-                Point p = new Point(Screen.PrimaryScreen.WorkingArea.Width - rbMsg.Width - 10, Screen.PrimaryScreen.WorkingArea.Height - rbMsg.Height - 10);
+                Point p = new Point(Screen.PrimaryScreen.Bounds.Width - rbMsg.Width - 20, Screen.PrimaryScreen.Bounds.Height - rbMsg.Height - 20);
                 rbMsg.PointToClient(p);
                 rbMsg.Location = p;
                 rbMsg.TopMost = true;

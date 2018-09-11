@@ -59,7 +59,7 @@ namespace KEIL2VS
 
         private void RightBottomMsg_Load(object sender, EventArgs e)
         {
-
+            this.MaximumSize = new Size(this.Width, this.Height);
         }
     }
 }
