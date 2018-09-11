@@ -35,6 +35,7 @@ namespace KEIL2VS
         RightBottomMsg rbMsg;
         public delegate void MsgCaller(FileInfo fi);
         public MsgCaller showRigbMsg;
+        RightBottomMsg.UPDatePara uPdateAndNext = RightBottomMsg.UPDatePara.NONE;
 
         private Infos.PreStr preStr = new Infos.PreStr
         {
@@ -580,46 +581,49 @@ namespace KEIL2VS
 
             var baseUri = new Uri(docName);
             docName = VsGen.GetFullPath(docName, "");
-            fmdia = new Fmdialog(
-
-                Resources.sueecssTip1 + "\r\n" +
-                Resources.enjoy_vs
-
-            );
-            Fmdialog.NextAction nextAct = Fmdialog.NextAction.None;
-            fmdia.ShowDialog();
-            nextAct = fmdia.nextAction;
-            switch (nextAct)
+            if ((Button)sender == CreateButton)
             {
-                case Fmdialog.NextAction.None:
-                    break;
-                case Fmdialog.NextAction.OPenAndTrack:
-                    cboxtrack.Checked = true;
-                    try
-                    {
-                        Process.Start(docName);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                fmdia = new Fmdialog(
 
-                    break;
-                case Fmdialog.NextAction.OpenOnly:
-                    try
-                    {
-                        Process.Start(docName);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    break;
-                case Fmdialog.NextAction.OPenFolder:
-                    Process.Start(projectIno.VcProjectPath);
-                    break;
-                default:
-                    break;
+                    Resources.sueecssTip1 + "\r\n" +
+                    Resources.enjoy_vs
+
+                );
+                Fmdialog.NextAction nextAct = Fmdialog.NextAction.None;
+                fmdia.ShowDialog();
+                nextAct = fmdia.nextAction;
+                switch (nextAct)
+                {
+                    case Fmdialog.NextAction.None:
+                        break;
+                    case Fmdialog.NextAction.OPenAndTrack:
+                        cboxtrack.Checked = true;
+                        try
+                        {
+                            Process.Start(docName);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        break;
+                    case Fmdialog.NextAction.OpenOnly:
+                        try
+                        {
+                            Process.Start(docName);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        break;
+                    case Fmdialog.NextAction.OPenFolder:
+                        Process.Start(projectIno.VcProjectPath);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         private bool TryGetUV4Path(ref string path)
@@ -815,17 +819,35 @@ namespace KEIL2VS
             }
             else
             {
-                if (rbMsg != null && !rbMsg.IsDisposed)
+                if (rbMsg == null)
                 {
-                    rbMsg.Close();
-                    rbMsg.Dispose();
+                    rbMsg = new RightBottomMsg(fi.Name + "\n此工程已经被更改，是否需要更新到VS Project！\n为了更好的Coding体验。建议更新!");
                 }
-                rbMsg = new RightBottomMsg(fi.Name + "\n 此工程已经被更改，是否需要更新到VS Project！\n 为了更好的Coding体验。建议更新!");
                 Point p = new Point(Screen.PrimaryScreen.WorkingArea.Width - rbMsg.Width - 10, Screen.PrimaryScreen.WorkingArea.Height - rbMsg.Height - 10);
                 rbMsg.PointToClient(p);
                 rbMsg.Location = p;
-                rbMsg.Show();
-                rbMsg.BringToFront();
+                rbMsg.TopMost = true;
+                if (!rbMsg.Visible)
+                {
+                    rbMsg.ShowDialog();
+                    uPdateAndNext = rbMsg.uPDatePara;
+                    switch (uPdateAndNext)
+                    {
+                        case RightBottomMsg.UPDatePara.NONE:
+                            break;
+                        case RightBottomMsg.UPDatePara.UPDATA:
+                            CreateButton_Click(null, null);
+                            break;
+                        case RightBottomMsg.UPDatePara.IGNORE:
+                            break;
+                        case RightBottomMsg.UPDatePara.CANCLE:
+                            break;
+                        default:
+                            break;
+                    }
+                    rbMsg.Dispose();
+                }
+
             }
 
         }
