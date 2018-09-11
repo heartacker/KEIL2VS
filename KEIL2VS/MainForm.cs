@@ -481,7 +481,6 @@ namespace KEIL2VS
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            cboxtrack.Checked = false;
             if (cboxbatch.Visible && cboxbatch.Checked)
             {
 
@@ -609,6 +608,7 @@ namespace KEIL2VS
 
                         break;
                     case Fmdialog.NextAction.OpenOnly:
+                        cboxtrack.Checked = false;
                         try
                         {
                             Process.Start(docName);
@@ -619,6 +619,7 @@ namespace KEIL2VS
                         }
                         break;
                     case Fmdialog.NextAction.OPenFolder:
+                        cboxtrack.Checked = false;
                         Process.Start(projectIno.VcProjectPath);
                         break;
                     default:
@@ -803,6 +804,7 @@ namespace KEIL2VS
                 return;
             }
             FileInfo fiTemp = new FileInfo(fe.FullPath);
+            fiTemp = new FileInfo(fe.FullPath);
             if (handlingFi.LastWriteTime != fiTemp.LastWriteTime)
             {
                 handlingFi = fiTemp;
@@ -819,9 +821,13 @@ namespace KEIL2VS
             }
             else
             {
-                if (rbMsg == null)
+                string uPdateInfo =" 此Keil工程的配置等信息已被更改！\n是否需要更新到VS Project？\n建议先保存VS工程然后同步并重新加载！\n为了更好的Coding体验。建议同步此配置到VS工程!";
+                if (rbMsg == null || rbMsg.IsDisposed)
                 {
-                    rbMsg = new RightBottomMsg(fi.Name + "\n此工程已经被更改，是否需要更新到VS Project！\n为了更好的Coding体验。建议更新!");
+
+                    rbMsg = new RightBottomMsg(uPdateInfo);
+                    rbMsg.Text = fi.Name;
+
                 }
                 Point p = new Point(Screen.PrimaryScreen.WorkingArea.Width - rbMsg.Width - 10, Screen.PrimaryScreen.WorkingArea.Height - rbMsg.Height - 10);
                 rbMsg.PointToClient(p);
@@ -846,6 +852,19 @@ namespace KEIL2VS
                             break;
                     }
                     rbMsg.Dispose();
+                }
+                else
+                {
+                    rbMsg.rtbKeilIsChange.Text = uPdateInfo;
+                    rbMsg.Text = fi.Name;
+                    p = new Point(Screen.PrimaryScreen.WorkingArea.Width - rbMsg.Width - 10, Screen.PrimaryScreen.WorkingArea.Height - rbMsg.Height - 10);
+                    rbMsg.PointToClient(p);
+                    rbMsg.Location = p;
+                    if (rbMsg.WindowState==FormWindowState.Minimized)
+                    {
+                        rbMsg.WindowState = FormWindowState.Normal;
+                    }
+
                 }
 
             }

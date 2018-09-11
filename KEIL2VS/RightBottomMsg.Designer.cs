@@ -41,9 +41,10 @@ namespace KEIL2VS
             this.btnIgnore.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.btnIgnore.FlatAppearance.BorderSize = 0;
             this.btnIgnore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIgnore.Location = new System.Drawing.Point(54, 96);
+            this.btnIgnore.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F);
+            this.btnIgnore.Location = new System.Drawing.Point(130, 143);
             this.btnIgnore.Name = "btnIgnore";
-            this.btnIgnore.Size = new System.Drawing.Size(86, 42);
+            this.btnIgnore.Size = new System.Drawing.Size(106, 42);
             this.btnIgnore.TabIndex = 1;
             this.btnIgnore.Text = "忽略当前更改";
             this.btnIgnore.UseVisualStyleBackColor = false;
@@ -56,8 +57,8 @@ namespace KEIL2VS
             this.btnUpdataToVSp.BackColor = System.Drawing.Color.YellowGreen;
             this.btnUpdataToVSp.FlatAppearance.BorderSize = 0;
             this.btnUpdataToVSp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdataToVSp.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnUpdataToVSp.Location = new System.Drawing.Point(155, 96);
+            this.btnUpdataToVSp.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnUpdataToVSp.Location = new System.Drawing.Point(251, 143);
             this.btnUpdataToVSp.Name = "btnUpdataToVSp";
             this.btnUpdataToVSp.Size = new System.Drawing.Size(117, 42);
             this.btnUpdataToVSp.TabIndex = 0;
@@ -74,12 +75,12 @@ namespace KEIL2VS
             this.rtbKeilIsChange.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbKeilIsChange.Cursor = System.Windows.Forms.Cursors.No;
             this.rtbKeilIsChange.Enabled = false;
-            this.rtbKeilIsChange.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rtbKeilIsChange.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rtbKeilIsChange.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.rtbKeilIsChange.Location = new System.Drawing.Point(12, 0);
+            this.rtbKeilIsChange.Location = new System.Drawing.Point(12, 12);
             this.rtbKeilIsChange.Name = "rtbKeilIsChange";
             this.rtbKeilIsChange.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtbKeilIsChange.Size = new System.Drawing.Size(260, 90);
+            this.rtbKeilIsChange.Size = new System.Drawing.Size(356, 119);
             this.rtbKeilIsChange.TabIndex = 2;
             this.rtbKeilIsChange.Text = "";
             // 
@@ -87,11 +88,10 @@ namespace KEIL2VS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 161);
+            this.ClientSize = new System.Drawing.Size(380, 202);
             this.Controls.Add(this.rtbKeilIsChange);
             this.Controls.Add(this.btnUpdataToVSp);
             this.Controls.Add(this.btnIgnore);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "RightBottomMsg";
             this.Text = "RightBottomMsg";
             this.Load += new System.EventHandler(this.RightBottomMsg_Load);
@@ -103,6 +103,6 @@ namespace KEIL2VS
 
         private System.Windows.Forms.Button btnIgnore;
         private System.Windows.Forms.Button btnUpdataToVSp;
-        private System.Windows.Forms.RichTextBox rtbKeilIsChange;
+        public System.Windows.Forms.RichTextBox rtbKeilIsChange;
     }
 }
