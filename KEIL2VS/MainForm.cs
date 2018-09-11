@@ -29,6 +29,7 @@ namespace KEIL2VS
         private Infos.Config config;
         private Infos.UprojInfo[] uprojInfo;
         FileSystemWatcher watcher = new FileSystemWatcher();
+        FileInfo handlingFi;
 
         Fmdialog fmdia;
 
@@ -322,6 +323,7 @@ namespace KEIL2VS
             projectIno.VcxprojName = projectIno.ProjectName + ".vcxproj";
             projectIno.VcFiltersName = projectIno.VcxprojName + ".filters";
             projectIno.VcUserFileName = projectIno.VcxprojName + ".user";
+            handlingFi = new FileInfo(fileFullname);
         }
 
         private void UpdataLinkOfProject(string fileFullname)
@@ -765,8 +767,8 @@ namespace KEIL2VS
 
         private void Cboxtrack_CheckedChanged(object sender, EventArgs e)
         {
-
-            FileWatchStart();
+            handlingFi = new FileInfo(uprojInfo[SourcePathCBOX.SelectedIndex].FileFullname);
+            FileWatchStart(new FileInfo(uprojInfo[SourcePathCBOX.SelectedIndex].FileFullname), cboxtrack.Checked);
         }
 
         private void FileWatchStart(FileInfo fileInfo, bool isNew)
@@ -783,6 +785,19 @@ namespace KEIL2VS
             //watcher.Renamed += new RenamedEventHandler(FileInfoChange_Rename);
             watcher.EndInit();
             watcher.EnableRaisingEvents = true;
+        }
+        private void FileInfoChange(object obj, FileSystemEventArgs fe)
+        {
+            if (!fe.Name.EndsWith(".uvproj"))
+            {
+                return;
+            }
+            FileInfo fiTemp = new FileInfo(fe.FullPath);
+            if (handlingFi.LastWriteTime != fiTemp.LastWriteTime)
+            {
+
+            }
+
         }
 
         //private void Keil2VS_MouseEnter(object sender, EventArgs e)
