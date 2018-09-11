@@ -27,7 +27,7 @@ namespace KEIL2VS
             CANCLE
         }
 
-        private void btnUpdataToVSp_Click(object sender, EventArgs e)
+        private void BtnUpdata_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             if (btn == btnUpdataToVSp)

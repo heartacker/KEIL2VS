@@ -45,6 +45,7 @@
             this.btnIgnore.TabIndex = 1;
             this.btnIgnore.Text = "忽略当前更改";
             this.btnIgnore.UseVisualStyleBackColor = false;
+            this.btnIgnore.Click += new System.EventHandler(this.BtnUpdata_Click);
             // 
             // btnUpdataToVSp
             // 
@@ -60,7 +61,7 @@
             this.btnUpdataToVSp.TabIndex = 0;
             this.btnUpdataToVSp.Text = "更新到VS工程";
             this.btnUpdataToVSp.UseVisualStyleBackColor = false;
-            this.btnUpdataToVSp.Click += new System.EventHandler(this.btnUpdataToVSp_Click);
+            this.btnUpdataToVSp.Click += new System.EventHandler(this.BtnUpdata_Click);
             // 
             // rtbKeilIsChange
             // 
