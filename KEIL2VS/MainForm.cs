@@ -32,6 +32,9 @@ namespace KEIL2VS
         FileInfo handlingFi;
 
         Fmdialog fmdia;
+        RightBottomMsg rbMsg;
+        public delegate void MsgCaller(FileInfo fi);
+        public MsgCaller showRigbMsg;
 
         private Infos.PreStr preStr = new Infos.PreStr
         {
@@ -773,18 +776,17 @@ namespace KEIL2VS
 
         private void FileWatchStart(FileInfo fileInfo, bool isNew)
         {
-            watcher.EnableRaisingEvents = false;
             watcher.BeginInit();
             watcher.Path = fileInfo.DirectoryName;
             //watcher.Filter = "*.xlsm|*.xlsx";
-            watcher.IncludeSubdirectories = true;
+            watcher.IncludeSubdirectories = false;
             watcher.NotifyFilter = NotifyFilters.LastWrite;
             watcher.Changed += new FileSystemEventHandler(FileInfoChange);
             //watcher.Created += new FileSystemEventHandler(FileInfoChange);
             //watcher.Deleted += new FileSystemEventHandler(FileInfoChange);
             //watcher.Renamed += new RenamedEventHandler(FileInfoChange_Rename);
             watcher.EndInit();
-            watcher.EnableRaisingEvents = true;
+            watcher.EnableRaisingEvents = isNew;
         }
         private void FileInfoChange(object obj, FileSystemEventArgs fe)
         {
@@ -792,10 +794,38 @@ namespace KEIL2VS
             {
                 return;
             }
+            if (fe.FullPath != handlingFi.FullName)
+            {
+                return;
+            }
             FileInfo fiTemp = new FileInfo(fe.FullPath);
             if (handlingFi.LastWriteTime != fiTemp.LastWriteTime)
             {
+                handlingFi = fiTemp;
+                ShowRightBottomMsg(handlingFi);
+            }
 
+        }
+        private void ShowRightBottomMsg(FileInfo fi)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new MsgCaller(ShowRightBottomMsg), new object[] { fi });
+                return;
+            }
+            else
+            {
+                if (rbMsg != null && !rbMsg.IsDisposed)
+                {
+                    rbMsg.Close();
+                    rbMsg.Dispose();
+                }
+                rbMsg = new RightBottomMsg(fi.Name + "\n 此工程已经被更改，是否需要更新到VS Project！\n 为了更好的Coding体验。建议更新!");
+                Point p = new Point(Screen.PrimaryScreen.WorkingArea.Width - rbMsg.Width - 10, Screen.PrimaryScreen.WorkingArea.Height - rbMsg.Height - 10);
+                rbMsg.PointToClient(p);
+                rbMsg.Location = p;
+                rbMsg.Show();
+                rbMsg.BringToFront();
             }
 
         }
