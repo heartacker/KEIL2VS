@@ -13,6 +13,7 @@ using KEIL2VS.Properties;
 using Microsoft.Win32;
 
 using KEIL2VS.ProjGen;
+using System.Reflection;
 
 namespace KEIL2VS
 {
@@ -59,6 +60,11 @@ namespace KEIL2VS
 
         private void Keil2VS_Load(object sender, EventArgs e)
         {
+            this.Text += String.Format(" v{0}.{1}.{2}.{3}",
+            Assembly.GetExecutingAssembly().GetName().Version.Major.ToString(),
+            Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString(),
+            Assembly.GetExecutingAssembly().GetName().Version.Build.ToString(),
+            Assembly.GetExecutingAssembly().GetName().Version.Revision.ToString("D2"));
             //this.elementHost.Child = this.TargetListBOX;
             //this.TargetListBOX.SelectionChanged += new EventHandler(this.TargetListBOX_SelectionChanged);
             GroupListBox.SelectedIndexChanged += GroupListBox_SelectedIndexChanged;
@@ -439,8 +445,8 @@ namespace KEIL2VS
             if (!File.Exists(docName))
             {
                 tbKeil_path.BackColor = Color.LightPink;
-                DialogResult dialogResult = MessageBox.Show(preStr.FristUse,"未检测到此电脑安装Keil 软件！",MessageBoxButtons.OKCancel);
-                if (dialogResult!=DialogResult.OK)
+                DialogResult dialogResult = MessageBox.Show(preStr.FristUse, "未检测到此电脑安装Keil 软件！", MessageBoxButtons.OKCancel);
+                if (dialogResult != DialogResult.OK)
                 {
                     return;
                 }
