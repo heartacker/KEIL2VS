@@ -213,7 +213,7 @@ namespace KEIL2VS
             this.cboxtrack.TabIndex = 6;
             this.cboxtrack.Text = "Track This Project";
             this.cboxtrack.UseVisualStyleBackColor = true;
-            this.cboxtrack.CheckedChanged += new System.EventHandler(this.Cboxtrack_CheckedChanged);
+            this.cboxtrack.Click += new System.EventHandler(this.Cboxtrack_CheckedChanged);
             // 
             // btnRefresh
             // 

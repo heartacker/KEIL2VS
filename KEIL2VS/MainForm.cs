@@ -51,7 +51,7 @@ namespace KEIL2VS
             Sourepretext = "Open Or drop The MDK the Project File to here!",
             NameSp = "MAILTO:heartacker@outlook.com",
             Author = "heartacker",
-            NoKeil = "Can not detect keil Program!",
+            NoKeil = "Can not detect keil Program! Double-click or drag and drop The Keil Program to here",
             FindUprojInThisFolder = "Oops!,Find uproject in this folder!\n Plz select one to convert!",
             Selectnewfolder = "Select new Folder"
         };
@@ -439,7 +439,11 @@ namespace KEIL2VS
             if (!File.Exists(docName))
             {
                 tbKeil_path.BackColor = Color.LightPink;
-                MessageBox.Show(preStr.FristUse);
+                DialogResult dialogResult = MessageBox.Show(preStr.FristUse,"未检测到此电脑安装Keil 软件！",MessageBoxButtons.OKCancel);
+                if (dialogResult!=DialogResult.OK)
+                {
+                    return;
+                }
                 var openFileDialog = new OpenFileDialog
                 {
                     DefaultExt = "exe",
@@ -775,6 +779,12 @@ namespace KEIL2VS
 
         private void Cboxtrack_CheckedChanged(object sender, EventArgs e)
         {
+            if (SourcePathCBOX.SelectedIndex < 0)
+            {
+                cboxtrack.Checked = false;
+                MessageBox.Show("没有Keil 的工程可选!\n请先添加工程！");
+                return;
+            }
             handlingFi = new FileInfo(uprojInfo[SourcePathCBOX.SelectedIndex].FileFullname);
             FileWatchStart(new FileInfo(uprojInfo[SourcePathCBOX.SelectedIndex].FileFullname), cboxtrack.Checked);
         }
@@ -821,7 +831,7 @@ namespace KEIL2VS
             }
             else
             {
-                string uPdateInfo ="此Keil工程的配置等信息已被更改！\n是否需要更新到VS Project？\n建议先保存VS工程然后同步并重新加载！\n为了更好的Coding体验。建议同步此配置到VS工程!";
+                string uPdateInfo = "此Keil工程的配置等信息已被更改！\n是否需要更新到VS Project？\n建议先保存VS工程然后同步并重新加载！\n为了更好的Coding体验。建议同步此配置到VS工程!";
                 if (rbMsg == null || rbMsg.IsDisposed)
                 {
 
@@ -860,7 +870,7 @@ namespace KEIL2VS
                     p = new Point(Screen.PrimaryScreen.WorkingArea.Width - rbMsg.Width - 10, Screen.PrimaryScreen.WorkingArea.Height - rbMsg.Height - 10);
                     rbMsg.PointToClient(p);
                     rbMsg.Location = p;
-                    if (rbMsg.WindowState==FormWindowState.Minimized)
+                    if (rbMsg.WindowState == FormWindowState.Minimized)
                     {
                         rbMsg.WindowState = FormWindowState.Normal;
                     }
