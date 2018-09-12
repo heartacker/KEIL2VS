@@ -213,7 +213,7 @@ namespace KEIL2VS
             this.cboxtrack.TabIndex = 6;
             this.cboxtrack.Text = "Track This Project";
             this.cboxtrack.UseVisualStyleBackColor = true;
-            this.cboxtrack.Click += new System.EventHandler(this.Cboxtrack_CheckedChanged);
+            this.cboxtrack.CheckedChanged += new System.EventHandler(this.Cboxtrack_CheckedChanged);
             // 
             // btnRefresh
             // 
@@ -278,7 +278,7 @@ namespace KEIL2VS
             this.SourcePathCBOX.Name = "SourcePathCBOX";
             this.SourcePathCBOX.Size = new System.Drawing.Size(630, 27);
             this.SourcePathCBOX.TabIndex = 0;
-            this.SourcePathCBOX.Text = "Open Or drop The Keil the Project File to here";
+            this.SourcePathCBOX.Text = "Open Or drop The Keil Project File to here";
             this.SourcePathCBOX.SelectionChangeCommitted += new System.EventHandler(this.SourcePathCBOX_SelectionChangeCommitted);
             this.SourcePathCBOX.DragDrop += new System.Windows.Forms.DragEventHandler(this.SourcePathCBOX_DragDrop);
             this.SourcePathCBOX.DragEnter += new System.Windows.Forms.DragEventHandler(this.Keil2VsDragEnter);
