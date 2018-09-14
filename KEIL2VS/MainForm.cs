@@ -102,14 +102,12 @@ namespace KEIL2VS
                     File.Delete(config.DocName);
                 }
                 catch
-                {
-                    // ignored
+                {                     // ignored
                 }
-
                 config.UV4Path = config.UV4Path.Replace("C51", @"UV4\UV4.exe");
                 config.UV4IncPath = config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\INC");
                 config.UV4LibPath = config.UV4Path.Replace(@"UV4\UV4.exe", @"C51\LIB");
-                tbKeil_path.BackColor = Color.LawnGreen;
+                tbKeil_path.BackColor = Color.Ivory;
                 tbKeil_path.Text = config.UV4Path;
                 tbKeil_path.AllowDrop = false;
             }
@@ -118,7 +116,6 @@ namespace KEIL2VS
             //_projectIno.UV4Path = "UV4";
             #endregion
             UpDateCurfolderUproj(sender, e);
-
         }
 
 

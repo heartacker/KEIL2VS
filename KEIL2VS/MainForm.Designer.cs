@@ -67,6 +67,7 @@ namespace KEIL2VS
             this.CreateButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CreateButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.CreateButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CreateButton.Font = new System.Drawing.Font("Consolas", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateButton.Location = new System.Drawing.Point(5, 650);
             this.CreateButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -207,9 +208,10 @@ namespace KEIL2VS
             // 
             this.cboxtrack.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.cboxtrack.AutoSize = true;
-            this.cboxtrack.Location = new System.Drawing.Point(600, 0);
+            this.cboxtrack.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxtrack.Location = new System.Drawing.Point(581, 0);
             this.cboxtrack.Name = "cboxtrack";
-            this.cboxtrack.Size = new System.Drawing.Size(152, 18);
+            this.cboxtrack.Size = new System.Drawing.Size(171, 21);
             this.cboxtrack.TabIndex = 6;
             this.cboxtrack.Text = "Track This Project";
             this.cboxtrack.UseVisualStyleBackColor = true;
@@ -244,8 +246,11 @@ namespace KEIL2VS
             // 
             // llbeUprojPath
             // 
+            this.llbeUprojPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.llbeUprojPath.AutoEllipsis = true;
-            this.llbeUprojPath.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llbeUprojPath.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.llbeUprojPath.Font = new System.Drawing.Font("Consolas", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llbeUprojPath.LinkColor = System.Drawing.Color.Green;
             this.llbeUprojPath.Location = new System.Drawing.Point(7, 31);
             this.llbeUprojPath.Name = "llbeUprojPath";
@@ -253,6 +258,7 @@ namespace KEIL2VS
             this.llbeUprojPath.TabIndex = 3;
             this.llbeUprojPath.TabStop = true;
             this.llbeUprojPath.Text = "Please select one uproject to convert";
+            this.llbeUprojPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.llbeUprojPath.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklabelUprojPath_LinkClicked);
             // 
             // btnOpenFolder
@@ -301,7 +307,7 @@ namespace KEIL2VS
             this.tbKeil_path.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbKeil_path.BackColor = System.Drawing.SystemColors.Window;
+            this.tbKeil_path.BackColor = System.Drawing.Color.White;
             this.tbKeil_path.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbKeil_path.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.tbKeil_path.Location = new System.Drawing.Point(7, 14);
