@@ -57,25 +57,24 @@
   <PropertyGroup>
     <ApplicationIcon>Keil2VS.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>060F7D48B811DD840BCF0689127B0D973AB40E2D</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>KEIL2VS_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
+  <!-- <PropertyGroup> -->
+    <!-- <ManifestCertificateThumbprint>060F7D48B811DD840BCF0689127B0D973AB40E2D</ManifestCertificateThumbprint> -->
+  <!-- </PropertyGroup> -->
+  <!-- <PropertyGroup> -->
+    <!-- <ManifestKeyFile>KEIL2VS_TemporaryKey.pfx</ManifestKeyFile> -->
+  <!-- </PropertyGroup> -->
+  <!-- <PropertyGroup> -->
+    <!-- <GenerateManifests>false</GenerateManifests> -->
+  <!-- </PropertyGroup> -->
+  <!-- <PropertyGroup> -->
+    <!-- <TargetZone>LocalIntranet</TargetZone> -->
+  <!-- </PropertyGroup> -->
+  <!-- <PropertyGroup> -->
+    <!-- <ApplicationManifest>Properties\app.manifest</ApplicationManifest> -->
+  <!-- </PropertyGroup> -->
+  <!-- <PropertyGroup> -->
+    <!-- <SignManifests>true</SignManifests> -->
+  <!-- </PropertyGroup> -->
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -134,7 +133,6 @@
     <None Include="git\.gitignore" />
     <None Include="git\LICENSE" />
     <None Include="git\README.md" />
-    <None Include="KEIL2VS_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -156,7 +154,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
