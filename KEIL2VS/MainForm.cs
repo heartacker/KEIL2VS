@@ -158,7 +158,7 @@ namespace KEIL2VS
             if (0 == cnt1) return false;
             fileInfo = new FileInfo[cnt1];
             for (var i = 0; i < cnt1; i++)
-            { 
+            {
                 fileInfo[i] = new FileInfo(projPath[i]);
             }
             return true;
@@ -196,8 +196,6 @@ namespace KEIL2VS
             elementHost.SelectedIndex = 0;
         }
 
-
-
         private void GroupListBox_Add(string[] items)
         {
             GroupListBox.Items.Clear();
@@ -227,7 +225,6 @@ namespace KEIL2VS
             SrcFileBox_Add(items);
         }
 
-
         private void FileBox_DoubleClick(object sander, EventArgs e)
         {
             if (FileBox.SelectedIndex < 0)
@@ -245,10 +242,8 @@ namespace KEIL2VS
             }
             catch
             {
-
                 Process.Start(text);
             }
-
         }
         private void BtnOpenFolder_Click(object sender, EventArgs e)
         {
