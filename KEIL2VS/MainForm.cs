@@ -158,8 +158,7 @@ namespace KEIL2VS
             if (0 == cnt1) return false;
             fileInfo = new FileInfo[cnt1];
             for (var i = 0; i < cnt1; i++)
-            {
-
+            { 
                 fileInfo[i] = new FileInfo(projPath[i]);
             }
             return true;
