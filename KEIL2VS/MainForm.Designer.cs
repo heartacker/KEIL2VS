@@ -74,7 +74,7 @@ namespace KEIL2VS
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CreateButton.Size = new System.Drawing.Size(753, 42);
-            this.CreateButton.TabIndex = 8;
+            this.CreateButton.TabIndex = 1;
             this.CreateButton.Text = "Create/Open Visual Studio Project";
             this.CreateButton.UseVisualStyleBackColor = true;
             this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
@@ -102,7 +102,7 @@ namespace KEIL2VS
             this.elementHost.Location = new System.Drawing.Point(5, 19);
             this.elementHost.Name = "elementHost";
             this.elementHost.Size = new System.Drawing.Size(741, 22);
-            this.elementHost.TabIndex = 0;
+            this.elementHost.TabIndex = 99;
             this.elementHost.SelectionChangeCommitted += new System.EventHandler(this.ElementHost_SelectionChangeCommitted);
             // 
             // gbTargetInfo
@@ -134,7 +134,7 @@ namespace KEIL2VS
             this.TargetStatus.ReadOnly = true;
             this.TargetStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.TargetStatus.Size = new System.Drawing.Size(741, 134);
-            this.TargetStatus.TabIndex = 0;
+            this.TargetStatus.TabIndex = 99;
             // 
             // gbSourceGroup
             // 
@@ -165,7 +165,7 @@ namespace KEIL2VS
             this.FileBox.Location = new System.Drawing.Point(264, 16);
             this.FileBox.Name = "FileBox";
             this.FileBox.Size = new System.Drawing.Size(482, 218);
-            this.FileBox.TabIndex = 1;
+            this.FileBox.TabIndex = 99;
             // 
             // GroupListBox
             // 
@@ -181,7 +181,7 @@ namespace KEIL2VS
             this.GroupListBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.GroupListBox.Name = "GroupListBox";
             this.GroupListBox.Size = new System.Drawing.Size(255, 218);
-            this.GroupListBox.TabIndex = 0;
+            this.GroupListBox.TabIndex = 99;
             // 
             // groupBox1
             // 
@@ -212,7 +212,7 @@ namespace KEIL2VS
             this.cboxtrack.Location = new System.Drawing.Point(581, 0);
             this.cboxtrack.Name = "cboxtrack";
             this.cboxtrack.Size = new System.Drawing.Size(171, 21);
-            this.cboxtrack.TabIndex = 6;
+            this.cboxtrack.TabIndex = 3;
             this.cboxtrack.Text = "Track This Project";
             this.cboxtrack.UseVisualStyleBackColor = true;
             this.cboxtrack.CheckedChanged += new System.EventHandler(this.Cboxtrack_CheckedChanged);
@@ -228,7 +228,7 @@ namespace KEIL2VS
             this.btnRefresh.Location = new System.Drawing.Point(641, 73);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(23, 22);
-            this.btnRefresh.TabIndex = 5;
+            this.btnRefresh.TabIndex = 4;
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.UpDateCurfolderUproj);
             // 
@@ -255,7 +255,7 @@ namespace KEIL2VS
             this.llbeUprojPath.Location = new System.Drawing.Point(7, 31);
             this.llbeUprojPath.Name = "llbeUprojPath";
             this.llbeUprojPath.Size = new System.Drawing.Size(739, 19);
-            this.llbeUprojPath.TabIndex = 3;
+            this.llbeUprojPath.TabIndex = 6;
             this.llbeUprojPath.TabStop = true;
             this.llbeUprojPath.Text = "Please select one uproject to convert";
             this.llbeUprojPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -268,7 +268,7 @@ namespace KEIL2VS
             this.btnOpenFolder.Location = new System.Drawing.Point(670, 69);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(76, 30);
-            this.btnOpenFolder.TabIndex = 1;
+            this.btnOpenFolder.TabIndex = 5;
             this.btnOpenFolder.Text = "Open";
             this.btnOpenFolder.UseVisualStyleBackColor = false;
             this.btnOpenFolder.Click += new System.EventHandler(this.BtnOpenFolder_Click);
@@ -278,13 +278,13 @@ namespace KEIL2VS
             this.SourcePathCBOX.AllowDrop = true;
             this.SourcePathCBOX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.SourcePathCBOX.BackColor = System.Drawing.Color.PaleGreen;
             this.SourcePathCBOX.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SourcePathCBOX.FormattingEnabled = true;
             this.SourcePathCBOX.Location = new System.Drawing.Point(5, 71);
             this.SourcePathCBOX.Name = "SourcePathCBOX";
             this.SourcePathCBOX.Size = new System.Drawing.Size(630, 27);
             this.SourcePathCBOX.TabIndex = 0;
-            this.SourcePathCBOX.Text = "Open Or drop The Keil Project File to here";
             this.SourcePathCBOX.SelectionChangeCommitted += new System.EventHandler(this.SourcePathCBOX_SelectionChangeCommitted);
             this.SourcePathCBOX.DragDrop += new System.Windows.Forms.DragEventHandler(this.SourcePathCBOX_DragDrop);
             this.SourcePathCBOX.DragEnter += new System.Windows.Forms.DragEventHandler(this.Keil2VsDragEnter);
@@ -315,7 +315,7 @@ namespace KEIL2VS
             this.tbKeil_path.Name = "tbKeil_path";
             this.tbKeil_path.ReadOnly = true;
             this.tbKeil_path.Size = new System.Drawing.Size(739, 22);
-            this.tbKeil_path.TabIndex = 2;
+            this.tbKeil_path.TabIndex = 99;
             this.tbKeil_path.Text = "Double-click or drag and drop The Keil Program  to here";
             // 
             // lbppd
@@ -338,7 +338,7 @@ namespace KEIL2VS
             this.tb_predef.Location = new System.Drawing.Point(207, 169);
             this.tb_predef.Name = "tb_predef";
             this.tb_predef.Size = new System.Drawing.Size(544, 26);
-            this.tb_predef.TabIndex = 24;
+            this.tb_predef.TabIndex = 1;
             this.tb_predef.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tb_predef_KeyDown);
             this.tb_predef.Leave += new System.EventHandler(this.Tb_predef_TextChanged);
             // 

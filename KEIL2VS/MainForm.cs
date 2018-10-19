@@ -86,6 +86,7 @@ namespace KEIL2VS
             tbKeil_path.Text = preStr.NoKeil;
             tb_predef.Text = preStr.Predefine;
             config.PreDefine = tb_predef.Text;
+            SourcePathCBOX.Focus();
         }
 
 
@@ -753,6 +754,11 @@ namespace KEIL2VS
             {
                 UpDateCurfolderUproj(sender, e);
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                CreateButton_Click(CreateButton, e);
+            }
+
         }
 
         private void LinklabelUprojPath_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
