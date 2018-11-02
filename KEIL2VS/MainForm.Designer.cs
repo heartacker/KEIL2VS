@@ -269,7 +269,7 @@ namespace KEIL2VS
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(76, 30);
             this.btnOpenFolder.TabIndex = 5;
-            this.btnOpenFolder.Text = "Open";
+            this.btnOpenFolder.Text = "Folder";
             this.btnOpenFolder.UseVisualStyleBackColor = false;
             this.btnOpenFolder.Click += new System.EventHandler(this.BtnOpenFolder_Click);
             // 

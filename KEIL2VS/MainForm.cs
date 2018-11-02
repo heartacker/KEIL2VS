@@ -209,6 +209,10 @@ namespace KEIL2VS
         private void SrcFileBox_Add(string[] items)
         {
             FileBox.Items.Clear();
+            if (items.Length <= 0)
+            {
+                return;
+            }
             foreach (var item in items)
             {
                 FileBox.Items.Add(item);
@@ -222,7 +226,8 @@ namespace KEIL2VS
             if (projectIno.CuruProjectFileDir == "") return;
             string[] array = VsGen.MDK_TargetRead(projectIno.CuruProjectFileDir);
             string[] array2 = VsGen.MDK_GroupRead(projectIno.CuruProjectFileDir, array[elementHost.SelectedIndex]);
-            string[] items = VsGen.MDK_SrcRead(projectIno.CuruProjectFileDir, array[elementHost.SelectedIndex], array2[GroupListBox.SelectedIndex]);
+            string[] items = VsGen.MDK_SrcRead(projectIno.CuruProjectFileDir, array[elementHost.SelectedIndex],
+                array2[GroupListBox.SelectedIndex <= 0 ? 0 : GroupListBox.SelectedIndex]);
             SrcFileBox_Add(items);
         }
 
