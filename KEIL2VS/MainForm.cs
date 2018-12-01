@@ -443,7 +443,8 @@ namespace KEIL2VS
             if (!File.Exists(docName))
             {
                 tbKeil_path.BackColor = Color.LightPink;
-                DialogResult dialogResult = MessageBox.Show(preStr.FristUse, "未检测到此电脑安装Keil 软件！", MessageBoxButtons.OKCancel);
+                DialogResult dialogResult = MessageBox.Show(preStr.FristUse, "未检测到此电脑安装Keil 软件！",
+                    MessageBoxButtons.OKCancel);
                 if (dialogResult != DialogResult.OK)
                 {
                     return;
@@ -564,7 +565,8 @@ namespace KEIL2VS
             //projectIno.NMakeBuildCommandLine = string.Concat($"\"{projectIno.UV4Path}\"", " -b ", projectIno.MdkProjectFile);
             //_projectIno.NMakeBuildCommandLine = string.Concat(_projectIno.UV4Path, " -b ", _projectIno.MdkProjectFile, " -t \"Target\" -j0 -o Build.log");
             //_projectIno.NMakeBuildCommandLine = string.Concat(_projectIno.UV4Path, " -b ", relativePath, " -t \"Target\" -j0 -o Build.log");
-            projectIno.LocalDebuggerCommandArguments = string.Concat("-d ", projectIno.ProjectName, ".uvproj -t \"Target\" -o Build.log \ntype Build.log");
+            projectIno.LocalDebuggerCommandArguments = string.Concat("-d ", projectIno.ProjectName, ".uvproj", " -t \"Target\"",
+                " -o Build.log", " \ntype Build.log");
 
             #endregion
 
@@ -614,7 +616,8 @@ namespace KEIL2VS
                         }
                         catch
                         {
-                            MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         break;
@@ -626,7 +629,8 @@ namespace KEIL2VS
                         }
                         catch
                         {
-                            MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("无法打开当前VS项目！\n请确任安装好Visual Studio 2017+!", "很遗憾!!",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         break;
                     case Fmdialog.NextAction.OPenFolder:
@@ -711,7 +715,8 @@ namespace KEIL2VS
             {
                 tb_predef.Text += ";";
             }
-            tb_predef.Text = tb_predef.Text.Replace(",", ";").Replace("，", ";").Replace("；", ";").Replace(".", ";").Replace(";;;", ";").Replace(";;", ";").Replace(@" ", "");
+            tb_predef.Text = tb_predef.Text.Replace(",", ";").Replace("，", ";").Replace("；", ";")
+                .Replace(".", ";").Replace(";;;", ";").Replace(";;", ";").Replace(@" ", "");
             if (tb_predef.Text == ";")
                 tb_predef.Text = "";
             config.PreDefine = tb_predef.Text;
@@ -784,7 +789,8 @@ namespace KEIL2VS
             }
             catch
             {
-                MessageBox.Show("无法打开当前keil项目！\n请确任安装好keil软件!", "很遗憾!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("无法打开当前keil项目！\n请确任安装好keil软件!", "很遗憾!!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -843,7 +849,8 @@ namespace KEIL2VS
             }
             else
             {
-                string uPdateInfo = "此Keil工程的配置等信息已被更改！\n是否需要更新到VS Project？\n建议先保存VS工程然后同步并重新加载！\n为了更好的Coding体验。建议同步此配置到VS工程!";
+                string uPdateInfo = "此Keil工程的配置等信息已被更改！\n是否需要更新到VS Project？" +
+                    "\n建议先保存VS工程然后同步并重新加载！\n为了更好的Coding体验。建议同步此配置到VS工程!";
                 if (rbMsg == null || rbMsg.IsDisposed)
                 {
 
@@ -851,7 +858,8 @@ namespace KEIL2VS
                     rbMsg.Text = fi.Name;
 
                 }
-                Point p = new Point(Screen.PrimaryScreen.Bounds.Width - rbMsg.Width - 20, Screen.PrimaryScreen.Bounds.Height - rbMsg.Height - 20);
+                Point p = new Point(Screen.PrimaryScreen.Bounds.Width - rbMsg.Width - 20,
+                    Screen.PrimaryScreen.Bounds.Height - rbMsg.Height - 20);
                 rbMsg.PointToClient(p);
                 rbMsg.Location = p;
                 rbMsg.TopMost = true;
@@ -879,7 +887,8 @@ namespace KEIL2VS
                 {
                     rbMsg.rtbKeilIsChange.Text = uPdateInfo;
                     rbMsg.Text = fi.Name;
-                    p = new Point(Screen.PrimaryScreen.WorkingArea.Width - rbMsg.Width - 10, Screen.PrimaryScreen.WorkingArea.Height - rbMsg.Height - 10);
+                    p = new Point(Screen.PrimaryScreen.WorkingArea.Width - rbMsg.Width - 10,
+                        Screen.PrimaryScreen.WorkingArea.Height - rbMsg.Height - 10);
                     rbMsg.PointToClient(p);
                     rbMsg.Location = p;
                     if (rbMsg.WindowState == FormWindowState.Minimized)
