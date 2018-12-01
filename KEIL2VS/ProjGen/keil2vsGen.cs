@@ -404,7 +404,7 @@ namespace KEIL2VS.ProjGen
             {
                 xEl_proj.Add(new XElement(ns + "PropertyGroup",
                     new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)), 
-                    new XElement(ns + "LocalDebuggerCommand", projectIno.UV4Path), 
+                    new XElement(ns + "LocalDebuggerCommand", $"\"{projectIno.UV4Path}\" "), 
                     new XElement(ns + "LocalDebuggerCommandArguments", Debugcmd.Replace("Target", newValue)), 
                     new XElement(ns + "LocalDebuggerWorkingDirectory", workingDirectory), 
                     new XElement(ns + "DebuggerFlavor", "WindowsLocalDebugger"))

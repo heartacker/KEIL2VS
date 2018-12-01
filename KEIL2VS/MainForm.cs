@@ -113,7 +113,8 @@ namespace KEIL2VS
                 tbKeil_path.AllowDrop = false;
             }
             #region BUILD PART 0
-            projectIno.UV4Path = config.UV4Path + " ";
+
+            projectIno.UV4Path = config.UV4Path == null ? "UV4" : config.UV4Path;
             //_projectIno.UV4Path = "UV4";
             #endregion
             UpDateCurfolderUproj(sender, e);
@@ -554,13 +555,16 @@ namespace KEIL2VS
 
             }
 
+            FileInfo fi = new FileInfo(projectIno.MdkProjectFile);
             string[] targets = VsGen.MDK_TargetRead(projectIno.MdkProjectFile);
             var relativePath = VsGen.GetRelativePath(projectIno.VcProjectPath, projectIno.MdkProjectFile);
             #region BUILD PART
-            projectIno.NMakeBuildCommandLine = string.Concat(projectIno.UV4Path, " -b ", projectIno.MdkProjectFile);
+            projectIno.NMakeBuildCommandLine = string.Concat($"\"{projectIno.UV4Path}\"", " -b ", "..\\", fi.Name,
+                " -j0 -o Build.log", (projectIno.UV4Path == "UV4" ? "" : "\ntype ..\\Build.log"));
+            //projectIno.NMakeBuildCommandLine = string.Concat($"\"{projectIno.UV4Path}\"", " -b ", projectIno.MdkProjectFile);
             //_projectIno.NMakeBuildCommandLine = string.Concat(_projectIno.UV4Path, " -b ", _projectIno.MdkProjectFile, " -t \"Target\" -j0 -o Build.log");
             //_projectIno.NMakeBuildCommandLine = string.Concat(_projectIno.UV4Path, " -b ", relativePath, " -t \"Target\" -j0 -o Build.log");
-            projectIno.LocalDebuggerCommandArguments = "-d " + projectIno.ProjectName + ".uvproj -t \"Target\"";
+            projectIno.LocalDebuggerCommandArguments = string.Concat("-d ", projectIno.ProjectName, ".uvproj -t \"Target\" -o Build.log \ntype Build.log");
 
             #endregion
 
