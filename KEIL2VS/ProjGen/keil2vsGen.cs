@@ -242,7 +242,9 @@ namespace KEIL2VS.ProjGen
             return null;
         }
 
-        public void VC_vcxproj_Create(string docName, IReadOnlyList<string> targets, ref Infos.ProjectInfo projectIno, ref Infos.PreStr preStr, ref Infos.Config config)
+        public void VC_vcxproj_Create(string docName, IReadOnlyList<string> targets,
+                                        ref Infos.ProjectInfo projectIno, ref Infos.PreStr preStr,
+                                        ref Infos.Config config)
         {
             if (docName == "")
             {
@@ -355,11 +357,21 @@ namespace KEIL2VS.ProjGen
             var xelement = new XElement(ns + "Project", new XAttribute("DefaultTargets", "Build"), new XAttribute("ToolsVersion", "4.0"));
             var xElItemGroup1 = new XElement(ns + "ItemGroup", "");
             const string sourceFiles = "资源文件";
-            xElItemGroup1.Add(new XElement(ns + "Filter", new XAttribute("Include", sourceFiles), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx")), new XElement(ns + "Filter", new XAttribute("Include", "include"), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "h;hpp;hxx;hm;inl;inc;xsd")), new XElement(ns + "Filter", new XAttribute("Include", "项目说明"), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")), new XElement(ns + "Extensions", "txt")));
+            xElItemGroup1.Add(
+                new XElement(ns + "Filter", new XAttribute("Include", sourceFiles),
+                new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")),
+                new XElement(ns + "Extensions", "cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx")),
+                new XElement(ns + "Filter", new XAttribute("Include", "include"),
+                new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")),
+                new XElement(ns + "Extensions", "h;hpp;hxx;hm;inl;inc;xsd")),
+                new XElement(ns + "Filter", new XAttribute("Include", "项目说明"),
+                new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B")),
+                new XElement(ns + "Extensions", "txt")));
             string[] groups = MDK_GroupRead(projectIno.MdkProjectFile, projectIno.MdkTarget);
             foreach (var str in groups)
             {
-                xElItemGroup1.Add(new XElement(ns + "Filter", new XAttribute("Include", sourceFiles + "\\" + str), new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B"))));
+                xElItemGroup1.Add(new XElement(ns + "Filter", new XAttribute("Include", sourceFiles + "\\" + str),
+                    new XElement(ns + "UniqueIdentifier", Guid.NewGuid().ToString("B"))));
             }
             xelement.Add(xElItemGroup1);
             xElItemGroup1 = new XElement(ns + "ItemGroup", "");
@@ -392,7 +404,7 @@ namespace KEIL2VS.ProjGen
             xelement.Add(xElItemGroup2);
             xelement.Save(docName);
         }
-        public void VC_Create_UserFile(string docName, string Debugcmd, string workingDirectory, string[] targets,ref Infos.ProjectInfo projectIno)
+        public void VC_Create_UserFile(string docName, string Debugcmd, string workingDirectory, string[] targets, ref Infos.ProjectInfo projectIno)
         {
             if (docName == "")
             {
@@ -403,10 +415,10 @@ namespace KEIL2VS.ProjGen
             foreach (var newValue in targets)
             {
                 xEl_proj.Add(new XElement(ns + "PropertyGroup",
-                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)), 
-                    new XElement(ns + "LocalDebuggerCommand", $"\"{projectIno.UV4Path}\" "), 
-                    new XElement(ns + "LocalDebuggerCommandArguments", Debugcmd.Replace("Target", newValue)), 
-                    new XElement(ns + "LocalDebuggerWorkingDirectory", workingDirectory), 
+                    new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Target|Win32'".Replace("Target", newValue)),
+                    new XElement(ns + "LocalDebuggerCommand", $"\"{projectIno.UV4Path}\" "),
+                    new XElement(ns + "LocalDebuggerCommandArguments", Debugcmd.Replace("Target", newValue)),
+                    new XElement(ns + "LocalDebuggerWorkingDirectory", workingDirectory),
                     new XElement(ns + "DebuggerFlavor", "WindowsLocalDebugger"))
                     );
             }
