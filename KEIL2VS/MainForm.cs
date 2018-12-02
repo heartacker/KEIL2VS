@@ -44,7 +44,7 @@ namespace KEIL2VS
             ApplicationStartpath = Path.GetDirectoryName(Application.ExecutablePath),
             Configfilename = "Config.xml",
             FristUse = "Select the Keil Vision4 installation directory when you first times use the tool",
-            PredefineKeil = @"sbit=char;sfr=const char;sfr16=short;data=;xdata=;code=;idata=;pdata=;_at_=#;",//^=&;
+            PredefineKeil = @"sbit=char;sfr=char;sfr16=short;data=;xdata=;code=;idata=;pdata=;_at_=#;^=*;",//^=&;
             Predefine = @"VS;",
             RegPath = @"SOFTWARE\WOW6432Node\Keil\Products\C51\",
             NotUvProj = "\nRead File Error! Maybe it is't MDK Project File",
@@ -114,7 +114,7 @@ namespace KEIL2VS
             }
             #region BUILD PART 0
 
-            projectIno.UV4Path = config.UV4Path == null ? "UV4" : config.UV4Path;
+            projectIno.UV4Path = config.UV4Path ?? "UV4";
             //_projectIno.UV4Path = "UV4";
             #endregion
             UpDateCurfolderUproj(sender, e);
@@ -854,8 +854,10 @@ namespace KEIL2VS
                 if (rbMsg == null || rbMsg.IsDisposed)
                 {
 
-                    rbMsg = new RightBottomMsg(uPdateInfo);
-                    rbMsg.Text = fi.Name;
+                    rbMsg = new RightBottomMsg(uPdateInfo)
+                    {
+                        Text = fi.Name
+                    };
 
                 }
                 Point p = new Point(Screen.PrimaryScreen.Bounds.Width - rbMsg.Width - 20,

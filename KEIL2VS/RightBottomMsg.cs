@@ -12,7 +12,6 @@ namespace KEIL2VS
 {
     public partial class RightBottomMsg : Form
     {
-        static string MessageTip;
         public UPDatePara uPDatePara = UPDatePara.NONE;
         public RightBottomMsg(string MessageTip = "当前Keil工程已经被修改，是否需要更新到VS Project？")
         {
