@@ -560,13 +560,13 @@ namespace KEIL2VS
             string[] targets = VsGen.MDK_TargetRead(projectIno.MdkProjectFile);
             var relativePath = VsGen.GetRelativePath(projectIno.VcProjectPath, projectIno.MdkProjectFile);
             #region BUILD PART
-            projectIno.NMakeBuildCommandLine = string.Concat($"\"{projectIno.UV4Path}\"", " -b ", "..\\", fi.Name,
-                " -j0 -o Build.log", (projectIno.UV4Path == "UV4" ? "" : "\ntype ..\\Build.log"));
+            projectIno.NMakeBuildCommandLine = string.Concat($"\"{projectIno.UV4Path}\"", " -r ", "..\\", fi.Name,
+                " -j0 -o summary.plg", (projectIno.UV4Path == "UV4" ? "" : "\ntype ..\\summary.plg"));
             //projectIno.NMakeBuildCommandLine = string.Concat($"\"{projectIno.UV4Path}\"", " -b ", projectIno.MdkProjectFile);
             //_projectIno.NMakeBuildCommandLine = string.Concat(_projectIno.UV4Path, " -b ", _projectIno.MdkProjectFile, " -t \"Target\" -j0 -o Build.log");
             //_projectIno.NMakeBuildCommandLine = string.Concat(_projectIno.UV4Path, " -b ", relativePath, " -t \"Target\" -j0 -o Build.log");
             projectIno.LocalDebuggerCommandArguments = string.Concat("-d ", projectIno.ProjectName, ".uvproj", " -t \"Target\"",
-                " -o Build.log", " \ntype Build.log");
+                " -o summary.plg", " \ntype summary.plg");
 
             #endregion
 
