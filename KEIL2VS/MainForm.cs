@@ -44,7 +44,7 @@ namespace KEIL2VS
             ApplicationStartpath = Path.GetDirectoryName(Application.ExecutablePath),
             Configfilename = "Config.xml",
             FristUse = "Select the Keil Vision4 installation directory when you first times use the tool",
-            PredefineKeil = @"sbit=char;sfr=char;sfr16=short;data=;xdata=;code=;idata=;pdata=;_at_=#;^=*;",//^=&;
+            PredefineKeil = @"sbit=char;sfr=char;sfr16=short;data=;xdata=;code=;idata=;pdata=;_at_=#;",//^=&;
             Predefine = @"VS;",
             RegPath = @"SOFTWARE\WOW6432Node\Keil\Products\C51\",
             NotUvProj = "\nRead File Error! Maybe it is't MDK Project File",
