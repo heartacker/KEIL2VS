@@ -209,11 +209,11 @@ namespace KEIL2VS
             this.cboxtrack.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.cboxtrack.AutoSize = true;
             this.cboxtrack.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxtrack.Location = new System.Drawing.Point(581, 0);
+            this.cboxtrack.Location = new System.Drawing.Point(685, 0);
             this.cboxtrack.Name = "cboxtrack";
-            this.cboxtrack.Size = new System.Drawing.Size(171, 21);
+            this.cboxtrack.Size = new System.Drawing.Size(67, 21);
             this.cboxtrack.TabIndex = 3;
-            this.cboxtrack.Text = "Track This Project";
+            this.cboxtrack.Text = "Track";
             this.cboxtrack.UseVisualStyleBackColor = true;
             this.cboxtrack.CheckedChanged += new System.EventHandler(this.Cboxtrack_CheckedChanged);
             // 
@@ -236,13 +236,13 @@ namespace KEIL2VS
             // 
             this.cboxbatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboxbatch.AutoSize = true;
-            this.cboxbatch.Location = new System.Drawing.Point(515, -1);
+            this.cboxbatch.Location = new System.Drawing.Point(534, 2);
             this.cboxbatch.Name = "cboxbatch";
-            this.cboxbatch.Size = new System.Drawing.Size(61, 18);
+            this.cboxbatch.Size = new System.Drawing.Size(145, 18);
             this.cboxbatch.TabIndex = 4;
-            this.cboxbatch.Text = "Batch";
+            this.cboxbatch.Text = "BuildAllAsOne.sln";
+            this.cboxbatch.UseMnemonic = false;
             this.cboxbatch.UseVisualStyleBackColor = true;
-            this.cboxbatch.Visible = false;
             // 
             // llbeUprojPath
             // 

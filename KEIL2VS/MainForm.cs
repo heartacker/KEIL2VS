@@ -148,7 +148,7 @@ namespace KEIL2VS
             }
             SourcePathComobox_add(uprojInfo);
             //sourcepathTip.Show(_preStr.FindUprojInThisFolder, SourcePathCBOX, SourcePathCBOX.Location.X + 200, SourcePathCBOX.Top - 100, 1000 * 10);
-            TryDispuProjinfo(uprojInfo[0].FileFullname);
+            TryDispuProjinfo(uprojInfo[0].FileFullname);//显示第一个工程的信息
         }
 
 
@@ -292,23 +292,35 @@ namespace KEIL2VS
             SourcePathComobox_add(uprojInfo);
         }
 
-        public bool MDK_Display_Info(string docName)
+        public bool MDK_Display_Info(string docName, bool isBuildAsOneSln)
         {
             bool result;
             try
             {
                 string[] targetArray = VsGen.MDK_TargetRead(docName);
-                ElementHost_Add(targetArray);
+                if (!isBuildAsOneSln)
+                {
+                    ElementHost_Add(targetArray);
+                }
                 projectIno.MdkTarget = targetArray[0];
                 projectIno.IncludePath = VsGen.MDK_IncludePathRead(docName, targetArray[0]);
                 projectIno.IncludePath += config.UV4IncPath;
                 projectIno.NMakePreprocessorDefinitions = VsGen.MDK_DefineRead(docName, targetArray[0]);
                 string[] groupArray = VsGen.MDK_GroupRead(docName, projectIno.MdkTarget);
-                GroupListBox_Add(groupArray);
+                if (!isBuildAsOneSln)
+                {
+                    GroupListBox_Add(groupArray);
+                }
                 string[] items = VsGen.MDK_SrcRead(docName, targetArray[0], groupArray[0]);
-                SrcFileBox_Add(items);
+                if (!isBuildAsOneSln)
+                {
+                    SrcFileBox_Add(items);
+                }
                 var str = VsGen.MDK_TargetStatusRead(docName, targetArray[0]);
-                TargetStatusBox_Add(str);
+                if (!isBuildAsOneSln)
+                {
+                    TargetStatusBox_Add(str);
+                }
                 CreateButton.Enabled = true;
                 result = true;
             }
@@ -320,10 +332,13 @@ namespace KEIL2VS
             return result;
         }
 
-        private void TryDispuProjinfo(string fileFullname)
+        private void TryDispuProjinfo(string fileFullname, bool isBuildAsOneSln = false)
         {
-            if (!MDK_Display_Info(fileFullname)) return;
-            UpdataLinkOfProject(fileFullname);
+            if (!MDK_Display_Info(fileFullname, isBuildAsOneSln)) return;
+            if (!isBuildAsOneSln)
+            {
+                UpdataLinkOfProject(fileFullname);
+            }
             projectIno.CuruProjectFileDir = fileFullname;
             projectIno.MdkProjectFile = fileFullname;
             projectIno.MdkProjectPath = Path.GetDirectoryName(fileFullname) + "\\";
@@ -331,7 +346,10 @@ namespace KEIL2VS
             projectIno.VcxprojName = projectIno.ProjectName + ".vcxproj";
             projectIno.VcFiltersName = projectIno.VcxprojName + ".filters";
             projectIno.VcUserFileName = projectIno.VcxprojName + ".user";
-            handlingFi = new FileInfo(fileFullname);
+            if (!isBuildAsOneSln)
+            {
+                handlingFi = new FileInfo(fileFullname);
+            }
         }
 
         private void UpdataLinkOfProject(string fileFullname)
@@ -384,16 +402,6 @@ namespace KEIL2VS
                 tbKeil_path.ForeColor = Color.Gray;
             }
         }
-
-        private bool MDK_check_keil_UV4(string text)
-        {
-            if (text.EndsWith("UV4.exe", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            return false;
-        }
         private void Tbkeil_pathBOX_DragDrop(object sender, DragEventArgs e)
         {
             var path = tbKeil_path.Text;
@@ -413,6 +421,17 @@ namespace KEIL2VS
             tbKeil_path.Text = path;
             tbKeil_path.ForeColor = Color.Gray;
         }
+
+        private bool MDK_check_keil_UV4(string text)
+        {
+            if (text.EndsWith("UV4.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         // Token: 0x0600000D RID: 13 RVA: 0x00002740 File Offset: 0x00000940
         private void Creat_Config(string docName)
         {
@@ -555,7 +574,11 @@ namespace KEIL2VS
                 }
 
             }
+            BuildVisualStudioFile(sender);
+        }
 
+        private void BuildVisualStudioFile(object sender)
+        {
             FileInfo fi = new FileInfo(projectIno.MdkProjectFile);
             string[] targets = VsGen.MDK_TargetRead(projectIno.MdkProjectFile);
             var relativePath = VsGen.GetRelativePath(projectIno.VcProjectPath, projectIno.MdkProjectFile);
@@ -574,20 +597,7 @@ namespace KEIL2VS
             var docName = projectIno.VcProjectPath + projectIno.ProjectName + ".sln";
             VsGen.VC_Creat_Sln(docName, projectIno.ProjectName, targets);
 
-            docName = projectIno.VcProjectPath + projectIno.VcFiltersName;
-            VsGen.VC_Filters_Create(docName, targets, ref projectIno);
-
-            docName = projectIno.VcProjectPath + projectIno.VcxprojName;
-            VsGen.VC_vcxproj_Create(docName, targets, ref projectIno, ref preStr, ref config);
-
-            projectIno.LocalDebuggerWorkingDirectory = VsGen.GetRelativePath(projectIno.VcProjectPath, projectIno.MdkProjectPath);
-
-            docName = projectIno.VcProjectPath + projectIno.VcUserFileName;
-            VsGen.VC_Create_UserFile(docName, projectIno.LocalDebuggerCommandArguments, projectIno.LocalDebuggerWorkingDirectory, targets, ref projectIno);
-
-            docName = projectIno.VcProjectPath + "readme.txt";
-            VsGen.VC_Creat_readme(docName, projectIno.ProjectName, ref preStr);
-
+            BuildVCProjects(targets);
 
             docName = projectIno.VcProjectPath + projectIno.ProjectName + ".sln";
 
@@ -642,6 +652,25 @@ namespace KEIL2VS
                 }
             }
         }
+
+        private bool BuildVCProjects(string[] targets)
+        {
+            string docName = projectIno.VcProjectPath + projectIno.VcFiltersName;
+            VsGen.VC_Filters_Create(docName, targets, ref projectIno);
+
+            docName = projectIno.VcProjectPath + projectIno.VcxprojName;
+            VsGen.VC_vcxproj_Create(docName, targets, ref projectIno, ref preStr, ref config);
+
+            projectIno.LocalDebuggerWorkingDirectory = VsGen.GetRelativePath(projectIno.VcProjectPath, projectIno.MdkProjectPath);
+
+            docName = projectIno.VcProjectPath + projectIno.VcUserFileName;
+            VsGen.VC_Create_UserFile(docName, projectIno.LocalDebuggerCommandArguments, projectIno.LocalDebuggerWorkingDirectory, targets, ref projectIno);
+
+            docName = projectIno.VcProjectPath + "readme.txt";
+            VsGen.VC_Creat_readme(docName, projectIno.ProjectName, ref preStr);
+            return true;
+        }
+
         private bool TryGetUV4Path(ref string path)
         {
             var strPathResult = string.Empty;
