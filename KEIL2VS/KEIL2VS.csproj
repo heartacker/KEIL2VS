@@ -58,24 +58,27 @@
     <ApplicationIcon>Keil2VS.ico</ApplicationIcon>
   </PropertyGroup>
   <!-- <PropertyGroup> -->
-    <!-- <ManifestCertificateThumbprint>060F7D48B811DD840BCF0689127B0D973AB40E2D</ManifestCertificateThumbprint> -->
+  <!-- <ManifestCertificateThumbprint>060F7D48B811DD840BCF0689127B0D973AB40E2D</ManifestCertificateThumbprint> -->
   <!-- </PropertyGroup> -->
   <!-- <PropertyGroup> -->
-    <!-- <ManifestKeyFile>KEIL2VS_TemporaryKey.pfx</ManifestKeyFile> -->
+  <!-- <ManifestKeyFile>KEIL2VS_TemporaryKey.pfx</ManifestKeyFile> -->
   <!-- </PropertyGroup> -->
   <!-- <PropertyGroup> -->
-    <!-- <GenerateManifests>false</GenerateManifests> -->
+  <!-- <GenerateManifests>false</GenerateManifests> -->
   <!-- </PropertyGroup> -->
   <!-- <PropertyGroup> -->
-    <!-- <TargetZone>LocalIntranet</TargetZone> -->
+  <!-- <TargetZone>LocalIntranet</TargetZone> -->
   <!-- </PropertyGroup> -->
   <!-- <PropertyGroup> -->
-    <!-- <ApplicationManifest>Properties\app.manifest</ApplicationManifest> -->
+  <!-- <ApplicationManifest>Properties\app.manifest</ApplicationManifest> -->
   <!-- </PropertyGroup> -->
   <!-- <PropertyGroup> -->
-    <!-- <SignManifests>true</SignManifests> -->
+  <!-- <SignManifests>true</SignManifests> -->
   <!-- </PropertyGroup> -->
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -133,6 +136,7 @@
     <None Include="git\.gitignore" />
     <None Include="git\LICENSE" />
     <None Include="git\README.md" />
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

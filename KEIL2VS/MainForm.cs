@@ -17,7 +17,7 @@ using System.Reflection;
 
 namespace KEIL2VS
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form///?为什么没有见到远程更改
     {
         public MainForm()
         {
