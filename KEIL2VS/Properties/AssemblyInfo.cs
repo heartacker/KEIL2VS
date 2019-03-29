@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("KEIL2VS")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Liuding.xin")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Liuding.xin")]
 [assembly: AssemblyProduct("KEIL2VS")]
 [assembly: AssemblyCopyright("heartacker Copyright ©  2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Liuding.xin")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("6.6.6.2")]
-[assembly: AssemblyFileVersion("6.6.6.1")]
+[assembly: AssemblyVersion("6.6.6.3")]
+[assembly: AssemblyFileVersion("6.6.6.3")]
