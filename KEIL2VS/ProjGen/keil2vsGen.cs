@@ -469,10 +469,11 @@ namespace KEIL2VS.ProjGen
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.Append("Microsoft Visual Studio Solution File, Format Version 12.00\r\n");
-            stringBuilder.Append("# Visual Studio 15\r\n");
+            stringBuilder.Append("# Visual Studio 16\r\n");
             stringBuilder.Append("VisualStudioVersion = 15.0.27703.2018\r\n");
             stringBuilder.Append("MinimumVisualStudioVersion = 10.0.40219.1\r\n");
-            stringBuilder.Append("Project(\"{" + Guid.NewGuid().ToString("B") + "}\") = \"Template\", \"Template.vcxproj\", \"{" + Guid.NewGuid().ToString("B") + "}\"");
+            stringBuilder.Append("Project(\"{" + Guid.NewGuid().ToString("B") + "}\") = \"Template\", " +
+                "\"Template.vcxproj\", \"{" + Guid.NewGuid().ToString("B") + "}\"");
             stringBuilder.Append("\r\nEndProject\r\n");
             stringBuilder.Append("Global\r\n");
             stringBuilder.Append("\tGlobalSection(SolutionConfigurationPlatforms) = preSolution\r\n");

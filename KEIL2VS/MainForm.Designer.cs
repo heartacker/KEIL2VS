@@ -243,6 +243,7 @@ namespace KEIL2VS
             this.cboxbatch.Text = "BuildAllAsOne.sln";
             this.cboxbatch.UseMnemonic = false;
             this.cboxbatch.UseVisualStyleBackColor = true;
+            this.cboxbatch.Visible = false;
             // 
             // llbeUprojPath
             // 
